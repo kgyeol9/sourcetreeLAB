@@ -18,7 +18,7 @@
 body {
 	margin: 0;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	background: #121212;
+	
 	color: #eee;
 	transition: background 0.3s, color 0.3s;
 }
