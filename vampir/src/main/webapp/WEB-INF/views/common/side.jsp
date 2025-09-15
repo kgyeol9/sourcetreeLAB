@@ -154,6 +154,8 @@
   <span onclick="hideSubcategories()">닫기</span>
 </div>
 
+<!-- 실험 주석 -->
+
 <!-- 소분류 영역 -->
 <div id="subcategory-container">
   <div class="subcategory" id="c1">
