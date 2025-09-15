@@ -14,21 +14,19 @@
 <title>헤더</title>
 <style>
     /* 헤더 스타일 */
-    #header {
-        position: fixed;   /* 상단 고정 */
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 70px;      /* 고정 높이 */
-        background-color: #333;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        z-index: 1000;     /* 본문/사이드보다 항상 위 */
-    }
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 왼쪽-중앙-오른쪽 배치 */
+  width: 100%;
+  height: 70px;
+  padding: 0 20px;
+  background: #333;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
 
     /* 본문과 사이드바가 헤더와 겹치지 않도록 */
     body {
@@ -36,24 +34,23 @@
         padding-top: 103px; /* header 높이만큼 아래로 밀기 */
     }
 
+/* 로고: 왼쪽 */
 header .logo {
-	position: absolute;
-	left: 2em;
-	top: 50%;
-	transform: translateY(-50%);
-	font-size: 1.8em;
-	color: #bb0000;
-	cursor: pointer;
-	margin: 0;
-	font-weight: 600;
+  font-size: 1.8em;
+  color: #bb0000;
+  cursor: pointer;
+  font-weight: 600;
+  margin: 0;
+  text-decoration: none;
 }
 
+/* nav: 중앙 */
 nav.center-nav {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100%;
-	gap: 20px;
+  flex: 1; /* 남는 공간 차지 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 nav.center-nav a {
@@ -64,14 +61,13 @@ nav.center-nav a {
 nav.center-nav a:hover {
 	color: #ff4444;
 }
-/* 설정툴 (헤더 오른쪽) */
+/* 설정(버튼 영역): 오른쪽 */
 .settings {
-	position: absolute;
-	right: 2em;
-	top: 50%;
-	transform: translateY(-50%);
-	display: flex;
-	gap: 15px;
+  display: flex;
+  gap: 15px;
+  max-width: 300px;  /* 필요에 따라 조절 */
+  margin-right: 45px;
+  overflow: hidden;  /* 넘치면 숨김 */
 }
 
 .settings button, .settings a {
@@ -136,8 +132,10 @@ nav.center-nav a:hover {
 /* 드롭다운 박스 */
 .logOn-box {
 	position: absolute;
-	top: 100%;   /* 버튼 바로 아래 */
-	right: 0;    /* 버튼 오른쪽 끝과 정렬 */
+	top: 100%;      /* 버튼 바로 아래 */
+	left: 0;        /* 버튼 왼쪽을 기준으로 펼치기 */
+	/* right: 0;  <- 삭제 */
+
 	background: #1f1f1f;
 	padding: 1em;
 	border-radius: 8px;

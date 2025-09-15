@@ -13,6 +13,7 @@
 <head>
 <meta charset="UTF-8" />
 <title>뱀피지지 - 비로그인</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/hee.css">
 <style>
 body {
 	margin: 0;

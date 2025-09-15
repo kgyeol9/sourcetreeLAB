@@ -145,14 +145,14 @@
 <body>
 
 <!-- 대분류 영역 -->
-<!-- <div class="category-box" id="category-list">
+ <div class="category-box" id="category-list">
   <span onclick="showAll()">전체</span> |
   <span onclick="toggleCategory('c1')">대분류 1</span> |
   <span onclick="toggleCategory('c2')">대분류 2</span> |
   <span onclick="toggleCategory('c3')">대분류 3</span> |
   <span onclick="toggleCategory('c4')">대분류 4</span> |
   <span onclick="hideSubcategories()">닫기</span>
-</div> -->
+</div>
 
 <!-- 소분류 영역 -->
 <div id="subcategory-container">

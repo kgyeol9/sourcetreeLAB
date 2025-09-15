@@ -55,9 +55,20 @@ public class MemberControllerImpl   implements MemberController {
 			                  HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("html/text;charset=utf-8");
+		HttpSession session = request.getSession();
 		int result = 0;
+	    String redirectURL = (String) session.getAttribute("redirectURL");
+	    System.out.println("redirectURL:" + redirectURL);
+	    
+	    if (redirectURL == null || 
+	            redirectURL.contains("/member/loginForm.do") || 
+	            redirectURL.contains("/member/memberForm.do")) {
+	            redirectURL = "/home.do";
+	        }
+	    System.out.println("최종 redirectURL: " + redirectURL);
+	    
 		result = memberService.addMember(member);
-		ModelAndView mav = new ModelAndView("redirect:/home.do");
+		ModelAndView mav = new ModelAndView("redirect:"+redirectURL);
 		return mav;
 	}
 	
@@ -101,9 +112,17 @@ public class MemberControllerImpl   implements MemberController {
 	    //mav.setViewName("redirect:/member/listMembers.do");
 	    String redirectURL = (String) session.getAttribute("redirectURL");
 	    System.out.println("redirectURL:" + redirectURL);
+	    
+	    if (redirectURL == null || 
+	            redirectURL.contains("/member/loginForm.do") || 
+	            redirectURL.contains("/member/memberForm.do")) {
+	            redirectURL = "/home.do";
+	        }
+	    System.out.println("최종 redirectURL: " + redirectURL);
+	    
 	    if(redirectURL!= null) {
 	       mav.setViewName("redirect:"+redirectURL);
-	       session.removeAttribute("action");
+	       session.removeAttribute("redirectURL");
 	    }else {
 	       mav.setViewName("redirect:/home.do");	
 	    }
