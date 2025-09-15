@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.weapon">
+
+	<!-- 결과 매핑: DB 컬럼 -> VO 프로퍼티 -->
+	<resultMap id="weaponResult"
+		type="com.myspring.vampir.item.vo.WeaponVO">
+		<id property="item_code" column="item_code" />
+		<result property="name" column="name" />
+		<result property="upgrade" column="upgrade" />
+		<result property="job" column="job" />
+		<result property="quality" column="quality" />
+		<!-- 🔽 추가 -->
+		<result property="category" column="category" />
+		<!-- 🔼 추가 -->
+		<result property="min_ATK" column="min_ATK" />
+		<result property="max_ATK" column="max_ATK" />
+		<result property="add_ATK" column="add_ATK" />
+		<result property="accuracy" column="accuracy" />
+		<result property="critical" column="critical" />
+		<result property="job_ATK" column="job_ATK" />
+		<result property="job_ACR" column="job_ACR" />
+		<result property="job_amp" column="job_amp" />
+		<result property="skill_ATK" column="skill_ATK" />
+		<result property="skill_ACR" column="skill_ACR" />
+		<result property="skill_amp" column="skill_amp" />
+		<result property="engraveOP1" column="engraveOP1" />
+		<result property="engravePT1" column="engravePT1" />
+		<result property="engraveOP2" column="engraveOP2" />
+		<result property="engravePT2" column="engravePT2" />
+		<result property="engraveOP3" column="engraveOP3" />
+		<result property="engravePT3" column="engravePT3" />
+		<result property="skill_name" column="skill_name" />
+		<result property="skill_comment" column="skill_comment" />
+		<result property="obtain_source" column="obtain_source" />
+		<result property="imgPath" column="imgPath" />
+		<result property="img_row" column="img_row" />
+		<result property="img_col" column="img_col" />
+	</resultMap>
+
+	<select id="selectAllWeapons" resultMap="weaponResult">
+  <![CDATA[
+    SELECT
+      item_code, name, upgrade, job, quality,
+      '무기' AS category,
+      min_ATK, max_ATK, add_ATK, accuracy, critical,
+      job_ATK, job_ACR, job_amp,
+      skill_ATK, skill_ACR, skill_amp,
+      engraveOP1, engravePT1, engraveOP2, engravePT2, engraveOP3, engravePT3,
+      skill_name, skill_comment, obtain_source,
+      imgPath, img_row, img_col
+    FROM weaponDB
+    ORDER BY item_code ASC
+  ]]>
+	</select>
+
+
+
+	<select id="currentDatabase" resultType="string">
+		SELECT DATABASE()
+	</select>
+
+	<select id="countWeapon" resultType="int">
+		SELECT COUNT(*) FROM
+		weaponDB
+	</select>
+</mapper>

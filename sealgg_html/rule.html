@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>씰지지 - 이용규칙</title>
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/rule.css" />
+<style>
+
+/* ✅ 메인페이지 헤더 (화면 전체 가로폭) */
+.main-top-header {
+  width: 100%;
+  background-color: var(--header-color);
+  padding: 10px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--quick-color);
+  box-sizing: border-box;
+}
+
+/* 기존 이용규칙 헤더 (센터 정렬 박스형) */
+/* 기존 header는 유지하면서 가운데 정렬 추가 */
+header {
+  background-color: var(--header-color);
+  padding: 10px 20px;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  justify-content: center; /* 기본은 중앙 정렬 */
+  align-items: center;
+  position: relative;      /* 상대 위치 기준 */
+}
+
+header #logo {
+  position: absolute;
+  left: 20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ✅ 메인페이지 상단 헤더 (화면 전체 가로) -->
+<div class="main-top-header">
+  <div id="logo">
+    <a href="main.html">
+      <img src="images/로고,사이트명3.png" alt="씰로고" width="130" />
+    </a>
+  </div>
+  <nav>
+    <ul id="topmenu">
+      <li><a href="rule.html">이용규칙</a></li>
+      <li><a href="#" id="noticeBtn">공지사항</a></li>
+      <li><a href="#">문의하기</a></li>
+      <li><a href="login.html">로그인</a></li>
+    </ul>
+  </nav>
+</div>
+  <div class="quick-menu">
+    <ul>
+      <li><a href="#">경매장</a></li>
+      <li><a href="#">스크린샷</a></li>
+      <li><a href="#">길드홍보</a></li>
+      <li><a href="#">직업공략</a></li>
+      <li><a href="#">질문게시판</a></li>
+      <li><a href="#">파티원모집</a></li>
+      <li><a href="itemdex.html">아이템도감</a></li>
+      <li><a href="test2.html">몬스터도감</a></li>
+    </ul>
+  </div>
+
+<div id="container">
+
+  <!-- ✅ 기존 이용규칙 헤더 (센터 박스형) -->
+  <header>
+    <div id="logo">
+      <a href="main.html">
+        <img src="images/로고,사이트명3.png" alt="씰로고" width="130" />
+      </a>
+    </div>
+    <nav>
+      <ul id="topmenu">
+        <li><a>이용규칙</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+
+  <!-- 본문 -->
+  <div class="main-content">
+   
+    <p>씰지지는 아이템 거래를 위해 좌판을 켜두는 번거로움과 꺼지는 불편함을 줄이기 위해 만들어졌습니다.</p>
+    <p>아이템 구매와 판매를 위해 소모되는 불필요한 시간을 아끼기 위한 플랫폼입니다.</p>
+    <p>모두가 좋은 환경에서 즐길 수 있도록 몇 가지 규칙이 있으며, 규칙은 업데이트될 수 있습니다.</p>
+    <p>규칙을 숙지하지 않아 발생하는 불이익은 본인 책임입니다.</p>
+    <hr>
+
+    <h4>제재를 받은 이용자가 탈퇴 및 재가입, 추가 계정을 생성할 경우,</h4>
+    <p>새 계정에도 동일한 이용 제한이 적용됩니다.</p>
+    <hr>
+
+    <h4>제제를 받은 이용자를 대신하여 대리 판,구매를 해줄경우 </h4>
+    <p>1차 영구정지.</p>
+    <hr>
+
+    <h3>다계정 사용</h3>
+    <p>1차 적발: 부계정 제재<br>2차 적발: 모든 계정 영구정지</p>
+    <hr>
+
+    <h3>다계정 이용 금지</h3>
+    <p>무기한 제재</p>
+    <p>중복 등록이 불가능한 아이템을 다계정을 통해 등록 시 즉시 무기한 제재됩니다.</p>
+    <hr>
+
+    <h3>아이템 중복 등록</h3>
+    <p>같은 아이템을 삽니다/팝니다에 동시에 등록하는 행위<br>1차 경고, 2차 영구정지</p>
+    <hr>
+
+    <h3>다수 직업/장비 아이템 구매 등록 금지</h3>
+    <p>"급처템 다삼" 등 불특정 다수 직업 아이템 등록<br>1차 경고, 2차 영구정지</p>
+    <hr>
+
+    <h3>담합 시도 및 욕설 강요</h3>
+    <p>싼값에 판매 강요, 담합 시도 시 즉시 영구정지</p>
+    <hr>
+
+    <h3>비정상적 거래 패턴</h3>
+    <p>저레벨 계정의 고가 아이템 거래 등</p>
+    <p>1차 캐릭터 변경 권고, 2차 경고, 3차 영구정지</p>
+  </div>
+
+  <!-- 푸터 -->
+  <footer>
+    ⓒ 2025 씰지지 SealGG. All rights reserved.
+  </footer>
+
+</div>
+
+<!-- 공지 팝업 -->
+<div id="popupOverlay"></div>
+<div id="noticePopup">
+  <button class="close-btn" onclick="closeNoticePopup()">×</button>
+  <h2>공지사항</h2>
+  <div>
+    <p>씰지지 사이트에 방문해주셔서 감사합니다.<br>새로운 소식과 업데이트를 이곳에서 확인하세요!</p>
+    <ul>
+      <li>2025-06-27: 이미지 작업 중입니다.</li>
+      <li>2025-06-20: 사이트 오픈</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  const noticeBtn = document.getElementById('noticeBtn');
+  const popupOverlay = document.getElementById('popupOverlay');
+  const noticePopup = document.getElementById('noticePopup');
+
+  noticeBtn.onclick = function(e) {
+    e.preventDefault();
+    noticePopup.style.display = 'block';
+    popupOverlay.style.display = 'block';
+  }
+
+  function closeNoticePopup() {
+    noticePopup.style.display = 'none';
+    popupOverlay.style.display = 'none';
+  }
+
+  popupOverlay.onclick = closeNoticePopup;
+</script>
+
+</body>
+</html>

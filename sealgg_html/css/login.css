@@ -1,0 +1,137 @@
+
+/* ✅ 페이지 컨테이너 (중앙 박스형) */
+#container {
+  max-width: 1100px;
+  margin: 30px auto;
+  background: #fffdf7;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
+/* ✅ 로그인 박스 */
+.login-box {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px 50px;
+  background: white;
+  border-radius: 12px;
+  border: 2px solid var(--border-color);
+}
+
+.login-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--header-color);
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 94%;
+  padding: 10px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-size: 15px;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: var(--quick-hover);
+}
+
+input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: var(--header-color);
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #7b5a4a;
+}
+
+.join {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.join a {
+  color: gray;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.join a:hover {
+  text-decoration: underline;
+}
+
+/* ✅ 푸터 */
+footer {
+  background: var(--header-color);
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 0 0 12px 12px;
+  border-top: 2px solid var(--quick-hover);
+}
+
+/* ✅ 팝업 */
+#noticePopup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  background: #fffaf0;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  z-index: 1000;
+  padding: 20px;
+}
+
+#noticePopup h2 {
+  margin: 0 0 10px;
+  color: var(--header-color);
+}
+
+#noticePopup .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--header-color);
+}
+
+#popupOverlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.3);
+  z-index: 999;
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>씰지지 - 로그인</title>
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+<header>
+  <div id="logo">
+    <a href="main.html">
+      <img src="images/로고,사이트명3.png" alt="씰로고" width="130">
+    </a>
+  </div>
+  <nav>
+    <ul id="topmenu">
+      <li><a href="rule.html">이용규칙</a></li>
+      <li><a href="#" id="noticeBtn">공지사항</a></li>
+      <li><a href="#">문의하기</a></li>
+      <li><a href="login.html">로그인</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- 퀵메뉴 -->
+<div class="quick-menu">
+  <ul>
+    <li><a href="#">경매장</a></li>
+    <li><a href="#">스크린샷</a></li>
+    <li><a href="#">길드홍보</a></li>
+    <li><a href="#">직업공략</a></li>
+    <li><a href="#">질문게시판</a></li>
+    <li><a href="#">파티원모집</a></li>
+    <li><a href="itemdex.html">아이템도감</a></li>
+    <li><a href="test2.html">몬스터도감</a></li>
+  </ul>
+</div>
+</header>
+
+
+  <!-- ✅ 로그인 박스 -->
+  <div class="login-box">
+    <h2>LOGIN</h2>
+    <form>
+      <input type="text" placeholder="아이디">
+      <input type="password" placeholder="비밀번호">
+      <div style="margin-bottom: 10px;">
+        <input type="checkbox" id="saveLogin"><label for="saveLogin"> 로그인 정보 저장</label>
+      </div>
+      <input type="submit" class="btn" value="로그인" onclick="alert('로그인 성공!')">
+      <div class="join">
+        <a href="accession.html">회원가입</a>
+      </div>
+    </form>
+  </div>
+
+  <!-- ✅ 푸터 -->
+  <footer>
+    ⓒ 2025 씰지지 SealGG. All rights reserved.
+  </footer>
+
+</div>
+
+<!-- ✅ 공지 팝업 -->
+<div id="popupOverlay"></div>
+<div id="noticePopup">
+  <button class="close-btn" onclick="closeNoticePopup()">×</button>
+  <h2>공지사항</h2>
+  <div>
+    <p>씰지지 사이트에 방문해주셔서 감사합니다.<br>
+    새로운 소식과 업데이트를 이곳에서 확인하세요!</p>
+    <ul>
+      <li>2025-06-27: 이미지 작업중입니다</li>
+      <li>2025-06-20: 사이트 오픈</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  const noticeBtn = document.getElementById('noticeBtn');
+  const popupOverlay = document.getElementById('popupOverlay');
+  const noticePopup = document.getElementById('noticePopup');
+
+  noticeBtn.onclick = function(e) {
+    e.preventDefault();
+    noticePopup.style.display = 'block';
+    popupOverlay.style.display = 'block';
+  }
+
+  function closeNoticePopup() {
+    noticePopup.style.display = 'none';
+    popupOverlay.style.display = 'none';
+  }
+
+  popupOverlay.onclick = closeNoticePopup;
+</script>
+
+</body>
+</html>

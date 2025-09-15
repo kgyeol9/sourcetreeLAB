@@ -1,0 +1,154 @@
+:root {
+  --bg-color: #fdfaf7;
+  --text-color: #5d4037;
+  --header-color: #5d4037;
+  --quick-color: #fff8f0;
+  --quick-hover: #ff9800;
+}
+
+body {
+  font-family: '맑은 고딕', sans-serif;
+  background-color: var(--bg-color);
+  margin: 0;
+  padding: 30px;
+  color: var(--text-color);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 28px;
+}
+
+header {
+  background-color: var(--header-color);
+  padding: 10px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+#topmenu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+#topmenu li a {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.quick-menu {
+  background-color: var(--quick-color);
+  padding: 10px;
+  margin-bottom: 30px;
+}
+
+.quick-menu ul {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.quick-menu a {
+  color: var(--header-color);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.filter-area {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-area label {
+  background-color: #fff3e0;
+  border: 1px solid #ffb74d;
+  border-radius: 10px;
+  padding: 6px 12px;
+  cursor: pointer;
+  user-select: none;
+  color: #5d4037;
+  font-weight: bold;
+}
+
+.search-bar {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+input[type="text"] {
+  width: 300px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.monster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.monster-card {
+  background-color: white;
+  border: 1px solid #f0e6da;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.2s;
+}
+
+.monster-card:hover {
+  transform: translateY(-5px);
+}
+
+.monster-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+.monster-name {
+  text-align: center;
+  font-size: 18px;
+  color: #5d4037;
+  margin-bottom: 10px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 4px 0;
+}
+
+.stat-row span {
+  width: 48%;
+  padding: 4px 8px;
+  box-sizing: border-box;
+  text-align: left;
+  position: relative;
+}
+
+.stat-row span + span::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 25%;
+  height: 50%;
+  width: 1px;
+  background-color: #d0c4b3;
+}

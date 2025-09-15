@@ -1,0 +1,76 @@
+/* 검색창 */
+.search-bar {
+  text-align: center;
+  margin: 30px 0;
+}
+input[type="text"] {
+  width: 300px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* 필드 필터 */
+.filter-area {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.filter-area label {
+  background-color: #fff3e0;
+  border: 1px solid #ffb74d;
+  border-radius: 10px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: bold;
+  color: var(--text-color);
+  transition: background-color 0.3s;
+}
+.filter-area input[type="checkbox"] {
+  margin-right: 5px;
+}
+.filter-area label:hover {
+  background-color: #ffe0b2;
+}
+
+/* 카드 스타일 */
+.monster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.monster-card {
+  background: white;
+  border: 1px solid #f0e6da;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.2s;
+}
+.monster-card:hover {
+  transform: translateY(-5px);
+}
+.monster-img {
+   width: 43px;
+   height: 43px;
+   object-fit: contain;
+   display: block;
+   margin: 0 auto 10px;
+   background-color: #fffbe8; /* 필요시 배경 추가 */
+ }
+.monster-name {
+  text-align: center;
+  font-size: 18px;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+/* 반응형 */
+@media (max-width: 600px) {
+  input[type="text"] {
+    width: 90%;
+  }
+}

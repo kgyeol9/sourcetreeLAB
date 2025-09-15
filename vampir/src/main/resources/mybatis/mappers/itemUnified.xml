@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mybatis/mappers/itemUnified.xml -->
+<mapper namespace="mapper.itemUnified">
+	<select id="selectAllAsMap" resultType="map">
+    <![CDATA[
+    /* 공통 컬럼 순서/이름(유지!):
+       item_code, name, imgPath, quality, category, job,
+       min_ATK, max_ATK, add_ATK, accuracy, critical, obtain_source */
+
+    /* 무기 */
+    SELECT
+      w.item_code                   AS item_code,
+      w.name                        AS name,
+      w.imgPath                     AS imgPath,
+      w.quality                     AS quality,
+      '무기'                        AS category,
+      w.job                         AS job,
+      COALESCE(w.min_ATK,0)         AS min_ATK,
+      COALESCE(w.max_ATK,0)         AS max_ATK,
+      COALESCE(w.add_ATK,0)         AS add_ATK,
+      COALESCE(w.accuracy,0)        AS accuracy,
+      COALESCE(w.critical,0)        AS critical,
+      w.obtain_source               AS obtain_source
+    FROM weaponDB w
+
+    UNION ALL
+    /* 방어구 (스키마에 맞춰 필요 컬럼만 매핑)
+       armorDB에 job/ATK계열이 없다면 NULL/0로 채우세요. */
+    SELECT
+      a.item_code                   AS item_code,
+      a.name                        AS name,
+      a.imgPath                     AS imgPath,
+      a.quality                     AS quality,
+      '방어구'                      AS category,
+      NULL                          AS job,
+      0                             AS min_ATK,
+      0                             AS max_ATK,
+      0                             AS add_ATK,
+      0                             AS accuracy,
+      0                             AS critical,
+      a.obtain_source               AS obtain_source
+    FROM armorDB a
+
+    UNION ALL
+    /* 장신구 */
+    SELECT
+      x.item_code                   AS item_code,
+      x.name                        AS name,
+      x.imgPath                     AS imgPath,
+      x.quality                     AS quality,
+      '장신구'                      AS category,
+      NULL                          AS job,
+      0                             AS min_ATK,
+      0                             AS max_ATK,
+      0                             AS add_ATK,
+      0                             AS accuracy,
+      0                             AS critical,
+      x.obtain_source               AS obtain_source
+    FROM accessoryDB x
+
+    UNION ALL
+    /* 부장품 */
+    SELECT
+      s.item_code                   AS item_code,
+      s.name                        AS name,
+      s.imgPath                     AS imgPath,
+      s.quality                     AS quality,
+      '부장품'                      AS category,
+      NULL                          AS job,
+      0                             AS min_ATK,
+      0                             AS max_ATK,
+      0                             AS add_ATK,
+      0                             AS accuracy,
+      0                             AS critical,
+      s.obtain_source               AS obtain_source
+    FROM subequipDB s
+
+    ORDER BY CAST(item_code AS UNSIGNED), item_code
+    ]]>
+	</select>
+</mapper>
+

@@ -1,0 +1,130 @@
+#rulelogo {
+  background-color: var(--header-color);
+  padding: 10px 20px;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  justify-content: center; /* 기본은 중앙 정렬 */
+  align-items: center;
+  position: relative;      /* 상대 위치 기준 */
+}
+
+#ruletopmenu {
+  display: flex;
+  list-style: none;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#ruletopmenu li a {
+  color: rgb(34, 31, 31);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 30px;
+  transition: color 0.3s;
+}
+
+#ruletopmenu li a:hover {
+  color: var(--quick-hover);
+}
+
+#ruletopmenu li img {
+  vertical-align: middle;
+  width: 130px;
+}
+
+/**/
+
+
+
+#container {
+  max-width: 1100px;
+  margin: 30px auto;
+  background: #fffdf7;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/*본문*/
+.main-content {
+  flex: 1;
+  padding: 30px 40px;
+  line-height: 1.8;
+}
+
+.main-content h2, h3, h4 {
+  color: var(--header-color);
+}
+
+.main-content hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 20px 0;
+}
+
+.main-content p {
+  margin: 8px 0;
+}
+
+/* 푸터 */
+footer {
+  background: var(--header-color);
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 0 0 12px 12px;
+  border-top: 2px solid var(--quick-hover);
+}
+
+/* 팝업 */
+#noticePopup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  background: #fffaf0;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  z-index: 1000;
+  padding: 20px;
+}
+
+#noticePopup h2 {
+  margin: 0 0 10px;
+  color: var(--header-color);
+}
+
+#noticePopup .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--header-color);
+}
+
+#popupOverlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.3);
+  z-index: 999;
+}

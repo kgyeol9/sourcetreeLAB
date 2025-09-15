@@ -1,0 +1,82 @@
+
+    body {
+      font-family: '맑은 고딕', sans-serif;
+      background-color: #fffaf0;
+      margin: 0;
+      padding: 0;
+    }
+
+    .wrapper {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: #5d4037;
+    }
+
+    .info-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .info-block {
+      flex: 1 1 45%;
+      background: #fff8e1;
+      padding: 10px 14px;
+      border-radius: 8px;
+    }
+
+    .info-block strong {
+      color: #a0522d;
+    }
+
+    .card {
+  position: relative; /* 상단 고정용 기준 */
+}
+
+.card-top-right {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.card-top-right .grade,
+.card-top-right .enhance {
+  background-color: #ffe0b2;
+  color: #5d4037;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+}
+ 
+.back-button {
+  margin-top: 30px;
+  padding: 10px 20px;
+  background-color: #ffcc80;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #5d4037;
+  transition: background-color 0.3s;
+}
+.back-button:hover {
+  background-color: #ffb74d;
+}

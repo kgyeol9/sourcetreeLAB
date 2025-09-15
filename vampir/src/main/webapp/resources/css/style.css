@@ -1,0 +1,560 @@
+/* ======================================================================
+   Vampi.GG �� Global Base (Dark tone + Shared Components)
+   - �쟾�뿭 �떎�겕/留곹겕 由ъ뀑
+   - Header / Side / Footer 怨듭슜 �뒪���씪
+   - 怨듭슜 �쑀�떥(而⑦뀒�씠�꼫/移대뱶/踰꾪듉/�엯�젰/�뀒�씠釉�/�럹�씠吏�)
+   - �솃�쓽 �넠 洹몃�濡� �쑀吏� (鍮④컙 �룷�씤�듃)
+   ====================================================================== */
+
+/* ===== 0) Global reset ===== */
+html, body {
+	margin: 0;
+	background: #121212;
+	color: #eee;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* �솃 �넠 */
+	line-height: 1.6;
+}
+
+a {
+	text-decoration: none;
+	color: inherit; /* 湲곕낯�� 二쇰� �뀓�뒪�듃�깋�쓣 �뵲由� */
+}
+
+/* �깋 �넗�겙 */
+:root { -
+	-bg: #121212; -
+	-ink: #eee; -
+	-muted: #aaa; -
+	-card: #1f1f1f; -
+	-line: #333; -
+	-accent: #bb0000; -
+	-accent-2: #ff4444;
+}
+
+/* ===== 1) Layout (Tiles 湲곕낯 �쁺�뿭 �겕湲�) ===== */
+#container {
+	width: 100%;
+}
+
+#header {
+	
+}
+
+#sidebar-left {
+	width: 15%;
+	float: left;
+}
+
+#content {
+	width: 75%;
+	float: left;
+}
+
+#footer {
+	clear: both;
+}
+
+/* ===== 2) Header (怨듭슜) ===== */
+header {
+	background-color: #1c1c1c;
+	padding: 1em;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 70px;
+	border-bottom: 1px solid var(- -line);
+	z-index: 10;
+}
+
+header .logo {
+	position: absolute;
+	left: 2em;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 1.8em;
+	color: var(- -accent);
+	cursor: pointer;
+	margin: 0;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+nav.center-nav {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	gap: 20px;
+}
+
+nav.center-nav a {
+	color: #eee;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+nav.center-nav a:hover {
+	color: var(- -accent-2);
+}
+
+.settings {
+	position: absolute;
+	right: 2em;
+	top: 50%;
+	transform: translateY(-50%);
+	display: flex;
+	gap: 15px;
+}
+
+.settings button, .settings a {
+	background: #333;
+	color: #eee;
+	padding: 6px 12px;
+	border-radius: 4px;
+	border: none;
+	cursor: pointer;
+	font-weight: 600;
+}
+
+.settings button:hover, .settings a:hover {
+	background: var(- -accent);
+}
+
+/* �궗�씠�뱶 硫붾돱(�뿤�뜑 �슦痢� �섎찓�돱�� 踰꾪듉) */
+.side-menu {
+	position: fixed;
+	top: 0;
+	right: -100%;
+	width: 250px;
+	height: 100%;
+	background: #1c1c1c;
+	padding: 2em 1.5em;
+	transition: right 0.3s ease;
+	box-shadow: -2px 0 5px #00000088;
+	z-index: 20;
+}
+
+.side-menu.active {
+	right: 0;
+}
+
+.side-menu h3 {
+	margin-top: 0;
+	color: #ff5555;
+}
+
+.side-menu a {
+	display: block;
+	margin: 1em 0;
+	color: #eee;
+}
+
+.side-menu .close-btn {
+	background: none;
+	border: none;
+	color: #eee;
+	font-size: 1.2em;
+	position: absolute;
+	top: 10px;
+	right: 15px;
+	cursor: pointer;
+}
+
+/* ===== 3) �궗�씠�뱶(濡쒓렇�씤/�쉶�썝�젙蹂�) ===== */
+.login-box, .logOn-box {
+	position: absolute;
+	top: 120px;
+	right: 20px;
+	background: var(- -card);
+	padding: 1em;
+	border-radius: 8px;
+	box-shadow: 0 0 8px #bb000033;
+	width: 280px; /* 濡쒓렇�씤/濡쒓렇�삩 �룞�씪 �룺 */
+	z-index: 5;
+	border: 1px solid var(- -line);
+}
+
+.login-box h3 {
+	margin-top: 0;
+	color: #ff5555;
+	font-size: 1.2em;
+	margin-bottom: 0.8em;
+}
+
+/* 濡쒓렇�씤 �엯�젰/踰꾪듉 */
+.login-box .input-group {
+	display: flex;
+	align-items: center;
+	margin-bottom: 0.8em;
+}
+
+.login-box label {
+	color: var(- -muted);
+	margin-right: 10px;
+	font-size: 0.9em;
+	width: 60px;
+}
+
+.login-box input {
+	width: 70%;
+	padding: 8px;
+	border: 1px solid var(- -line);
+	border-radius: 4px;
+	background: #222;
+	color: var(- -ink);
+	font-size: 0.9em;
+}
+
+.login-box button {
+	width: 100%;
+	padding: 8px;
+	background: var(- -accent);
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-weight: 600;
+	margin-bottom: 10px;
+}
+
+.login-box button:hover {
+	background: var(- -accent-2);
+}
+
+.login-links {
+	margin-top: 0.8em;
+	display: flex;
+	justify-content: space-between;
+	font-size: 0.85em;
+}
+
+.login-links a {
+	color: var(- -muted);
+	text-decoration: none;
+}
+
+.login-links a:hover {
+	color: #ff5555;
+}
+
+.login-error {
+	background: #2a0000;
+	color: #ff5555;
+	border: 1px solid var(- -accent);
+	padding: 8px;
+	border-radius: 4px;
+	font-size: 0.9em;
+	margin-bottom: 0.8em;
+	text-align: center;
+}
+
+/* 濡쒓렇�씤 �긽�깭 諛뺤뒪 */
+.logOn-box .user-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 12px;
+}
+
+.logOn-box .user-name {
+	margin: 0;
+	font-size: 1.05em;
+	color: #ff5555;
+	font-weight: 700;
+}
+
+.logOn-box .logout-btn {
+	background: #333;
+	border: 1px solid #333;
+	color: #eee;
+	padding: 4px 10px;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 0.85em;
+	font-weight: 700;
+}
+
+.logOn-box .logout-btn:hover {
+	background: var(- -accent);
+	border-color: var(- -accent);
+}
+
+.logOn-box .user-main {
+	display: flex;
+	align-items: stretch;
+	gap: 10px;
+	margin-bottom: 1em;
+}
+
+.logOn-box .profile-pic {
+	width: 80px;
+	height: 80px;
+	background: #333;
+	border-radius: 8px;
+	flex-shrink: 0;
+}
+
+.logOn-box .user-textbox {
+	flex: 1;
+	background: #2a2a2a;
+	border-radius: 6px;
+	padding: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 64px;
+}
+
+.logOn-box .user-textbox span {
+	color: var(- -muted);
+	font-size: 0.9em;
+}
+
+.logOn-box .user-bottom {
+	display: flex;
+	gap: 10px;
+}
+
+.logOn-box .user-bottom .btn {
+	flex: 1 1 0;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px 0;
+	background: #333;
+	color: #eee;
+	border-radius: 6px;
+	border: 1px solid #333;
+	font-size: 0.95em;
+	font-weight: 700;
+	text-decoration: none;
+}
+
+.logOn-box .user-bottom .btn:hover {
+	background: var(- -accent);
+	border-color: var(- -accent);
+}
+
+/* ===== 4) Footer (怨듭슜) ===== */
+footer {
+	text-align: center;
+	padding: 1em;
+	background: #1c1c1c;
+	color: #555;
+	font-size: 0.9em;
+	border-top: 1px solid var(- -line);
+	margin-top: 3em;
+}
+
+/* ===== 5) Common utilities (�솃 �넠 怨듭쑀) ===== */
+.container-1200 {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 1em;
+}
+
+.card {
+	background: var(- -card);
+	margin-bottom: 2em;
+	padding: 1.5em 2em;
+	border-radius: 8px;
+	box-shadow: 0 0 8px #bb000033;
+	border: 1px solid var(- -line);
+	color: var(- -ink);
+}
+
+.card h2, .h2-divider {
+	border-bottom: 2px solid var(- -accent);
+	padding-bottom: 0.3em;
+	margin-bottom: 1em;
+	color: #ff5555;
+	font-weight: 700;
+}
+
+ul.reset {
+	list-style: none;
+	padding-left: 0;
+}
+
+ul.reset>li {
+	padding: 0.4em 0;
+	border-bottom: 1px solid var(- -line);
+}
+
+ul.reset>li:last-child {
+	border-bottom: none;
+}
+
+.grid-2 {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 2em;
+}
+
+@media ( max-width : 768px) {
+	.grid-2 {
+		grid-template-columns: 1fr;
+	}
+}
+
+.btn {
+	display: inline-block;
+	padding: 8px 14px;
+	border-radius: 8px;
+	border: 1px solid var(- -line);
+	background: #2a2a2a;
+	color: var(- -ink);
+	font-weight: 700;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.btn:hover {
+	background: #323232;
+}
+
+.btn-primary {
+	background: var(- -accent);
+	border-color: var(- -accent);
+	color: #fff;
+}
+
+.btn-primary:hover {
+	background: var(- -accent-2);
+	border-color: var(- -accent-2);
+}
+
+.input-dark {
+	padding: 10px 12px;
+	border-radius: 8px;
+	border: 1px solid var(- -line);
+	background: #222;
+	color: var(- -ink);
+}
+
+.input-dark::placeholder {
+	color: #9aa2af;
+}
+
+/* �뀒�씠釉�(寃뚯떆�뙋) */
+.table-card {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	background: var(- -card);
+	border: 1px solid var(- -line);
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 0 8px #bb000033;
+	color: var(- -ink);
+}
+
+.table-card th, .table-card td {
+	padding: 14px 16px;
+	border-bottom: 1px solid var(- -line);
+}
+
+.table-card th {
+	background: #181a1f;
+	color: #dbe1ea;
+	text-align: left;
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	font-weight: 700;
+}
+
+.table-card tr:last-child td {
+	border-bottom: none;
+}
+
+.table-card tbody tr:hover {
+	background: #191d24;
+}
+/* 寃뚯떆�뙋 留곹겕 �깋�긽 */
+.table-card a {
+	color: #cbd5e1;
+}
+
+.table-card a:hover {
+	text-decoration: underline;
+}
+
+/* �럹�씠吏� */
+.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	margin: 16px 0 0;
+}
+
+.pagination a, .pagination span {
+	min-width: 34px;
+	text-align: center;
+	padding: 6px 10px;
+	border-radius: 8px;
+	background: #1a1d23;
+	border: 1px solid var(- -line);
+	color: var(- -ink);
+	display: inline-block;
+}
+
+.pagination .current {
+	background: var(- -accent);
+	border-color: var(- -accent);
+	color: #fff;
+}
+
+/* ===== 6) Home page helpers (�꽑�깮: �솃�뿉�꽌�룄 怨듭슜�솕�븯怨� �떢�떎硫� �궗�슜) ===== */
+main.home {
+	max-width: 1200px;
+	margin: -80px auto 2em;
+	padding: 0 1em;
+}
+
+#rice-calculator {
+	position: relative;
+	top: 190px;
+}
+
+#rice-calculator .calc-container {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+	flex-wrap: wrap;
+}
+
+#rice-calculator .calc-container .input-group {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 200px;
+}
+
+#rice-calculator .calc-container input {
+	padding: 8px;
+	border-radius: 4px;
+	border: 1px solid var(- -line);
+	background: #222;
+	color: var(- -ink);
+}
+
+#swapBtn {
+	background: var(- -accent);
+	color: #fff;
+	border: none;
+	padding: 8px 12px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 1.2em;
+}
+
+#swapBtn:hover {
+	background: var(- -accent-2);
+}
+
+/* 寃뚯떆�뙋 �솕硫� �긽�떒 �뿬諛�(�뿤�뜑 �넂�씠 蹂댁젙) */
+.page-offset {
+	margin-top: 120px;
+}

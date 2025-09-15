@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>몬스터도감</title>
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/monst1.css" />
+</head>
+<body>
+  <header>
+    <div id="logo">
+      <a href="main.html">
+        <img src="images/로고,사이트명3.png" alt="씰로고" width="130" />
+      </a>
+    </div>
+    <nav>
+      <ul id="topmenu">
+        <li><a href="rule.html">이용규칙</a></li>
+        <li><a href="#">공지사항</a></li>
+        <li><a href="#">문의하기</a></li>
+        <li><a href="login.html">로그인</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="quick-menu">
+    <ul>
+      <li><a href="#">경매장</a></li>
+      <li><a href="#">스크린샷</a></li>
+      <li><a href="#">길드홍보</a></li>
+      <li><a href="#">직업공략</a></li>
+      <li><a href="#">질문게시판</a></li>
+      <li><a href="#">파티원모집</a></li>
+      <li><a href="itemdex.html">아이템도감</a></li>
+      <li><a href="test2.html">몬스터도감</a></li>
+    </ul>
+  </div>
+
+  <h1>몬스터 도감</h1>
+
+  <div class="filter-area" id="fieldFilters"></div>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="몬스터 이름, 필드, 드랍아이템으로 검색" />
+    <button id="searchBtn">검색</button>
+  </div>
+
+  <div id="monsterContainer"></div>
+
+  <script src="js/monsterdex.js"></script>
+</body>
+</html>

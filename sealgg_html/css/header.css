@@ -1,0 +1,82 @@
+:root {
+  --bg-color: #fdfaf7;
+  --text-color: #5d4037;
+  --header-color: #5d4037;
+  --quick-color: #fff8f0;
+  --quick-hover: #ff9800;
+  --border-color: #5d4037;
+  --hover-bg: #f5eee7;
+}
+
+body {
+  margin: 0;
+  font-family: '맑은 고딕', Arial, sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* 헤더 */
+header {
+  background-color: var(--header-color);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--quick-color);
+}
+
+#logo img {
+  display: block;
+}
+
+#topmenu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#topmenu li {
+  margin-left: 20px;
+}
+
+#topmenu a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+#topmenu a:hover {
+  color: var(--quick-hover);
+}
+
+/* 퀵메뉴 */
+.quick-menu {
+  width: 100%;
+  background-color: var(--quick-color);
+  padding: 10px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.quick-menu ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.quick-menu li a {
+  color: var(--header-color);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+  transition: color 0.3s;
+}
+
+.quick-menu li a:hover {
+  color: var(--quick-hover);
+}

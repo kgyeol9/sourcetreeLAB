@@ -1,0 +1,16 @@
+[
+  {
+    "player_id": 1,
+    "team_id": "A",
+    "player_name": "희천",
+    "age": 25,
+    "height": 180,
+    "weight": 75,
+    "speed_100m": 12.1,
+    "salary": 3000,
+    "experience_years": 3,
+    "goals": 10,
+    "assists": 7,
+    "defense_ability": 80
+  }
+]

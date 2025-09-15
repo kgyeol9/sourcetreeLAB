@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+.logOn-box {
+	position: absolute;
+	top: 120px;
+	right: 20px;
+	background: #1f1f1f;
+	padding: 1em;
+	border-radius: 8px;
+	box-shadow: 0 0 8px #bb000033;
+	width: 280px;
+	/* 비로그인 박스와 동일한 폭 유지 */
+	z-index: 5;
+}
+
+/* 상단: 회원이름 + 로그아웃(우측 상단) */
+.logOn-box .user-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 12px;
+}
+
+.logOn-box .user-name {
+	margin: 0;
+	font-size: 1.05em;
+	color: #ff5555;
+	font-weight: 700;
+}
+
+.logOn-box .logout-btn {
+	background: #333;
+	border: 1px solid #333;
+	color: #eee;
+	padding: 4px 10px;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 0.85em;
+	font-weight: 700;
+}
+
+.logOn-box .logout-btn:hover {
+	background: #bb0000;
+	border-color: #bb0000;
+}
+
+/* 중단: 왼쪽 프로필 사진 + 오른쪽 텍스트 박스(New) */
+.logOn-box .user-main {
+	display: flex;
+	align-items: stretch;
+	/* 프로필 사진과 텍스트박스 높이 동일 */
+	gap: 10px;
+	margin-bottom: 1em;
+}
+
+.logOn-box .profile-pic {
+	width: 80px;
+	height: 80px;
+	background: #333;
+	border-radius: 8px;
+	flex-shrink: 0;
+}
+
+.logOn-box .user-textbox {
+	flex: 1;
+	background: #2a2a2a;
+	border-radius: 6px;
+	padding: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 64px;
+	/* 프로필사진과 동일 높이 */
+}
+
+.logOn-box .user-textbox span {
+	color: #aaa;
+	font-size: 0.9em;
+}
+
+/* 하단: 쪽지함 / 마이페이지 (한 줄, 가로폭 나눠서 꽉 채우기) */
+.logOn-box .user-bottom {
+	display: flex;
+	gap: 10px;
+}
+
+.logOn-box .user-bottom .btn {
+	flex: 1 1 0;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px 0;
+	background: #333;
+	color: #eee;
+	border-radius: 6px;
+	border: 1px solid #333;
+	font-size: 0.95em;
+	font-weight: 700;
+	text-decoration: none;
+}
+
+.logOn-box .user-bottom .btn:hover {
+	background: #bb0000;
+	border-color: #bb0000;
+}
+
+.logOn-box.show {
+	transform: translateY(0);
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.hidden {
+	display: none;
+}

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>씰지지 모바일</title>
+
+<style>
+:root {
+  --bg-color: #fdfaf7;
+  --text-color: #5d4037;
+  --header-color: #5d4037;
+  --quick-color: #fff8f0;
+  --quick-hover: #ff9800;
+  --border-color: #5d4037;
+  --hover-bg: #f5eee7;
+}
+
+body {
+  margin: 0;
+  font-family: '맑은 고딕', Arial, sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* 헤더 */
+header {
+  background-color: var(--header-color);
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#logo img {
+  width: 100px;
+}
+
+#topmenu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 8px;
+}
+
+#topmenu li a {
+  color: white;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+#topmenu li a:hover {
+  color: var(--quick-hover);
+}
+
+/* 퀵메뉴 - 슬라이드 */
+.quick-menu {
+  width: 100%;
+  background: var(--quick-color);
+  border-top: 2px solid var(--border-color);
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  overflow-x: auto;
+}
+
+.quick-menu ul {
+  display: flex;
+  flex-wrap: nowrap;
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+  gap: 20px;
+}
+
+.quick-menu li {
+  flex: 0 0 auto;
+}
+
+.quick-menu li a {
+  color: var(--header-color);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* 검색 */
+#item-search-wrapper {
+  padding: 50px 10px;
+  background:
+    linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
+    url('images/검색창-그라데이션.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+#item-search-area {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+#item-search-area input {
+  padding: 8px;
+  width: 180px;
+  border: 2px solid var(--border-color);
+  border-radius: 5px;
+}
+
+#item-search-area button {
+  padding: 8px 14px;
+  background: var(--header-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* 게시판 */
+.board-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 10px;
+}
+
+.board-box {
+  background: white;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.board-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--header-color);
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 4px;
+}
+
+.post-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.post-list li {
+  margin-bottom: 6px;
+}
+
+.post-list li a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: 14px;
+}
+
+/* 소개 */
+.about-site {
+  text-align: center;
+  padding: 20px 10px;
+}
+
+/* 푸터 */
+footer {
+  background: var(--header-color);
+  color: white;
+  text-align: center;
+  padding: 8px;
+  font-size: 12px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 헤더 -->
+<header>
+  <div id="logo">
+    <a href="mobile.html">
+      <img src="images/로고,사이트명3.png" alt="씰로고">
+    </a>
+  </div>
+  <ul id="topmenu">
+    <li><a href="rule.html">이용규칙</a></li>
+    <li><a href="#">공지</a></li>
+    <li><a href="#">문의</a></li>
+    <li><a href="login.html">로그인</a></li>
+  </ul>
+</header>
+
+<!-- 퀵메뉴 (슬라이드) -->
+<div class="quick-menu">
+  <ul>
+    <li><a href="#">경매장</a></li>
+    <li><a href="#">스크린샷</a></li>
+    <li><a href="#">길드홍보</a></li>
+    <li><a href="#">직업공략</a></li>
+    <li><a href="#">질문게시판</a></li>
+    <li><a href="#">파티원모집</a></li>
+    <li><a href="#">아이템도감</a></li>
+    <li><a href="#">몬스터도감</a></li>
+  </ul>
+</div>
+
+<!-- 검색 -->
+<div id="item-search-wrapper">
+  <div id="item-search-area">
+    <input type="text" placeholder="아이템명을 입력하세요">
+    <button>검색</button>
+  </div>
+</div>
+
+<!-- 게시판 상단 -->
+<div class="board-container">
+  <div class="board-box">
+    <div class="board-title">길드홍보</div>
+    <ul class="post-list">
+      <li><a href="#">킹덤 길드원 모집</a></li>
+      <li><a href="#">케테르 길드 멤버 구해요</a></li>
+    </ul>
+  </div>
+  <div class="board-box">
+    <div class="board-title">질문게시판</div>
+    <ul class="post-list">
+      <li><a href="#">펫 진화 재료?</a></li>
+      <li><a href="#">장비 강화 확률?</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- 게시판 하단 -->
+<div class="board-container">
+  <div class="board-box">
+    <div class="board-title">직업공략</div>
+    <ul class="post-list">
+      <li><a href="#">성기사 스킬트리</a></li>
+      <li><a href="#">기사 무자본 공략</a></li>
+    </ul>
+  </div>
+  <div class="board-box">
+    <div class="board-title">파티원모집</div>
+    <ul class="post-list">
+      <li><a href="#">던전 저녁 파티 구함</a></li>
+      <li><a href="#">보스 레이드 팟</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- 소개 -->
+<div class="about-site">
+  <h3>씰지지란?</h3>
+  <p>씰온라인 유저를 위한 정보 공유 사이트입니다.</p>
+</div>
+
+<!-- 푸터 -->
+<footer>
+  ⓒ 2025 씰지지 SealGG. All rights reserved.
+</footer>
+
+</body>
+</html>

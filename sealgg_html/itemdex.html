@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>씰지지 - 아이템 도감</title>
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/itemdex.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item1.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item2.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item3.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item4.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item5.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item6.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item7.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item8.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item9.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item10.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item11.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item12.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item13.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item14.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item15.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item16.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item17.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item18.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item19.css">
+  <link rel="stylesheet" href="css/아이템/sprite_item40.css">
+
+
+
+</head>
+<body>
+<header>
+  <div id="logo">
+    <a href="main.html">
+      <img src="images/로고,사이트명3.png" alt="씰로고" width="130" />
+    </a>
+  </div>
+  <nav>
+    <ul id="topmenu">
+      <li><a href="rule.html">이용규칙</a></li>
+      <li><a href="#" id="noticeBtn">공지사항</a></li>
+      <li><a href="#">문의하기</a></li>
+      <li><a href="login.html">로그인</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="quick-menu">
+  <ul>
+    <li><a href="#">경매장</a></li>
+    <li><a href="#">스크린샷</a></li>
+    <li><a href="#">길드홍보</a></li>
+    <li><a href="#">직업공략</a></li>
+    <li><a href="#">질문게시판</a></li>
+    <li><a href="#">파티원모집</a></li>
+    <li><a href="itemdex.html">아이템도감</a></li>
+    <li><a href="test2.html">몬스터도감</a></li>
+  </ul>
+</div>
+
+<div class="wrapper">
+  <div id="container">
+    <h2>아이템 도감</h2>
+    <div class="filter-bar">
+      <select id="categoryFilter">
+        <option value="all">전체 카테고리</option>
+        <option value="무기">무기</option>
+        <option value="보조악세">보조악세</option>
+        <option value="펫">펫</option>
+        <option value="악세사리">악세사리</option>
+        <option value="배틀펫">배틀펫</option>
+        <option value="기타">기타</option>
+        <option value="한벌코스튬">한벌 코스튬</option>
+        <option value="부분코스튬">부분 코스튬</option>
+        <option value="탈것">탈것</option>
+
+      </select>
+      <select id="jobFilter">
+        <option value="all">전체 직업</option>
+        <option value="기사">기사</option>
+        <option value="무사">무사</option>
+        <option value="성직자">성직자</option>
+        <option value="마법사">마법사</option>
+        <option value="광대">광대</option>
+        <option value="장인">장인</option>
+        <option value="사냥꾼">사냥꾼</option>
+        <option value="미식가">미식가</option>
+        <option value="백수">백수</option>
+        <option value="성기사">성기사</option>
+        <option value="흑기사">흑기사</option>
+        <option value="검성">검성</option>
+        <option value="광검사">광검사</option>
+        <option value="빙마도사">빙마도사</option>
+        <option value="화마도사">화마도사</option>
+        <option value="대사제">대사제</option>
+        <option value="심판관">심판관</option>
+        <option value="도박사">도박사</option>
+        <option value="자객">자객</option>
+        <option value="폭파술사">폭파술사</option>
+        <option value="대장장이">대장장이</option>
+        <option value="총잡이">총잡이</option>
+        <option value="활잡이">활잡이</option>
+        <option value="쉐프">쉐프</option>
+        <option value="푸드파이터">푸드파이터</option>
+        <option value="방랑자">방랑자</option>
+      </select>
+      <input type="text" id="searchInput" placeholder="아이템명을 검색하세요">
+    </div>
+    <div class="item-grid" id="itemContainer"></div>
+    <footer>ⓒ 2025 씰지지 SealGG. All rights reserved.</footer>
+  </div>
+</div>
+<script src="js/itemdex.js"></script>
+
+<div id="itemDetailPopup" class="item-detail-popup" style="display: none;">
+  <div class="popup-content">
+    <span id="closePopup" class="close-btn">&times;</span>
+    <h3 id="detailName">아이템 이름</h3>
+    <p><strong>카테고리:</strong> <span id="detailCategory"></span></p>
+    <p><strong>직업:</strong> <span id="detailJob"></span></p>
+    <p><strong>스프라이트 위치:</strong> <span id="detailSprite"></span></p>
+  </div>
+</div>
+
+
+</body>
+</html>

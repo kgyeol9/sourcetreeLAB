@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>씰지지</title>
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/main.css"> 
+
+</head>
+
+
+<body>
+<!-- 헤더 -->
+<header>
+  <div id="logo">
+    <a href="main.html">
+      <img src="images/로고,사이트명3.png" alt="씰로고" width="130">
+    </a>
+  </div>
+  <nav>
+    <ul id="topmenu">
+      <li><a href="rule.html">이용규칙</a></li>
+      <li><a href="#" id="noticeBtn">공지사항</a></li>
+      <li><a href="#">문의하기</a></li>
+      <li><a href="login.html">로그인</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- 퀵메뉴 -->
+<div class="quick-menu">
+  <ul>
+    <li><a href="#">경매장</a></li>
+    <li><a href="#">스크린샷</a></li>
+    <li><a href="#">길드홍보</a></li>
+    <li><a href="#">직업공략</a></li>
+    <li><a href="#">질문게시판</a></li>
+    <li><a href="#">파티원모집</a></li>
+    <li><a href="itemdex.html">아이템도감</a></li>
+    <li><a href="test2.html">몬스터도감</a></li>
+  </ul>
+</div>
+
+<!-- 검색창 -->
+<div class="wrapper">
+  <div id="container">
+
+    <div id="item-search-wrapper">
+      <div id="item-search-area">
+        <input type="text" id="item-search" placeholder="아이템명을 입력하세요">
+        <button>검색</button>
+      </div>
+    </div>
+
+    <!-- 게시판 -->
+    <div class="board-container">
+      <div class="board-box">
+        <div class="board-title">길드홍보</div>
+        <ul class="post-list">
+          <li><a href="#">헤세드 길드원 모집</a></li>
+          <li><a href="#">케테르 길드 신규 멤버 구합니다</a></li>
+          <li><a href="#">★신생 길드★ 같이 시작하실분</a></li>
+          <li><a href="#">소소하게 즐기는 길드 모집</a></li>
+          <li><a href="#">길드 가입 문의드립니다</a></li>
+        </ul>
+      </div>
+
+      <div class="board-box">
+        <div class="board-title">질문게시판</div>
+        <ul class="post-list">
+          <li><a href="#">펫 진화 재료 어디서 구하나요?</a></li>
+          <li><a href="#">레벨업 사냥터 추천해주세요</a></li>
+          <li><a href="#">장비 강화 확률 질문입니다</a></li>
+          <li><a href="#">뉴비입니다 질문 있어요</a></li>
+          <li><a href="#">펫 진화 확률 아시는분?</a></li>
+        </ul>
+      </div>
+
+      <div class="board-box">
+        <div class="board-title">직업공략</div>
+        <ul class="post-list">
+          <li><a href="#">성기사 스킬트리 정리</a></li>
+          <li><a href="#">기사 무자본 공략</a></li>
+          <li><a href="#">무사 육성법 최신판</a></li>
+          <li><a href="#">활잡이 필수 스킬</a></li>
+          <li><a href="#">자객 템 세팅 가이드</a></li>
+        </ul>
+      </div>
+
+      <div class="board-box">
+        <div class="board-title">파티원모집</div>
+        <ul class="post-list">
+          <li><a href="#">[던전] 오늘 저녁 파티 구합니다</a></li>
+          <li><a href="#">보마 클리어 같이 하실분?</a></li>
+          <li><a href="#">신규 던전 같이 도전하실분~</a></li>
+          <li><a href="#">길드 던전 인원 모집합니다</a></li>
+          <li><a href="#">보스 레이드 고정팟 구합니다</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 소개 -->
+    <div class="about-site">
+      <h2>씰지지란?</h2>
+      <p>씰온라인 유저를 위한 정보 공유 사이트입니다.<br>
+      아이템 검색, 몬스터 도감, 경매장 시세, 길드 홍보 등 다양한 정보를 제공합니다.</p>
+    </div>
+
+    <!-- 푸터 -->
+    <footer>
+      ⓒ 2025 씰지지 SealGG. All rights reserved.
+    </footer>
+
+  </div>
+</div>
+
+<!-- 공지사항 팝업 -->
+<div id="popupOverlay"></div>
+<div id="noticePopup">
+  <button class="close-btn" onclick="closeNoticePopup()">×</button>
+  <h2>공지사항</h2>
+  <div>
+    <p>씰지지 사이트에 방문해주셔서 감사합니다.<br>
+    새로운 소식과 업데이트를 이곳에서 확인하세요!</p>
+    <ul>
+      <li>2025-07-02: 아이템도감 작업 중입니다</li>
+      <li><a href="itemdex.html">아이템도감 바로가기</a></li>
+      <li>2025-06-20: 사이트 오픈</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  const noticeBtn = document.getElementById('noticeBtn'); 
+  const popupOverlay = document.getElementById('popupOverlay'); 
+  const noticePopup = document.getElementById('noticePopup'); 
+
+
+
+  noticeBtn.onclick = function(e) {
+    e.preventDefault();
+    noticePopup.style.display = 'block';
+    popupOverlay.style.display = 'block';
+  }  // 클릭시 팝업
+
+  function closeNoticePopup() {
+    noticePopup.style.display = 'none';
+    popupOverlay.style.display = 'none';
+  }  // 팝업 닫기
+
+  popupOverlay.onclick = closeNoticePopup;
+</script>
+
+</body>
+</html>

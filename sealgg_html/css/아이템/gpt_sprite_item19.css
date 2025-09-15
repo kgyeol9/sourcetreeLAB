@@ -1,0 +1,38 @@
+/* sprite css *//* 스프라이트 이미지 16x16 (32px) 기준 */
+.item-sprite {
+  width: 32px;
+  height: 32px;
+  background-image: url('../../images/itemicon19.png');
+  background-size: 512px 512px;
+  background-repeat: no-repeat;
+}
+
+/* 예시: 4행 8열 */
+.icon-4-8 { background-position: -224px -96px; }
+.icon-4-9 { background-position: -256px -96px; }
+.icon-4-10 { background-position: -288px -96px; }
+.icon-4-11 { background-position: -320px -96px; }
+.icon-5-7 { background-position: -192px -128px; }
+.icon-5-8 { background-position: -224px -128px; }
+.icon-5-11 { background-position: -320px -128px; }
+.icon-5-12 { background-position: -352px -128px; }
+.icon-6-1 { background-position: 0px -160px; }
+.icon-6-3 { background-position: -64px -160px; }
+.icon-6-4 { background-position: -96px -160px; }
+.icon-6-5 { background-position: -128px -160px; }
+.icon-6-6 { background-position: -160px -160px; }
+.icon-6-8 { background-position: -224px -160px; }
+.icon-6-9 { background-position: -256px -160px; }
+.icon-6-10 { background-position: -288px -160px; }
+.icon-5-16 { background-position: -480px -128px; }
+.icon-4-12 { background-position: -384px -96px; }
+.icon-4-13 { background-position: -416px -96px; }
+.icon-4-14 { background-position: -448px -96px; }
+.icon-4-15 { background-position: -480px -96px; }
+.icon-4-16 { background-position: -512px -96px; }
+.icon-5-1 { background-position: 0px -128px; }
+.icon-5-2 { background-position: -32px -128px; }
+.icon-5-3 { background-position: -64px -128px; }
+.icon-5-9 { background-position: -256px -128px; }
+.icon-5-14 { background-position: -448px -128px; }
+.icon-5-15 { background-position: -480px -128px; }

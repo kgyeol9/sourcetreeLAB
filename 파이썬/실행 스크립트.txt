@@ -1,0 +1,1 @@
+py vampir_cropper_fixed.py --in input --out output --center-x 1075 --center-y 500 --size 200

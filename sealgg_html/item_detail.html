@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>아이템 상세정보</title>
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/itemdex.css">
+  <link rel="stylesheet" href="css/item_detail.css">
+</head>
+<body>
+    <header>
+        <div id="logo">
+    <a href="main.html">
+      <img src="images/로고,사이트명3.png" alt="씰로고" width="130">
+    </a>
+  </div>
+  <nav>
+    <ul id="topmenu">
+      <li><a href="rule.html">이용규칙</a></li>
+      <li><a href="#" id="noticeBtn">공지사항</a></li>
+      <li><a href="#">문의하기</a></li>
+      <li><a href="login.html">로그인</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- 퀵메뉴 -->
+<div class="quick-menu">
+  <ul>
+    <li><a href="#">경매장</a></li>
+    <li><a href="#">스크린샷</a></li>
+    <li><a href="#">길드홍보</a></li>
+    <li><a href="#">직업공략</a></li>
+    <li><a href="#">질문게시판</a></li>
+    <li><a href="#">파티원모집</a></li>
+    <li><a href="itemdex.html">아이템도감</a></li>
+    <li><a href="test2.html">몬스터도감</a></li>
+  </ul>
+</div>
+    
+  <div class="wrapper">
+    <div id="itemDetail">
+        <p>로딩 중...</p>
+    </div>
+  </div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const itemId = params.get("id");
+  const selectedEnhancement = 0;
+
+  function calculateBonusStats(baseAtk, baseDmg, enhancement) {
+    let bonusAtk = 0;
+    let bonusDmg = 0;
+
+    if (enhancement >= 0 && enhancement <= 3) {
+      bonusAtk = enhancement * 5;
+    } else if (enhancement >= 4 && enhancement <= 6) {
+      bonusAtk = 15;
+      bonusDmg = 1;
+    } else if (enhancement >= 7 && enhancement <= 9) {
+      bonusAtk = 20;
+      bonusDmg = 1;
+    } else if (enhancement >= 10 && enhancement <= 12) {
+      bonusAtk = 30;
+      bonusDmg = 1;
+    }
+
+    return {
+      finalAtk: baseAtk + bonusAtk,
+      finalDmg: baseDmg + bonusDmg
+    };
+  }
+
+  fetch(`get_item_detail.php?id=${itemId}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.error) {
+        document.getElementById("itemDetail").innerHTML = `<p>${data.error}</p>`;
+        return;
+      }
+
+      const grade = data.grade || "N";
+      const enhancement = data.enhancement || 0;
+
+      const baseAtk = parseInt(data.physicalAttack || 0);
+      const baseDmg = parseFloat(data.damageIncrease || 0);
+      const bonus = calculateBonusStats(baseAtk, baseDmg, selectedEnhancement);
+
+      const detail = `
+        <div class="card">
+          <div class="card-top-right">
+            <span class="grade">${grade}</span>
+            <span class="enhance">+${selectedEnhancement}</span>
+          </div>
+          <h2>${data.name}</h2>
+          <div class="info-row">
+            <div class="info-block"><strong>카테고리:</strong> ${data.category}</div>
+            <div class="info-block"><strong>착용직업:</strong> ${data.job}</div>
+            <div class="info-block"><strong>레벨:</strong> ${data.lv}</div>
+            <div class="info-block"><strong>공격력:</strong> ${bonus.finalAtk}</div>
+            <div class="info-block"><strong>뎀증:</strong> ${bonus.finalDmg}%</div>
+            <div class="info-block"><strong>방어력:</strong> ${data.defense}</div>
+            <div class="info-block"><strong>공격속도:</strong> ${data.attackSpeed}</div>
+            <div class="info-block"><strong>크리티컬:</strong> ${data.critical}</div>
+            <div class="info-block"><strong>명중:</strong> ${data.accuracy}</div>
+            <div class="info-block"><strong>HP:</strong> ${data.hp}</div>
+            <div class="info-block"><strong>AP:</strong> ${data.ap}</div>
+            <div class="info-block"><strong>회피:</strong> ${data.evade}</div>
+            <div class="info-block"><strong>이동속도:</strong> ${data.moveSpeed}</div>
+            <div class="info-block"><strong>피해감소:</strong> ${data.damageDecrease}%</div>
+          </div>
+          <div style="text-align:center; margin-top:20px;">
+            <button id="backBtn" class="back-button">← 뒤로가기</button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById("itemDetail").innerHTML = detail;
+    })
+    .catch(error => {
+      document.getElementById("itemDetail").innerHTML = `<p>데이터를 불러오는 데 실패했습니다.</p>`;
+      console.error(error);
+    });
+
+  // 뒤로가기 버튼 이벤트
+  document.addEventListener("click", function (e) {
+    if (e.target && e.target.id === "backBtn") {
+      history.back();
+    }
+  });
+</script>
+
+</body>
+</html>

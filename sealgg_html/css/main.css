@@ -1,0 +1,226 @@
+/* 레이아웃 */
+.wrapper {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 20px 10px;
+}
+
+#container {
+  background: var(--bg-color);
+}
+
+/* 검색창 */
+#item-search-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 250px 20px;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  box-sizing: border-box;
+  background:
+    linear-gradient(rgba(255,255,255,0.65), rgba(255,255,255,0.05)),
+    url('../images/씰이_달라졌어요1.png') no-repeat center center;
+  background-size: cover;
+  border-bottom: 2px solid var(--border-color);
+}
+
+#item-search-area {
+  display: flex;
+  gap: 10px;
+}
+
+#item-search-area input {
+  padding: 10px 14px;
+  font-size: 16px;
+  border: 2px solid var(--border-color);
+  border-radius: 5px;
+  width: 280px;
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+#item-search-area input:focus {
+  border-color: var(--quick-hover);
+  outline: none;
+}
+
+#item-search-area button {
+  padding: 10px 20px;
+  background: var(--header-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+#item-search-area button:hover {
+  background: #7b5a4a;
+  transform: scale(1.05);
+}
+
+/* 게시판 */
+.board-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.board-box {
+  background: var(--bg-color);
+  border-radius: 8px;
+  border: 2px solid var(--border-color);
+  padding: 16px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.board-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.board-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--header-color);
+  margin-bottom: 12px;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 6px;
+}
+
+.post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.post-list li {
+  margin-bottom: 8px;
+  padding: 6px 8px;
+  background: var(--bg-color);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.post-list li:hover {
+  background: var(--hover-bg);
+}
+
+.post-list li a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+}
+.post-list li a:hover {
+  text-decoration: underline;
+}
+
+/* 사이트 소개 */
+.about-site {
+  background: var(--bg-color);
+  padding: 20px;
+  margin: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+.about-site h2 {
+  color: var(--header-color);
+}
+
+/* 푸터 */
+footer {
+  background: var(--header-color);
+  color: white;
+  text-align: center;
+  padding: 12px;
+  font-size: 14px;
+  border-top: 2px solid var(--quick-color);
+}
+
+/* 공지사항 팝업 */
+#noticePopup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  background: #fffaf0;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  z-index: 1000;
+  padding: 20px;
+}
+
+#noticePopup h2 {
+  margin: 0 0 10px;
+  color: var(--header-color);
+  font-size: 22px;
+}
+
+#noticePopup .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--header-color);
+}
+
+#popupOverlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.3);
+  z-index: 999;
+}
+
+/* 모바일 */
+@media (max-width: 768px) {
+  #topmenu {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  #topmenu li {
+    margin-left: 0;
+  }
+
+  #topmenu a {
+    font-size: 14px;
+  }
+
+  .quick-menu ul {
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 5px 10px;
+  }
+
+  .quick-menu li a {
+    font-size: 14px;
+  }
+
+  #item-search-wrapper {
+    padding: 150px 10px;
+  }
+
+  #item-search-area input {
+    width: 200px;
+  }
+
+  .board-container {
+    grid-template-columns: 1fr;
+  }
+}

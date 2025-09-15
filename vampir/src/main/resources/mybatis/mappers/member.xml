@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.member">
+
+	<!-- 결과 매핑: DB 컬럼 → VO 프로퍼티 -->
+	<resultMap id="memResult"
+		type="com.myspring.vampir.member.vo.MemberVO">
+		<result property="memId" column="mem_id" />
+		<result property="memPwd" column="mem_pwd" />
+		<result property="nickname" column="nickname" />
+		<result property="email" column="email" />
+		<result property="joinDate" column="joindate" />
+	</resultMap>
+
+	<!-- 전체 목록 -->
+	<select id="selectAllMemberList" resultMap="memResult">
+    <![CDATA[
+      SELECT mem_id, mem_pwd, nickname, email, joindate
+      FROM t_member
+      ORDER BY joindate DESC
+    ]]>
+	</select>
+
+	<!-- 회원 추가: joindate는 DB NOW()로 -->
+	<insert id="insertMember"
+		parameterType="com.myspring.vampir.member.vo.MemberVO">
+    <![CDATA[
+      INSERT INTO t_member (mem_id, mem_pwd, nickname, email, joindate)
+      VALUES (#{memId}, #{memPwd}, #{nickname}, #{email}, NOW())
+    ]]>
+	</insert>
+
+	<!-- 회원 수정 -->
+	<update id="updateMember"
+		parameterType="com.myspring.vampir.member.vo.MemberVO">
+    <![CDATA[
+      UPDATE t_member
+      SET
+        mem_pwd = #{memPwd},
+        nickname = #{nickname},
+        email    = #{email}
+      WHERE mem_id = #{memId}
+    ]]>
+	</update>
+
+	<!-- 회원 삭제 - 컨트롤러/DAO에서 단일 문자열(아이디)로 넘길 때: parameterType="string", #{value} 
+		- VO로 넘기면 parameterType을 VO로 바꾸고 WHERE mem_id = #{memId} 로 수정 -->
+	<delete id="deleteMember" parameterType="string">
+    <![CDATA[
+      DELETE FROM t_member
+      WHERE mem_id = #{value}
+    ]]>
+	</delete>
+
+	<!-- 로그인 -->
+	<select id="loginById"
+		parameterType="com.myspring.vampir.member.vo.MemberVO"
+		resultMap="memResult">
+    <![CDATA[
+      SELECT mem_id, mem_pwd, nickname, email, joindate
+      FROM t_member
+      WHERE mem_id = #{memId}
+        AND mem_pwd = #{memPwd}
+    ]]>
+	</select>
+
+</mapper>

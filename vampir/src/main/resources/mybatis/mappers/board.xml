@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.board">
+<resultMap id="articlesResult" type="articleVO">
+    <result property="level" column="level" />
+    <result property="articleNO" column="articleNO" />
+    <result property="parentNO" column="parentNO" />
+    <result property="title" column="title" />
+    <result property="content" column="content" />
+    <result property="writeDate" column="writeDate" />
+    <result property="imageFileName" column="imageFileName" />
+  </resultMap> 
+  
+  <resultMap id="imgResult" type="imageVO">
+	  <result property="imageFileNO" column="imageFileNO" />
+	  <result property="articleNO" column="articleNO" />
+	  <result property="imageFileName" column="imageFileName" />
+ </resultMap>
+
+  <select id="selectAllArticlesList" resultMap="articlesResult"   >
+    <!-- 
+      SELECT level, articleNO, parentNO, title, content, writeDate, imageFileName, id
+      from t_board
+      START WITH  parentNO=0
+      CONNECT BY PRIOR articleNO=parentNO 
+      ORDER SIBLINGS BY articleNO DESC	
+     -->  	
+    <![CDATA[
+		SELECT 1 AS level, -- 그냥 임의로 넣은 값 (실제 깊이는 계산 안 됨) 
+		articleNO, 
+		parentNO, 
+		title, 
+		content, 
+		writeDate, 
+		imageFileName, 
+		id FROM t_board 
+		ORDER BY parentNO ASC, 
+		articleNO DESC; 
+     
+    ]]>
+  </select>
+  
+	<!--단일이미지 추가  -->
+	 
+  <insert id="insertNewArticle"  parameterType="java.util.Map">
+		<![CDATA[
+			INSERT into t_board(articleNO,  title, content, imageFileName, id)
+			VALUES(#{articleNO},#{title},	#{content}, #{imageFileName},	#{id})
+		]]>      
+	</insert>
+	
+  <select id="selectNewArticleNO" resultType="int"  >
+		<!-- SELECT  nvl(max(articleNO), 0) + 1 from t_board -->
+		<![CDATA[	
+			SELECT IFNULL(MAX(articleNO), 0) + 1 FROM t_board;
+		]]>
+	</select>
+	
+  <select id="selectArticle" resultType="articleVO"   parameterType="int">
+    <![CDATA[
+      SELECT * from t_board
+      where articleNO = #{articleNO}		
+    ]]>
+  </select>
+  
+  <update id="updateArticle"  parameterType="java.util.Map">
+			update t_board
+			set title=#{title},	 
+			content=#{content}
+			 <if test="imageFileName!='' and imageFileName!=null">
+			  , imageFileName=#{imageFileName}
+			</if>
+			where articleNO=#{articleNO}
+	</update>
+	
+
+  <!-- 특정 글의 자식 글 번호 조회 -->
+  <select id="selectChildArticles" parameterType="int" resultType="int">
+    SELECT articleNO
+    FROM t_board
+    WHERE parentNO = #{articleNO}
+  </select>
+
+  <!-- 글 삭제 (여러 개 articleNO 삭제 가능) -->
+  <delete id="deleteArticles" parameterType="list">
+    DELETE FROM t_board
+    WHERE articleNO IN
+    <foreach collection="list" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+ <!--다중 이미지 추가 SQL문 -->   
+  <!--
+    <insert id="insertNewArticle"  parameterType="java.util.Map">
+    <![CDATA[
+      insert into t_board(articleNO, id, title, content, imageFileName)
+      values(#{articleNO}, #{id}, #{title}, #{content}, null)
+    ]]>      
+  </insert>
+
+ 
+   <insert id="insertNewImage"  parameterType="java.util.Map">
+    <foreach item="item"  collection="list"   open="INSERT ALL" 
+                  separator=" " close="SELECT * FROM DUAL" >
+      INTO t_imageFile(imageFileNO, imageFileName, articleNO, regDate)
+      VALUES (#{item.imageFileNO}, #{item.imageFileName}, #{item.articleNO}, sysdate)
+    </foreach>
+  </insert>
+ -->
+ 
+  <select id="selectNewImageFileNO" resultType="int"  >
+    <![CDATA[
+      SELECT  nvl(max(imageFileNO),0) from t_imageFile		
+    ]]>
+  </select>
+	
+
+  <select  id="selectImageFileList" resultMap="imgResult" parameterType="int">
+    <![CDATA[
+      SELECT * from t_imageFile
+      where articleNO=#{articleNO}	
+    ]]>
+  </select> 
+  
+</mapper>
