@@ -45,4 +45,9 @@ public class ItemControllerImpl implements ItemController {
     public ModelAndView itemDB(HttpServletRequest request, HttpServletResponse response) throws Exception {
         return new ModelAndView("redirect:/item/listItems.do");
     }
+    
+    @RequestMapping(value = "/etcItemDB.do", method = RequestMethod.GET)
+    public ModelAndView etcItemDB(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	return new ModelAndView("redirect:/item/listItems.do");
+    }
 }
