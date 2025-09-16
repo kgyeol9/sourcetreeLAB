@@ -15,11 +15,11 @@
 #header {
 }
 
- #sidebar-left {
+#sidebar-left {
 	width: 15%;
 	height: 700px;
 	float: left;
-} 
+}
 
 #content {
 	width: 75%;
@@ -30,7 +30,7 @@
 	clear: both;
 }
 </style>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/hee.css">
 <title><tiles:insertAttribute name="title" /></title>
 </head>
 <body>
