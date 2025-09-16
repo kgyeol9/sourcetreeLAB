@@ -1,0 +1,36 @@
+:root {
+  --bg-dark: #0a0001;        /* 검정 */
+  --bg-gray: #2a2a2a;        /* 짙은 회색 */
+  --bg-red: #1b0002;         /* 딥 레드 */
+
+  --header-bg: linear-gradient(-45deg, #0a0001, #1b0002, #2a2a2a); 
+  --sidebar-bg: linear-gradient(-45deg, #0a0001, #1b0002, #2a2a2a);
+
+  --card-dark: #0c0000;
+  --card-mid: #200000;
+
+  --ink: #eaeaea;
+  --muted: #888;
+
+  /* 포인트 컬러 */
+  --accent: #b22222;       /* Firebrick Red */
+  --accent-hover: #e53935; /* 강한 붉은 hover */
+  --accent-soft: #8B0000;  /* Dark Red */
+
+  --border: #330000;
+}
+
+/* === 공통 === */
+body {
+  margin: 0;
+  font-family: 'Noto Sans KR', 'Nanum Gothic', sans-serif;
+
+  /* 검정 + 회색 + 붉은 오로라 애니메이션 */
+  background: linear-gradient(-45deg, var(--bg-dark), var(--bg-gray), var(--bg-red), #000);
+  background-size: 400% 400%;
+  animation: auroraFlow 30s ease infinite;
+
+  color: var(--ink);
+  line-height: 1.6;
+  min-height: 100vh;
+}

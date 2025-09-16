@@ -1,12 +1,12 @@
-/* 로고 폰트 */
+/* 濡쒓퀬 �룿�듃 */
 @import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap');
-/* 바디 & 사이드바 폰트 */
+/* 諛붾뵒 & �궗�씠�뱶諛� �룿�듃 */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Nanum+Gothic:wght@400;700&display=swap');
 
 :root {
-  --bg-dark: #0a0001;        /* 검정 */
-  --bg-gray: #2a2a2a;        /* 짙은 회색 */
-  --bg-red: #1b0002;         /* 딥 레드 */
+  --bg-dark: #0a0001;        /* 寃��젙 */
+  --bg-gray: #2a2a2a;        /* 吏숈� �쉶�깋 */
+  --bg-red: #1b0002;         /* �뵦 �젅�뱶 */
 
   --header-bg: linear-gradient(-45deg, #0a0001, #1b0002, #2a2a2a); 
   --sidebar-bg: linear-gradient(-45deg, #0a0001, #1b0002, #2a2a2a);
@@ -17,20 +17,20 @@
   --ink: #eaeaea;
   --muted: #888;
 
-  /* 포인트 컬러 */
+  /* �룷�씤�듃 而щ윭 */
   --accent: #b22222;       /* Firebrick Red */
-  --accent-hover: #e53935; /* 강한 붉은 hover */
+  --accent-hover: #e53935; /* 媛뺥븳 遺됱� hover */
   --accent-soft: #8B0000;  /* Dark Red */
 
   --border: #330000;
 }
 
-/* === 공통 === */
+/* === 怨듯넻 === */
 body {
   margin: 0;
   font-family: 'Noto Sans KR', 'Nanum Gothic', sans-serif;
 
-  /* 검정 + 회색 + 붉은 오로라 애니메이션 */
+  /* 寃��젙 + �쉶�깋 + 遺됱� �삤濡쒕씪 �븷�땲硫붿씠�뀡 */
   background: linear-gradient(-45deg, var(--bg-dark), var(--bg-gray), var(--bg-red), #000);
   background-size: 400% 400%;
   animation: auroraFlow 30s ease infinite;
@@ -53,7 +53,7 @@ a {
 }
 a:hover { color: var(--accent-hover); }
 
-/* === 헤더 === */
+/* === �뿤�뜑 === */
 header {
   background: var(--header-bg);
   backdrop-filter: blur(4px);
@@ -67,12 +67,12 @@ header {
   align-items: center;
   justify-content: space-between;
 
-  /* 경계선 대신 은은한 그림자 */
+  /* 寃쎄퀎�꽑 ���떊 �����븳 洹몃┝�옄 */
   box-shadow: inset 0 -1px 6px rgba(178,34,34,0.4);
 }
 
 header .logo {
-  font-family: 'Fredericka the Great', cursive; /* 로고 폰트 */
+  font-family: 'Fredericka the Great', cursive; /* 濡쒓퀬 �룿�듃 */
   font-size: 1.8em;
   font-weight: 700;
   background: linear-gradient(90deg, #660000, #B22222, #FF4444);
@@ -89,7 +89,7 @@ header .logo {
   100% { text-shadow: 0 0 18px rgba(229,57,53,0.9), 0 0 36px rgba(178,34,34,0.6); }
 }
 
-/* 네비게이션 */
+/* �꽕鍮꾧쾶�씠�뀡 */
 nav.center-nav {
   display: flex;
   gap: 20px;
@@ -120,7 +120,7 @@ nav.center-nav a:hover { color: var(--accent-hover); }
   box-shadow: 0 0 8px rgba(229,57,53,0.6);
 }
 
-/* === 사이드 메뉴 (오른쪽 토글) === */
+/* === �궗�씠�뱶 硫붾돱 (�삤瑜몄そ �넗湲�) === */
 .side-menu {
   position: fixed;
   top: 0; right: -100%;
@@ -140,19 +140,19 @@ nav.center-nav a:hover { color: var(--accent-hover); }
   cursor: pointer;
 }
 
-/* === 사이드바 === */
+/* === �궗�씠�뱶諛� === */
 .sidebar {
   position: fixed;
   top: 70px; left: 0;
   width: 250px;
   height: calc(100vh - 70px);
 
-  /* 왼쪽 위 붉은기 → 전체는 블랙/그레이 */
+  /* �쇊履� �쐞 遺됱�湲� �넂 �쟾泥대뒗 釉붾옓/洹몃젅�씠 */
   background: radial-gradient(
     circle at top left,
-    rgba(90,0,0,0.35) 0%,   /* 왼쪽 위 붉은기 살짝 */
-    #1a1a1a 30%,            /* 빠르게 다크그레이 */
-    #0c0c0c 100%            /* 전체 블랙 */
+    rgba(90,0,0,0.35) 0%,   /* �쇊履� �쐞 遺됱�湲� �궡吏� */
+    #1a1a1a 30%,            /* 鍮좊Ⅴ寃� �떎�겕洹몃젅�씠 */
+    #0c0c0c 100%            /* �쟾泥� 釉붾옓 */
   );
 
   border-right: 1px solid var(--border);
@@ -161,27 +161,27 @@ nav.center-nav a:hover { color: var(--accent-hover); }
   box-sizing: border-box;
   z-index: 900;
 
-  /* 붉은기 최소화된 subtle inset shadow */
+  /* 遺됱�湲� 理쒖냼�솕�맂 subtle inset shadow */
   box-shadow: inset -1px 0 6px rgba(0,0,0,0.6),
               inset 0 8px 10px rgba(100,0,0,0.25);
 }
 
-/* 스크롤바 */
+/* �뒪�겕濡ㅻ컮 */
 .sidebar::-webkit-scrollbar { width: 8px; }
 .sidebar::-webkit-scrollbar-thumb {
   background: rgba(80, 80, 90, 0.6);
   border-radius: 4px;
 }
 .sidebar::-webkit-scrollbar-thumb:hover {
-  background: rgba(230, 220, 170, 0.4); /* hover 시 옅은 노랑빛 */
+  background: rgba(230, 220, 170, 0.4); /* hover �떆 �쁾�� �끂�옉鍮� */
 }
 
-/* 사이드바 글씨 */
+/* �궗�씠�뱶諛� 湲��뵪 */
 .sidebar h3 {
   font-family: 'Noto Sans KR', 'Nanum Gothic', sans-serif;
   font-size: 1.2em;
-  color: var(--accent-soft); /* 다크 레드 계열 */
-  text-shadow: 0 0 6px rgba(139,0,0,0.6); /* 기존 붉은 느낌 */
+  color: var(--accent-soft); /* �떎�겕 �젅�뱶 怨꾩뿴 */
+  text-shadow: 0 0 6px rgba(139,0,0,0.6); /* 湲곗〈 遺됱� �뒓�굦 */
   margin-bottom: 0.8em;
 }
 
@@ -191,10 +191,10 @@ nav.center-nav a:hover { color: var(--accent-hover); }
   transition: color 0.3s;
 }
 .sidebar a:hover {
-  color: #e5e1c9; /* hover 시 은은한 아이보리빛 */
+  color: #e5e1c9; /* hover �떆 �����븳 �븘�씠蹂대━鍮� */
 }
 
-/* === 카드/섹션 === */
+/* === 移대뱶/�꽮�뀡 === */
 main {
   margin-left: 270px;
   margin-top: 90px;
@@ -203,9 +203,9 @@ main {
 }
 section {
   background: 
-    radial-gradient(circle at 70% 30%, rgba(230, 220, 170, 0.15), transparent 60%), /* 아이보리/옐로우 빛 안개 */
-    radial-gradient(circle at 20% 80%, rgba(200, 190, 150, 0.12), transparent 70%), /* 흐린 안개 추가 */
-    linear-gradient(160deg, #0a0d14, #1b1f26 70%); /* 어두운 블루그레이 기반 */
+    radial-gradient(circle at 70% 30%, rgba(230, 220, 170, 0.15), transparent 60%), /* �븘�씠蹂대━/�삉濡쒖슦 鍮� �븞媛� */
+    radial-gradient(circle at 20% 80%, rgba(200, 190, 150, 0.12), transparent 70%), /* �쓲由� �븞媛� 異붽� */
+    linear-gradient(160deg, #0a0d14, #1b1f26 70%); /* �뼱�몢�슫 釉붾（洹몃젅�씠 湲곕컲 */
   padding: 1.5em 2em;
   margin-bottom: 2em;
   border-radius: 10px;
@@ -216,25 +216,25 @@ section {
 
 section:hover {
   transform: translateY(-3px);
-  box-shadow: 0 0 35px rgba(230, 220, 170, 0.25); /* hover 시 안개빛 강조 */
+  box-shadow: 0 0 35px rgba(230, 220, 170, 0.25); /* hover �떆 �븞媛쒕튆 媛뺤“ */
 }
 
 section h2 {
-  border-bottom: 2px solid var(--accent); /* 포인트는 붉은 라인 */
+  border-bottom: 2px solid var(--accent); /* �룷�씤�듃�뒗 遺됱� �씪�씤 */
   padding-bottom: 0.3em;
   margin-bottom: 1em;
   
-  /* 글자 색상만 블루그레이 톤으로 */
+  /* 湲��옄 �깋�긽留� 釉붾（洹몃젅�씠 �넠�쑝濡� */
   color: #a7b0c0;
   
   font-weight: 700;
-  text-shadow: none; /* 번짐 제거 */
-  animation: none;   /* glow 효과 제거 */
+  text-shadow: none; /* 踰덉쭚 �젣嫄� */
+  animation: none;   /* glow �슚怨� �젣嫄� */
 }
 
 
 
-/* === 그리드 레이아웃 === */
+/* === 洹몃━�뱶 �젅�씠�븘�썐 === */
 .grid-layout {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -245,19 +245,19 @@ section h2 {
   .grid-layout { grid-template-columns: 1fr; }
 }
 
-/* === 쌀 계산기 === */
+/* === �� 怨꾩궛湲� === */
 #rice-calculator {
   background: linear-gradient(
       160deg,
-      rgba(15, 15, 25, 1) 0%,     /* 블루그레이 다크 */
-      rgba(25, 25, 35, 0.95) 40%,     /* 더 진한 블루그레이 */
-      rgba(240, 220, 160, 0.09) 100% /* 아이보리/옐로우 안개 */
+      rgba(15, 15, 25, 1) 0%,     /* 釉붾（洹몃젅�씠 �떎�겕 */
+      rgba(25, 25, 35, 0.95) 40%,     /* �뜑 吏꾪븳 釉붾（洹몃젅�씠 */
+      rgba(240, 220, 160, 0.09) 100% /* �븘�씠蹂대━/�삉濡쒖슦 �븞媛� */
   );
   padding: 2em;
   border-radius: 8px;
   border: 1px solid var(--border);
-  box-shadow: 0 0 25px rgba(240, 220, 160, 0.15), /* 아이보리 빛 */
-              0 0 15px rgba(0, 0, 0, 0.6) inset; /* 내부 깊이 */
+  box-shadow: 0 0 25px rgba(240, 220, 160, 0.15), /* �븘�씠蹂대━ 鍮� */
+              0 0 15px rgba(0, 0, 0, 0.6) inset; /* �궡遺� 源딆씠 */
   margin-bottom: 2em;
   transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -287,4 +287,6 @@ section h2 {
   box-shadow: 0 0 35px rgba(240, 220, 160, 0.25),
               0 0 20px rgba(0, 0, 0, 0.7) inset;
 }
+
+
 

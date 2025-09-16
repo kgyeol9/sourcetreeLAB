@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <style>
+
 #container {
 	width: 100%;
 }
@@ -30,6 +31,7 @@
 	clear: both;
 }
 </style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout_noside.css">
 <title><tiles:insertAttribute name="title" /></title>
 </head>
 <body>

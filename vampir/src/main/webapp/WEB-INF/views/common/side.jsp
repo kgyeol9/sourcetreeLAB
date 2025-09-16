@@ -7,34 +7,28 @@
 <meta charset="UTF-8">
 <title>사이드 메뉴</title>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/hee.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/side.css">
 </head>
 <body>
   <div class="sidebar">
     <div class="subcategory" id="c1">
-      <h3>대분류 1</h3>
-      <ul><li><a href="#">소분류 1</a></li><li><a href="#">소분류 2</a></li><li><a href="#">소분류 3</a></li></ul>
+      <h3>DB</h3> 
+      <ul><li><a href="#">아이템DB</a></li><li><a href="#">형상/탈것DB</a></li><li><a href="#">몬스터DB</a></li><li><a href="#">스킬DB</a></li><li><a href="#">맵DB</a></li><li><a href="#">내실DB</a></li></ul>
     </div>
     <div class="subcategory" id="c2">
-      <h3>대분류 2</h3>
-      <ul><li><a href="#">소분류 1</a></li><li><a href="#">소분류 2</a></li><li><a href="#">소분류 3</a></li></ul>
+      <h3>게시판</h3>
+      <ul><li><a href="#">자유/질문 게시판</a></li><li><a href="#">공략 게시판</a></li><li><a href="#">파티 게시판</a></li><li><a href="#">길드 게시판</a></li><li><a href="#">월드 게시판</a></li><li><a href="#">직업 게시판</a></li></ul>
     </div>
     <div class="subcategory" id="c3">
-      <h3>대분류 3</h3>
-      <ul><li><a href="#">소분류 1</a></li><li><a href="#">소분류 2</a></li><li><a href="#">소분류 3</a></li></ul>
+      <h3>새소식</h3>
+      <ul><li><a href="#">공지사항</a></li><li><a href="#">업데이트</a></li><li><a href="#">이벤트</a></li><li><a href="#">개발자 노트</a></li></ul>
     </div>
     <div class="subcategory" id="c4">
-      <h3>대분류 4</h3>
-      <ul><li><a href="#">소분류 1</a></li><li><a href="#">소분류 2</a></li><li><a href="#">소분류 3</a></li></ul>
+      <h3>고객센터</h3>
+      <ul><li><a href="#">1:1문의</a></li><li><a href="#">자주묻는 질문</a></li></ul>
     </div>
-    <div class="subcategory" id="c5">
-      <h3>대분류 5</h3>
-      <ul><li><a href="#">소분류 1</a></li><li><a href="#">소분류 2</a></li><li><a href="#">소분류 3</a></li></ul>
-    </div>
-    <div class="subcategory" id="c6">
-      <h3>대분류 6</h3>
-      <ul><li><a href="#">소분류 1</a></li><li><a href="#">소분류 2</a></li><li><a href="#">소분류 3</a></li></ul>
-    </div>
+    
+    
   </div>
 
   <script>

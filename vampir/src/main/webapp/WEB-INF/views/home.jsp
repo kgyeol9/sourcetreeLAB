@@ -13,7 +13,7 @@
 <head>
 <meta charset="UTF-8" />
 <title>뱀피지지 - 비로그인</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/hee.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
 <style>
 body {
 	margin: 0;
@@ -98,34 +98,9 @@ main {
 	}
 }
 
-section {
-	background: #1f1f1f;
-	margin-bottom: 2em;
-	padding: 1.5em 2em;
-	border-radius: 8px;
-	box-shadow: 0 0 8px #bb000033;
-}
 
-section h2 {
-	border-bottom: 2px solid #bb0000;
-	padding-bottom: 0.3em;
-	margin-bottom: 1em;
-	color: #ff5555;
-}
 
-ul {
-	list-style: none;
-	padding-left: 0;
-}
 
-li {
-	padding: 0.4em 0;
-	border-bottom: 1px solid #333;
-}
-
-li:last-child {
-	border-bottom: none;
-}
 </style>
 </head>
 
