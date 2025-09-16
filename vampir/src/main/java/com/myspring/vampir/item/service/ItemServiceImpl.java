@@ -18,4 +18,9 @@ public class ItemServiceImpl implements ItemService {
 	public List<Map<String, Object>> listItemsUnified() {
 		return itemDAO.selectAllUnified();
 	}
+
+	@Override
+	public List<Map<String, Object>> listEtcItemsUnified() {
+		return itemDAO.selectEtcUnified();
+	}
 }

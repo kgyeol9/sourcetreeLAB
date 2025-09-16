@@ -24,5 +24,15 @@ public class ItemDAOImpl implements ItemDAO {
 	    return sqlSession.selectList("mapper.itemUnified.selectAllAsMap");
 	}
 
+	@Override
+	public List<Map<String, Object>> selectEtcUnified() throws DataAccessException {
+
+		String curDB = sqlSession.selectOne("mapper.consumable.currentDatabase");
+		Integer consume = sqlSession.selectOne("mapper.consumable.countConsumable");
+		System.out.println("[DEBUG] DB=" + curDB + ", consumableDB count=" + consume);
+		
+		return sqlSession.selectList("mapper.etcitemUnified.selectEtcAsMap");
+	}
+
 
 }

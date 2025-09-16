@@ -8,4 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 public interface ItemController {
 	public ModelAndView listItems(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
+	ModelAndView listEtcItems(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
 }

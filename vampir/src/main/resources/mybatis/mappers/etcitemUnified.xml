@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.etcitemUnified">
+  <select id="selectEtcAsMap" resultType="map">
+    <![CDATA[
+    /* 공통 컬럼: item_code, name, imgPath, quality, category, job,
+                 min_ATK, max_ATK, add_ATK, accuracy, critical, obtain_source */
+
+    SELECT c.item_code AS item_code,
+           c.name      AS name,
+           c.imgPath   AS imgPath,
+           c.quality   AS quality,
+           '소모품'     AS category,
+           NULL        AS job,
+           0           AS min_ATK,
+           0           AS max_ATK,
+           0           AS add_ATK,
+           0           AS accuracy,
+           0           AS critical,
+           c.obtain_source AS obtain_source
+    FROM consumableDB c
+
+    UNION ALL
+    SELECT s.item_code, s.name, s.imgPath, s.quality,
+           '스킬북', NULL, 0,0,0,0,0, s.obtain_source
+    FROM skillbookDB s
+
+    UNION ALL
+    SELECT m.item_code, m.name, m.imgPath, m.quality,
+           '재료', NULL, 0,0,0,0,0, m.obtain_source
+    FROM materialDB m
+
+    ORDER BY CAST(item_code AS UNSIGNED), item_code
+    ]]>
+  </select>
+</mapper>

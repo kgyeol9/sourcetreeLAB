@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<definition name="baseLayout"
+		template="/WEB-INF/views/common/layout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header"
+			value="/WEB-INF/views/common/header.jsp" />
+		<put-attribute name="side"
+			value="/WEB-INF/views/common/side.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer"
+			value="/WEB-INF/views/common/footer.jsp" />
+	</definition>
+
+	<definition name="itemDB" extends="baseLayout">
+		<put-attribute name="title" value="장비DB" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/itemDB.jsp" />
+	</definition>
+
+	<definition name="etcDB" extends="baseLayout">
+		<put-attribute name="title" value="ETC-PROBE"/>
+		<put-attribute name="body"
+			value="/WEB-INF/views/etcDB.jsp" />
+	</definition>
+
+	<!-- home.jsp를 메인으로 쓴다면 -->
+	<definition name="home" extends="baseLayout">
+		<put-attribute name="title" value="홈" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/home.jsp" />
+	</definition>
+</tiles-definitions>

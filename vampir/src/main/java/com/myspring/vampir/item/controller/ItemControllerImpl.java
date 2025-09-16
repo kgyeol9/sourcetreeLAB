@@ -45,4 +45,21 @@ public class ItemControllerImpl implements ItemController {
     public ModelAndView itemDB(HttpServletRequest request, HttpServletResponse response) throws Exception {
         return new ModelAndView("redirect:/item/listItems.do");
     }
+    
+    @Override
+    @RequestMapping(value = "/item/listEtcItems.do", method = RequestMethod.GET)
+    public ModelAndView listEtcItems(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	List<Map<String, Object>> etcitemsList = itemService.listEtcItemsUnified();
+    	
+    	System.out.println("[DEBUG] etcitemsList size = " + (etcitemsList == null ? "null" : etcitemsList.size()));
+    	
+    	ModelAndView mav = new ModelAndView("etcDB");
+    	mav.addObject("etcitemsList", etcitemsList);
+    	return mav;
+    }
+    
+    @RequestMapping(value = "/etcDB.do", method = RequestMethod.GET)
+    public ModelAndView EtcItemDB(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	return new ModelAndView("redirect:/item/listEtcItems.do");
+    }
 }

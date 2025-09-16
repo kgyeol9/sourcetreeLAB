@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.consumable">
+  <!-- 디버그용: 현재 DB 이름 -->
+  <select id="currentDatabase" resultType="string">
+    SELECT DATABASE()
+  </select>
+
+  <!-- 소모품 테이블 개수 (테이블명은 환경에 맞게 조정) -->
+  <select id="countConsumable" resultType="int">
+    SELECT COUNT(*) FROM consumableDB
+  </select>
+</mapper>
