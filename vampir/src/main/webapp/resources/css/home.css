@@ -18,8 +18,8 @@
   --muted: #888;
 
   /* 포인트 컬러 */
-  --accent: #b22222;       /* Firebrick Red */
-  --accent-hover: #e53935; /* 강한 붉은 hover */
+  --accent: #9c8347;       /* Firebrick Red */
+  --accent-hover: #e5e1c9; /* 강한 붉은 hover */
   --accent-soft: #8B0000;  /* Dark Red */
 
   --border: #330000;
@@ -86,7 +86,7 @@ section h2 {
   margin-bottom: 1em;
   
   /* 글자 색상만 블루그레이 톤으로 */
-  color: #a7b0c0;
+  color: #bbb;
   
   font-weight: 700;
   text-shadow: none; /* 번짐 제거 */
