@@ -30,6 +30,7 @@
 	clear: both;
 }
 </style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home.css">
 <title><tiles:insertAttribute name="title" /></title>
 </head>
 <body>

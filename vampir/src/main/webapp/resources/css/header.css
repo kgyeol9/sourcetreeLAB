@@ -1,0 +1,72 @@
+/* === 헤더 === */
+header {
+  background: var(--header-bg);
+  backdrop-filter: blur(4px);
+  padding: 0 2em;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 70px;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  /* 경계선 대신 은은한 그림자 */
+  box-shadow: inset 0 -1px 6px rgba(178,34,34,0.4);
+}
+
+header .logo {
+  font-family: 'Fredericka the Great', cursive; /* 로고 폰트 */
+  font-size: 1.8em;
+  font-weight: 700;
+  background: linear-gradient(90deg, #660000, #B22222, #FF4444);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 12px rgba(178,34,34,0.6), 0 0 24px rgba(229,57,53,0.4);
+  cursor: pointer;
+  letter-spacing: 1px;
+  animation: logoGlow 6s ease-in-out infinite alternate;
+}
+
+@keyframes logoGlow {
+  0% { text-shadow: 0 0 8px rgba(178,34,34,0.6); }
+  100% { text-shadow: 0 0 18px rgba(229,57,53,0.9), 0 0 36px rgba(178,34,34,0.6); }
+}
+
+/* 네비게이션 */
+nav.center-nav {
+  display: flex;
+  gap: 20px;
+}
+nav.center-nav a { font-weight: 500; }
+nav.center-nav a:hover { color: var(--accent-hover); }
+
+.settings {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.settings button,
+.settings a {
+  background: #1a1a1a;
+  color: var(--ink);
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+}
+.settings button:hover,
+.settings a:hover {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 0 8px rgba(229,57,53,0.6);
+}
+
+a {
+  text-decoration: none;
+  color: var(--ink);
+  transition: color 0.3s;
+}

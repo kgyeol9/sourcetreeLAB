@@ -13,19 +13,8 @@
 <head>
 <meta charset="UTF-8" />
 <title>뱀피지지 - 비로그인</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/hee.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home.css">
 <style>
-body {
-	margin: 0;
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	
-	color: #eee;
-	transition: background 0.3s, color 0.3s;
-}
-
-a {
-	text-decoration: none;
-}
 
 /* 쌀 계산기 */
 #rice-calculator {
@@ -36,41 +25,6 @@ a {
 	border-radius: 8px;
 	box-shadow: 0 0 8px #bb000033;
 	margin-bottom: 2em;
-}
-
-.calc-container {
-	display: flex;
-	align-items: center;
-	gap: 1em;
-	flex-wrap: wrap;
-}
-
-.calc-container .input-group {
-	display: flex;
-	flex-direction: column;
-	flex: 1 1 200px;
-}
-
-.calc-container input {
-	padding: 8px;
-	border-radius: 4px;
-	border: 1px solid #333;
-	background: #222;
-	color: #eee;
-}
-
-#swapBtn {
-	background: #bb0000;
-	color: #fff;
-	border: none;
-	padding: 8px 12px;
-	border-radius: 4px;
-	cursor: pointer;
-	font-size: 1.2em;
-}
-
-#swapBtn:hover {
-	background: #ff4444;
 }
 
 /* 메인 콘텐츠 위치 조정 */
@@ -98,46 +52,21 @@ main {
 	}
 }
 
-section {
-	background: #1f1f1f;
-	margin-bottom: 2em;
-	padding: 1.5em 2em;
-	border-radius: 8px;
-	box-shadow: 0 0 8px #bb000033;
-}
 
-section h2 {
-	border-bottom: 2px solid #bb0000;
-	padding-bottom: 0.3em;
-	margin-bottom: 1em;
-	color: #ff5555;
-}
 
-ul {
-	list-style: none;
-	padding-left: 0;
-}
 
-li {
-	padding: 0.4em 0;
-	border-bottom: 1px solid #333;
-}
-
-li:last-child {
-	border-bottom: none;
-}
 </style>
 </head>
 
 <body>
 
 	<!-- 사이드 메뉴 -->
-	<div class="side-menu" id="sideMenu">
+	<!--<div class="side-menu" id="sideMenu">
 		<button class="close-btn" id="closeMenu">✕</button>
 		<h3>메뉴</h3>
 		<a href="#game-info">게임 정보</a> <a href="#community">커뮤니티</a> <a
 			href="#notices">공지사항</a> <a href="#events">이벤트</a>
-	</div>
+	</div>-->
 
 	<!-- 메인 콘텐츠 -->
 	<main>
@@ -162,7 +91,7 @@ li:last-child {
 		<!-- 기존 콘텐츠 -->
 		<div class="grid-layout">
 			<section id="game-info">
-				<h2>게임 정보</h2>
+				<h2>인기 게시판</h2><!--자유/질문게시판 -->>
 				<ul>
 					<li>클래스 소개: 밤의 사냥꾼, 피의 마도사, 고대 군주</li>
 					<li>맵과 지역: 도시 전역 및 전략적 위치 가이드</li>
@@ -171,7 +100,7 @@ li:last-child {
 				</ul>
 			</section>
 			<section id="community">
-				<h2>커뮤니티</h2>
+				<h2>실시간 파티</h2> <!-- 파티원 모집 -->>
 				<ul>
 					<li>[질문] 신규 유저 추천 클래스는?</li>
 					<li>[팁] 효율적인 은신 및 기습 공격 방법</li>
@@ -180,15 +109,15 @@ li:last-child {
 				</ul>
 			</section>
 			<section id="notices">
-				<h2>공지사항</h2>
+				<h2>best 공략</h2>
 				<ul>
 					<li>8/20 ~ 8/31 스크린샷 콘테스트 진행 중</li>
 					<li>9월 대규모 업데이트 예고</li>
 					<li>한정판 아이템 획득 이벤트</li>
 				</ul>
 			</section>
-			<section id="events">
-				<h2>이벤트</h2>
+			<section id="notices">
+				<h2>공지사항</h2>
 				<ul>
 					<li>길드 모집 게시판</li>
 					<li>친구 및 파티 매칭</li>

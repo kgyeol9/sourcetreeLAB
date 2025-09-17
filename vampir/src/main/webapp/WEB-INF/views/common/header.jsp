@@ -12,150 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>헤더</title>
-<style>
-    /* 헤더 스타일 */
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* 왼쪽-중앙-오른쪽 배치 */
-  width: 100%;
-  height: 70px;
-  padding: 0 20px;
-  background: #333;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-}
-
-    /* 본문과 사이드바가 헤더와 겹치지 않도록 */
-    body {
-        margin: 0;  
-        padding-top: 103px; /* header 높이만큼 아래로 밀기 */
-    }
-
-/* 로고: 왼쪽 */
-header .logo {
-  font-size: 1.8em;
-  color: #bb0000;
-  cursor: pointer;
-  font-weight: 600;
-  margin: 0;
-  text-decoration: none;
-}
-
-/* nav: 중앙 */
-nav.center-nav {
-  flex: 1; /* 남는 공간 차지 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-}
-
-nav.center-nav a {
-	color: #eee;
-	font-weight: 600;
-}
-
-nav.center-nav a:hover {
-	color: #ff4444;
-}
-/* 설정(버튼 영역): 오른쪽 */
-.settings {
-  display: flex;
-  gap: 15px;
-  max-width: 300px;  /* 필요에 따라 조절 */
-  margin-right: 45px;
-  overflow: hidden;  /* 넘치면 숨김 */
-}
-
-.settings button, .settings a {
-	background: #333;
-	color: #eee;
-	padding: 6px 12px;
-	border-radius: 4px;
-	border: none;
-	cursor: pointer;
-	font-weight: 600;
-}
-
-.settings button:hover, .settings a:hover {
-	background: #bb0000;
-}
-/* 사이드 메뉴 (완전히 숨기기 + 닫기 버튼) */
-.side-menu {
-	position: fixed;
-	top: 0;
-	right: -100%;
-	/* 아예 화면 밖으로 */
-	width: 250px;
-	height: 100%;
-	background: #1c1c1c;
-	padding: 2em 1.5em;
-	transition: right 0.3s ease;
-	box-shadow: -2px 0 5px #00000088;
-	z-index: 20;
-}
-
-.side-menu.active {
-	right: 0;
-}
-
-.side-menu h3 {
-	margin-top: 0;
-	color: #ff5555;
-}
-
-.side-menu a {
-	display: block;
-	margin: 1em 0;
-	color: #eee;
-}
-
-.side-menu .close-btn {
-	background: none;
-	border: none;
-	color: #eee;
-	font-size: 1.2em;
-	position: absolute;
-	top: 10px;
-	right: 15px;
-	cursor: pointer;
-}
-/* 버튼과 드롭다운을 묶는 래퍼 */
-.profile-dropdown {
-	position: relative; /* 이 안에서 absolute가 위치 잡음 */
-	display: inline-block;
-}
-
-/* 드롭다운 박스 */
-.logOn-box {
-	position: absolute;
-	top: 100%;      /* 버튼 바로 아래 */
-	left: 0;        /* 버튼 왼쪽을 기준으로 펼치기 */
-	/* right: 0;  <- 삭제 */
-
-	background: #1f1f1f;
-	padding: 1em;
-	border-radius: 8px;
-	box-shadow: 0 0 8px #bb000033;
-	width: 280px;
-	z-index: 999;
-
-	transform: translateY(-10px);
-	opacity: 0;
-	pointer-events: none;
-	transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.logOn-box.show {
-	transform: translateY(0);
-	opacity: 1;
-	pointer-events: auto;
-}
-
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
 
 </head>
 <body>
@@ -164,11 +21,11 @@ nav.center-nav a:hover {
 			<td><header>
 					<a href="${contextPath}/home.do" class="logo">VAMPI.GG</a>
 					<nav class="center-nav">
-						<a href="${contextPath}/itemDB.do">아이템DB</a>
-						<a href="#game-info">게임 정보</a>
+						<a href="#notices">새소식</a>
+						<a href="${contextPath}/itemDB.do">DB</a>
+						<a href="#game-info">인기 게시판</a>
 						<a href="${contextPath}/board/list.do">커뮤니티</a>
-						<a href="#notices">공지사항</a>
-						<a href="#events">이벤트</a>
+						<a href="#">고객센터</a>
 					</nav>
 					<div class="settings">
 					
