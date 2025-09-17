@@ -52,6 +52,7 @@ nav.center-nav a:hover {
 	color: var(--accent-hover); }
 
 .settings {
+  font-family: 'Noto Sans KR', 'Nanum Gothic', sans-serif;
   display: flex;
   gap: 15px;
   align-items: center;
@@ -77,5 +78,5 @@ nav.center-nav a:hover {
 a {
   text-decoration: none;
   color: var(--ink);
-  transition: color 0.3s;
+  transition: color 0.3s;  
 }
