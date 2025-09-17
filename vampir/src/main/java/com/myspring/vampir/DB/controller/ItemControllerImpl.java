@@ -1,5 +1,6 @@
 package com.myspring.vampir.DB.controller;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -89,4 +90,87 @@ public class ItemControllerImpl implements ItemController {
 		return mav;
 	}
 
+	/* ===== 컬렉션 ===== */
+	@RequestMapping(value = "/collectionDB.do", method = RequestMethod.GET)
+	public String collectionDB() {
+		return "redirect:/DB/listCollection.do";
+	}
+
+	@RequestMapping(value = "/DB/listCollection.do", method = RequestMethod.GET)
+	public ModelAndView listCollection(HttpServletRequest req, HttpServletResponse res) {
+		ModelAndView mav = new ModelAndView("collectionDB");
+		mav.addObject("collectionList", Collections.emptyList()); // TODO: 서비스 연동
+		mav.addObject("pageActive", "collection");
+		return mav;
+	}
+
+	/* ===== 초상화 ===== */
+	@RequestMapping(value = "/portraitDB.do", method = RequestMethod.GET)
+	public String portraitDB() {
+		return "redirect:/DB/listPortrait.do";
+	}
+
+	@RequestMapping(value = "/DB/listPortrait.do", method = RequestMethod.GET)
+	public ModelAndView listPortrait(HttpServletRequest req, HttpServletResponse res) {
+		ModelAndView mav = new ModelAndView("portraitDB");
+		mav.addObject("portraitList", Collections.emptyList());
+		mav.addObject("pageActive", "portrait");
+		return mav;
+	}
+
+	/* ===== 규율 ===== */
+	@RequestMapping(value = "/disciplineDB.do", method = RequestMethod.GET)
+	public String disciplineDB() {
+		return "redirect:/DB/listDiscipline.do";
+	}
+
+	@RequestMapping(value = "/DB/listDiscipline.do", method = RequestMethod.GET)
+	public ModelAndView listDiscipline(HttpServletRequest req, HttpServletResponse res) {
+		ModelAndView mav = new ModelAndView("disciplineDB");
+		mav.addObject("disciplineList", Collections.emptyList());
+		mav.addObject("pageActive", "discipline");
+		return mav;
+	}
+
+	/* ===== 마력연구 ===== */
+	@RequestMapping(value = "/magicDB.do", method = RequestMethod.GET)
+	public String magicDB() {
+		return "redirect:/DB/listMagicResearch.do";
+	}
+
+	@RequestMapping(value = "/DB/listMagicResearch.do", method = RequestMethod.GET)
+	public ModelAndView listMagicResearch(HttpServletRequest req, HttpServletResponse res) {
+		ModelAndView mav = new ModelAndView("magicDB"); // 파일명과 일치
+		mav.addObject("magicList", Collections.emptyList());
+		mav.addObject("pageActive", "magic");
+		return mav;
+	}
+
+	/* ===== 아티팩트 ===== */
+	@RequestMapping(value = "/artifactDB.do", method = RequestMethod.GET)
+	public String artifactDB() {
+		return "redirect:/DB/listArtifact.do";
+	}
+
+	@RequestMapping(value = "/DB/listArtifact.do", method = RequestMethod.GET)
+	public ModelAndView listArtifact(HttpServletRequest req, HttpServletResponse res) {
+		ModelAndView mav = new ModelAndView("artifactDB");
+		mav.addObject("artifactList", Collections.emptyList());
+		mav.addObject("pageActive", "artifact");
+		return mav;
+	}
+
+	/* ===== 세피라 ===== */
+	@RequestMapping(value = "/sephiraDB.do", method = RequestMethod.GET)
+	public String sephiraDB() {
+		return "redirect:/DB/listSephira.do";
+	}
+
+	@RequestMapping(value = "/DB/listSephira.do", method = RequestMethod.GET)
+	public ModelAndView listSephira(HttpServletRequest req, HttpServletResponse res) {
+		ModelAndView mav = new ModelAndView("sephiraDB");
+		mav.addObject("sephiraList", Collections.emptyList());
+		mav.addObject("pageActive", "sephira");
+		return mav;
+	}
 }
