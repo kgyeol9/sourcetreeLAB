@@ -1,5 +1,12 @@
+/* 로고 폰트 */
+@import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap');
+/* 바디 & 사이드바 폰트 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Nanum+Gothic:wght@400;700&display=swap');
+
 /* === 헤더 === */
+
 header {
+  font-family: 'Noto Sans KR', 'Nanum Gothic', sans-serif;
   background: var(--header-bg);
   backdrop-filter: blur(4px);
   padding: 0 2em;
@@ -39,8 +46,10 @@ nav.center-nav {
   display: flex;
   gap: 20px;
 }
-nav.center-nav a { font-weight: 500; }
-nav.center-nav a:hover { color: var(--accent-hover); }
+nav.center-nav a {	
+	font-weight: 500; }
+nav.center-nav a:hover {
+	color: var(--accent-hover); }
 
 .settings {
   display: flex;

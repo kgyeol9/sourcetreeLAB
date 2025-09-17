@@ -4,7 +4,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Nanum+Gothic:wght@400;700&display=swap');
 
 /* === 사이드바 === */
+
+
 .sidebar {
+  font-family: 'Noto Sans KR', 'Nanum Gothic', sans-serif;
   position: fixed;
   top: 70px; left: 0;
   width: 250px;
@@ -36,12 +39,13 @@
   border-radius: 4px;
 }
 .sidebar::-webkit-scrollbar-thumb:hover {
+  
   background: rgba(230, 220, 170, 0.4); /* hover 시 옅은 노랑빛 */
 }
 
 /* 사이드바 글씨 */
 .sidebar h3 {
-  font-family: 'Noto Sans KR', 'Nanum Gothic', sans-serif;
+  
   font-size: 1.2em;
   color: var(--accent-soft); /* 다크 레드 계열 */
   text-shadow: 0 0 6px rgba(139,0,0,0.6); /* 기존 붉은 느낌 */
@@ -49,20 +53,24 @@
 }
 
 .sidebar a {
+  
   color: #bbb;
   font-weight: 600;
   transition: color 0.3s;
 }
 .sidebar a:hover {
+  
   color: #e5e1c9; /* hover 시 은은한 아이보리빛 */
 }
 
 ul {
+	
 	list-style: none;
 	padding-left: 0;
 }
 
 li {
+	
 	padding: 0.4em 0;
 	border-bottom: 1px solid #333;
 }
