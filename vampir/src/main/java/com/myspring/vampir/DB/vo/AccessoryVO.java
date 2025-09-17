@@ -1,4 +1,4 @@
-package com.myspring.vampir.item.vo;
+package com.myspring.vampir.DB.vo;
 
 import org.springframework.stereotype.Component;
 

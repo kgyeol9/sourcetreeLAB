@@ -1,9 +1,9 @@
-package com.myspring.vampir.item.vo;
+package com.myspring.vampir.DB.vo;
 
 import org.springframework.stereotype.Component;
 
-@Component("itemVO")
-public class ItemVO {
+@Component("WeaponVO")
+public class WeaponVO {
 	private String item_code;
 	private String name;
 	private int upgrade;
@@ -32,10 +32,24 @@ public class ItemVO {
 	private String imgPath;
 	private int img_row;
 	private int img_col;
-	
-	public ItemVO() {}
-	
-	public ItemVO(String item_code, String name, int upgrade, String job, String quality, int min_ATK, int maxATK, int add_ATK, int accracy, int critical, int job_ATK, int job_ACR, int job_amp, int skill_ATK, int skill_ACR, int skill_amp, String engraveOP1, int engravePT1, String engraveOP2, int engravePT2, String engraveOP3, int engravePT3, String skill_name, String skill_comment, String obtain_source, String imgPath, int img_row, int img_col) {
+	private String category;
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public WeaponVO() {
+	}
+
+	public WeaponVO(String item_code, String name, int upgrade, String job, String quality, int min_ATK, int max_ATK,
+			int add_ATK, int accuracy, int critical, int job_ATK, int job_ACR, int job_amp, int skill_ATK,
+			int skill_ACR, int skill_amp, String engraveOP1, int engravePT1, String engraveOP2, int engravePT2,
+			String engraveOP3, int engravePT3, String skill_name, String skill_comment, String obtain_source,
+			String imgPath, int img_row, int img_col) {
 		this.item_code = item_code;
 		this.name = name;
 		this.upgrade = upgrade;
@@ -289,8 +303,7 @@ public class ItemVO {
 	public void setImg_col(int img_col) {
 		this.img_col = img_col;
 	}
-	
-	
+
 }
 // item_code, name, upgrade, job, quality, min_ATK, max_ATK, add_ATK, accuracy,
 // critical, job_ATK, job_ACR, job_amp, skill_ATK, skill_ACR, skill_amp,

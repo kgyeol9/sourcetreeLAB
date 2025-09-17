@@ -1,4 +1,4 @@
-package com.myspring.vampir.item.service;
+package com.myspring.vampir.DB.service;
 
 import java.util.List;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.myspring.vampir.item.dao.ItemDAO;
+import com.myspring.vampir.DB.dao.ItemDAO;
 
 @Service("itemService")
 public class ItemServiceImpl implements ItemService {

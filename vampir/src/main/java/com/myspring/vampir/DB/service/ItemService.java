@@ -1,4 +1,4 @@
-package com.myspring.vampir.item.service;
+package com.myspring.vampir.DB.service;
 
 import java.util.List;
 import java.util.Map;

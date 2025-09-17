@@ -1,4 +1,4 @@
-package com.myspring.vampir.item.controller;
+package com.myspring.vampir.DB.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.myspring.vampir.item.service.ItemService;
+import com.myspring.vampir.DB.service.ItemService;
 
 @Controller // ("itemController") 생략 추천
 public class ItemControllerImpl implements ItemController {
@@ -61,5 +61,15 @@ public class ItemControllerImpl implements ItemController {
     @RequestMapping(value = "/etcDB.do", method = RequestMethod.GET)
     public ModelAndView EtcItemDB(HttpServletRequest request, HttpServletResponse response) throws Exception {
     	return new ModelAndView("redirect:/item/listEtcItems.do");
+    }
+    
+    @Override
+    @RequestMapping(value = "/item/listShapeMount.do", method = RequestMethod.GET)
+    public ModelAndView listShapeMount(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	List<Map<String, Object>> shapeList = itemService.listShapeUnified();
+    	
+    	ModelAndView mav = new ModelAndView("shapeDB");
+    	mav.addObject("shapeList", shapeList);
+    	return mav;
     }
 }

@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="pageActive" value="etc"/>  <%-- 현재 페이지 활성 탭 표기 --%>
 <%@ page session="false"%>
 <%
     request.setCharacterEncoding("UTF-8");
@@ -19,17 +20,41 @@
 /* ===== 공통/테마 ===== */
 body{ margin:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#121212; color:#eee; }
 a{ text-decoration:none; color:inherit; }
-.db-main{ max-width:1200px; margin:110px auto 24px; padding:0 16px; }
+.db-main{ max-width:1200px; margin:16px auto 24px; padding:0 16px; } /* 상단 마진 슬림 */
 .card{ background:#1f1f1f; border:1px solid #333; border-radius:10px; }
 
-/* 버튼/타이틀 */
+/* 버튼/타이틀(제목은 사용 안함 보관) */
 .btn-primary{ background:#bb0000; color:#fff; border:none; border-radius:8px; font-weight:700; cursor:pointer; padding:10px 12px; }
 .btn-primary:hover{ background:#ff4444; }
-.page-title{ font-size:20px; margin:0 0 12px; padding-bottom:8px; border-bottom:2px solid #bb0000; color:#ffdddd; }
+
+/* ===== 상단 DB 스위치 (리스트/카드 토글 느낌 재사용) ===== */
+.db-switch{
+  display:flex;
+  justify-content:flex-start;   /* 왼쪽 정렬 */
+  gap:8px;
+  padding-bottom:12px;
+  border-bottom:2px solid #bb0000; /* 예전 page-title 하단선 대체 */
+  margin:0 0 12px;
+  background:transparent;
+}
+/* vt-btn 기본은 하단 토글과 동일(이미 선언되어 있어도 안전차원 재정의) */
+.vt-btn{ background:#222; border:1px solid #333; color:#eee; padding:6px 10px; border-radius:6px; cursor:pointer; }
+.vt-btn.active{ background:#bb0000; border-color:#bb0000; }
+/* 스위치 영역 내 눌린 효과 보강 */
+.db-switch .vt-btn{
+  line-height:1;
+  transition:background .15s, border-color .15s, box-shadow .12s, transform .06s;
+}
+.db-switch .vt-btn.active{
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.08), inset 0 -2px 0 rgba(0,0,0,.25);
+  transform: translateY(1px);
+  color:#fff;
+}
+.db-switch .vt-btn:active{ transform: translateY(1px); }
 
 /* ===== 필터 ===== */
 .filters{ padding:16px; }
-.filters-grid{ display:grid; grid-template-columns:1fr; gap:16px; } /* 오른쪽 비교영역 제거 → 단일 컬럼 */
+.filters-grid{ display:grid; grid-template-columns:1fr; gap:16px; } /* 오른쪽 비교영역 없음 */
 .fbox{ background:#181818; border:1px solid #333; border-radius:10px; padding:0; overflow:hidden; display:grid; grid-template-rows:1fr 1fr 1fr auto; gap:0; }
 .subrow{ min-height:var(--subrow-base); display:grid; grid-template-columns:72px 1fr; align-items:center; gap:12px; padding:14px 16px; box-sizing:border-box; }
 .fbox .subrow:nth-child(-n+3){ min-height:calc(var(--subrow-base) + var(--boost)); }
@@ -52,12 +77,10 @@ a{ text-decoration:none; color:inherit; }
 
 /* 뷰 토글 */
 .view-toggle{ display:flex; gap:6px; }
-.vt-btn{ background:#222; border:1px solid #333; color:#eee; padding:6px 10px; border-radius:6px; cursor:pointer; }
-.vt-btn.active{ background:#bb0000; border-color:#bb0000; }
 
 /* ===== 리스트뷰 ===== */
 .list{ overflow:hidden; }
-.thead, .r{ display:grid; grid-template-columns:1fr 1.2fr; } /* +버튼 제거 → 2열 */
+.thead, .r{ display:grid; grid-template-columns:1fr 1.2fr; } /* +버튼 없으므로 2열 */
 .thead{ background:#181818; color:#ddd; font-weight:700; user-select:none; }
 .thead .c{ padding:10px 14px; border-bottom:1px solid #333; display:flex; align-items:center; gap:8px; min-height:var(--row-h); }
 .r .c{ padding:10px 14px; border-bottom:1px solid #333; display:flex; align-items:center; min-height:var(--row-h); }
@@ -114,33 +137,30 @@ a{ text-decoration:none; color:inherit; }
 }
 
 /* ===== 버튼형 체크 ===== */
-.toggle-btn {
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  border: 2px solid #555;
-  background: #181818;
-  color: #bbb;
-  transition: 0.15s all;
+.toggle-btn{
+  padding:8px 14px; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer;
+  border:2px solid #555; background:#181818; color:#bbb; transition:.15s all;
 }
-.toggle-btn.active { border-color: #bb0000; color: #ff4444; }
-.toggle-btn:not(.active):hover { border-color: #777; color: #eee; }
-
-/* === 오직 간격만 안전하게 축소 (단일 오버라이드) === */
-.db-main{ margin-top:24px !important; }  /* 원래 110px → 24px */
+.toggle-btn.active{ border-color:#bb0000; color:#ff4444; }
+.toggle-btn:not(.active):hover{ border-color:#777; color:#eee; }
 </style>
 </head>
 <body>
+
 <main class="db-main">
-  <h2 class="page-title">기타 아이템 DB</h2>
+  <!-- 상단 스위치 -->
+  <div class="db-switch">
+    <a class="vt-btn ${pageActive eq 'item' ? 'active' : ''}"
+       href="<c:url value='/itemDB.do'/>">장비DB</a>
+    <a class="vt-btn ${pageActive eq 'etc' ? 'active' : ''}"
+       href "<c:url value='/etcDB.do'/>">기타아이템DB</a>
+  </div>
 
   <!-- ===== 필터 ===== -->
   <section class="card filters" aria-label="아이템 필터">
     <div class="filters-grid">
       <div class="fbox" id="filterBox">
-        <!-- 직업 (그대로 유지) -->
+        <!-- 직업 -->
         <div class="subrow">
           <div class="label">직업</div>
           <div class="checks" id="jobs">
@@ -152,7 +172,7 @@ a{ text-decoration:none; color:inherit; }
           </div>
         </div>
 
-        <!-- 분류 (요구사항 반영) -->
+        <!-- 분류 -->
         <div class="subrow">
           <div class="label">분류</div>
           <div class="checks" id="cats">
@@ -162,7 +182,7 @@ a{ text-decoration:none; color:inherit; }
           </div>
         </div>
 
-        <!-- 등급 (그대로 유지) -->
+        <!-- 등급 -->
         <div class="subrow">
           <div class="label">등급</div>
           <div class="checks" id="grades">
@@ -229,7 +249,7 @@ a{ text-decoration:none; color:inherit; }
       </c:if>
 
       <c:forEach var="item" items="${itemsList}">
-        <%-- 이미지 폴더 결정: 소모품/스킬북/재료 --%>
+        <%-- 이미지 폴더 결정 --%>
         <c:set var="imgBase" value="etc"/>
         <c:choose>
           <c:when test="${item.category eq '소모품'}"><c:set var="imgBase" value="consumable"/></c:when>
@@ -243,9 +263,7 @@ a{ text-decoration:none; color:inherit; }
 
         <div class="r" onclick="toggleDetail(this)"
              data-name="${fn:escapeXml(item.name)}"
-             data-minatk="${item.min_ATK}" data-maxatk="${item.max_ATK}"
-             data-addatk="${item.add_ATK}" data-accuracy="${item.accuracy}"
-             data-critical="${item.critical}" data-quality="${fn:escapeXml(item.quality)}"
+             data-quality="${fn:escapeXml(item.quality)}"
              data-category="${fn:escapeXml(item.category)}" data-job="${fn:escapeXml(item.job)}"
              data-obtain="${fn:escapeXml(item.obtain_source)}" data-img="${fn:escapeXml(imgSrc)}">
 
@@ -260,16 +278,8 @@ a{ text-decoration:none; color:inherit; }
             <span class="name-text">${fn:escapeXml(item.name)}</span>
           </div>
 
-          <!-- 능력치 (기타는 수치 없을 수 있음 → 기본 표시) -->
-          <div class="c">
-            <c:choose>
-              <c:when test="${item.min_ATK != 0 || item.max_ATK != 0}">
-                ATK ${item.min_ATK} ~ ${item.max_ATK}
-                <c:if test="${item.add_ATK != 0}"> / +${item.add_ATK}</c:if>
-              </c:when>
-              <c:otherwise>-</c:otherwise>
-            </c:choose>
-          </div>
+          <!-- 능력치(기타는 수치 없을 수 있음 → 기본 표시) -->
+          <div class="c">-</div>
         </div>
 
         <!-- 상세 -->
@@ -284,11 +294,6 @@ a{ text-decoration:none; color:inherit; }
             <c:if test="${not empty item.job}">
               <div class="subsec line"><h4>직업</h4><div class="meta">${fn:escapeXml(item.job)}</div></div>
             </c:if>
-            <c:if test="${not empty item.slot}">
-              <div class="subsec line"><h4>장착부위</h4><div class="meta">${fn:escapeXml(item.slot)}</div></div>
-            </c:if>
-
-            <!-- 기타 공통 필드 -->
             <c:if test="${not empty item.obtain_source}">
               <div class="subsec line"><h4>획득처</h4><div class="meta">${fn:escapeXml(item.obtain_source)}</div></div>
             </c:if>
@@ -303,7 +308,6 @@ a{ text-decoration:none; color:inherit; }
   <section class="card" id="cardView" aria-label="아이템 카드 목록" style="display:none;">
     <div id="cardGrid" class="item-cards">
       <c:forEach var="item" items="${itemsList}">
-        <%-- 이미지 폴더/경로 --%>
         <c:set var="imgBase" value="etc"/>
         <c:choose>
           <c:when test="${item.category eq '소모품'}"><c:set var="imgBase" value="consumable"/></c:when>
@@ -331,15 +335,9 @@ a{ text-decoration:none; color:inherit; }
               <div>
                 <div class="ic-title">${fn:escapeXml(item.name)}</div>
                 <div class="ic-meta">
-                  <c:if test="${not empty item.quality}">
-                    <span class="chip">${fn:escapeXml(item.quality)}</span>
-                  </c:if>
-                  <c:if test="${not empty item.category}">
-                    <span class="chip">${fn:escapeXml(item.category)}</span>
-                  </c:if>
-                  <c:if test="${not empty item.job}">
-                    <span class="chip">${fn:escapeXml(item.job)}</span>
-                  </c:if>
+                  <c:if test="${not empty item.quality}"><span class="chip">${fn:escapeXml(item.quality)}</span></c:if>
+                  <c:if test="${not empty item.category}"><span class="chip">${fn:escapeXml(item.category)}</span></c:if>
+                  <c:if test="${not empty item.job}"><span class="chip">${fn:escapeXml(item.job)}</span></c:if>
                 </div>
               </div>
             </div>
@@ -367,7 +365,7 @@ a{ text-decoration:none; color:inherit; }
   </section>
 </main>
 
-<!-- 외부 JS (캐시 버스터는 공용 js 그대로 써도 됨. 비교 버튼 제거되어도 동작 지장 없음) -->
+<!-- 공용 스크립트 (토글/페이징 등) -->
 <script src="${contextPath}/resources/js/itemDB.js?v=20250212"></script>
 </body>
 </html>

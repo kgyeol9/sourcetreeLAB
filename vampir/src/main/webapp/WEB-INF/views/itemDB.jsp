@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="pageActive" value="item"/> <%-- 현재 페이지 활성 탭 --%>
 <%@ page session="false"%>
 <%
     request.setCharacterEncoding("UTF-8");
@@ -19,13 +20,37 @@
 /* ===== 공통/테마 ===== */
 body{ margin:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#121212; color:#eee; }
 a{ text-decoration:none; color:inherit; }
-.db-main{ max-width:1200px; margin:110px auto 24px; padding:0 16px; }
+.db-main{ max-width:1200px; margin:16px auto 24px; padding:0 16px; } /* 상단 마진 통일 */
 .card{ background:#1f1f1f; border:1px solid #333; border-radius:10px; }
 
-/* 버튼/타이틀 */
+/* 버튼 */
 .btn-primary{ background:#bb0000; color:#fff; border:none; border-radius:8px; font-weight:700; cursor:pointer; padding:10px 12px; }
 .btn-primary:hover{ background:#ff4444; }
-.page-title{ font-size:20px; margin:0 0 12px; padding-bottom:8px; border-bottom:2px solid #bb0000; color:#ffdddd; }
+
+/* ===== 상단 DB 스위치 (리스트/카드 토글 느낌 재사용) ===== */
+.db-switch{
+  display:flex;
+  justify-content:flex-start;   /* 왼쪽 정렬 */
+  gap:8px;
+  padding-bottom:12px;
+  border-bottom:2px solid #bb0000; /* 기존 타이틀 하단선 대체 */
+  margin:0 0 12px;
+  background:transparent;
+}
+/* vt-btn 기본은 하단 토글과 동일 */
+.vt-btn{ background:#222; border:1px solid #333; color:#eee; padding:6px 10px; border-radius:6px; cursor:pointer; }
+.vt-btn.active{ background:#bb0000; border-color:#bb0000; }
+/* 스위치 내 눌림 효과 보강 */
+.db-switch .vt-btn{
+  line-height:1;
+  transition:background .15s, border-color .15s, box-shadow .12s, transform .06s;
+}
+.db-switch .vt-btn.active{
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.08), inset 0 -2px 0 rgba(0,0,0,.25);
+  transform: translateY(1px);
+  color:#fff;
+}
+.db-switch .vt-btn:active{ transform: translateY(1px); }
 
 /* ===== 필터 ===== */
 .filters{ padding:16px; }
@@ -34,7 +59,7 @@ a{ text-decoration:none; color:inherit; }
 .fbox{ background:#181818; border:1px solid #333; border-radius:10px; padding:0; overflow:hidden; display:grid; grid-template-rows:1fr 1fr 1fr auto; gap:0; }
 .subrow{ min-height:var(--subrow-base); display:grid; grid-template-columns:72px 1fr; align-items:center; gap:12px; padding:14px 16px; box-sizing:border-box; }
 .fbox .subrow:nth-child(-n+3){ min-height:calc(var(--subrow-base) + var(--boost)); }
-.subrow + .subrow{ border-top:1px solid #333; } /* 오타 수정 (# 333 → #333) */
+.subrow + .subrow{ border-top:1px solid #333; }
 .label{ color:#bbb; font-size:13px; }
 .checks{ display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center; align-content:center; min-height:100%; }
 .checks .chk{ display:flex; align-items:center; gap:6px; font-size:14px; }
@@ -60,10 +85,8 @@ a{ text-decoration:none; color:inherit; }
 .page-size select{ background:#181818; color:#eee; border:1px solid #333; border-radius:8px; padding:6px 10px; }
 .label-inline{ color:#bbb; font-size:13px; margin-right:6px; }
 
-/* 뷰 토글 */
+/* 뷰 토글 (우측) */
 .view-toggle{ display:flex; gap:6px; }
-.vt-btn{ background:#222; border:1px solid #333; color:#eee; padding:6px 10px; border-radius:6px; cursor:pointer; }
-.vt-btn.active{ background:#bb0000; border-color:#bb0000; }
 
 /* ===== 리스트뷰 ===== */
 .list{ overflow:hidden; }
@@ -104,7 +127,6 @@ a{ text-decoration:none; color:inherit; }
 
 /* ===== 하단 페이징/검색 ===== */
 .footerbar{ padding:10px 12px; margin-top:10px; }
-/* 변경: 페이지네이션 중앙 정렬 + 검색 우측 */
 .footerline.footer-two{
   display:grid;
   grid-template-columns: 1fr max-content 1fr;
@@ -134,7 +156,7 @@ a{ text-decoration:none; color:inherit; }
   .footerline.footer-two .searchline{ grid-column:1; justify-self:stretch; }
 }
 
-/* 비교 슬롯 카드 */
+/* 비교 슬롯 카드 - 그대로 */
 .slot-item { display:flex; gap:10px; align-items:flex-start; }
 .side-thumb{ width:40px; height:40px; object-fit:contain; border-radius:6px; background:#222; border:1px solid #333; }
 .slot-main{ display:grid; gap:4px; }
@@ -142,6 +164,7 @@ a{ text-decoration:none; color:inherit; }
 .slot-chips{ display:flex; gap:6px; flex-wrap:wrap; color:#bbb; font-size:12px; }
 .slot-spec{ color:#ccc; font-size:13px; line-height:1.4; }
 .slot-spec .row{ display:flex; gap:6px; }
+
 /* 상세행: 제목과 값을 가로 한 줄로 */
 .subsec.line{ display:flex; align-items:center; gap:8px; }
 .subsec.line h4{ margin:0; font-size:13px; color:#ffdddd; min-width:max-content; }
@@ -151,14 +174,18 @@ a{ text-decoration:none; color:inherit; }
 .toggle-btn{ padding:8px 14px; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; border:2px solid #555; background:#181818; color:#bbb; transition:.15s all; }
 .toggle-btn.active{ border-color:#bb0000; color:#ff4444; }
 .toggle-btn:not(.active):hover{ border-color:#777; color:#eee; }
-
-/* === 헤더-본문 간격만 단일 오버라이드로 축소 === */
-.db-main{ margin-top:24px !important; } /* 110px → 24px */
 </style>
 </head>
 <body>
+
 <main class="db-main">
-  <h2 class="page-title">아이템 DB</h2>
+  <!-- 상단 DB 스위치 -->
+  <div class="db-switch">
+    <a class="vt-btn ${pageActive eq 'item' ? 'active' : ''}"
+       href="<c:url value='/itemDB.do'/>" aria-current="${pageActive eq 'item' ? 'page' : ''}">장비DB</a>
+    <a class="vt-btn ${pageActive eq 'etc' ? 'active' : ''}"
+       href="<c:url value='/etcDB.do'/>" aria-current="${pageActive eq 'etc' ? 'page' : ''}">기타아이템DB</a>
+  </div>
 
   <!-- ===== 필터 ===== -->
   <section class="card filters" aria-label="아이템 필터">

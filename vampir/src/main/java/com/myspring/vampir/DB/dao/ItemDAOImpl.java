@@ -1,4 +1,4 @@
-package com.myspring.vampir.item.dao;
+package com.myspring.vampir.DB.dao;
 
 import java.util.List;
 import java.util.Map;
