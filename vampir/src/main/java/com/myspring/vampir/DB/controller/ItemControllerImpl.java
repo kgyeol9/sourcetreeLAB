@@ -17,47 +17,76 @@ import com.myspring.vampir.DB.service.ItemService;
 @Controller
 public class ItemControllerImpl implements ItemController {
 
-    @Autowired
-    private ItemService itemService;
+	@Autowired
+	private ItemService itemService;
 
-    // 루트 진입 시 목록으로 리다이렉트 (장비 DB)
-    @RequestMapping(value = { "/", "/main.do" }, method = RequestMethod.GET)
-    public ModelAndView main() {
-        return new ModelAndView("redirect:/DB/listItems.do");
-    }
+	// 루트 진입 시 목록으로 리다이렉트 (장비 DB)
+	@RequestMapping(value = { "/", "/main.do" }, method = RequestMethod.GET)
+	public ModelAndView main() {
+		return new ModelAndView("redirect:/DB/listItems.do");
+	}
 
-    @Override
-    @RequestMapping(value = "/DB/listItems.do", method = RequestMethod.GET)
-    public ModelAndView listItems(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        List<Map<String, Object>> itemsList = itemService.listItemsUnified();
-        System.out.println("[DEBUG] itemsList size = " + (itemsList == null ? "null" : itemsList.size()));
+	@Override
+	@RequestMapping(value = "/DB/listItems.do", method = RequestMethod.GET)
+	public ModelAndView listItems(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<Map<String, Object>> itemsList = itemService.listItemsUnified();
+		System.out.println("[DEBUG] itemsList size = " + (itemsList == null ? "null" : itemsList.size()));
 
-        // ★ JSP 파일명이 itemDB.jsp 이므로 뷰 이름도 itemDB로
-        ModelAndView mav = new ModelAndView("itemDB");   // /WEB-INF/views/itemDB.jsp (일반적인 ViewResolver 기준)
-        mav.addObject("itemsList", itemsList);           // JSP들이 기대하는 키로 통일
-        return mav;
-    }
+		// ★ JSP 파일명이 itemDB.jsp 이므로 뷰 이름도 itemDB로
+		ModelAndView mav = new ModelAndView("itemDB"); // /WEB-INF/views/itemDB.jsp (일반적인 ViewResolver 기준)
+		mav.addObject("itemsList", itemsList); // JSP들이 기대하는 키로 통일
+		return mav;
+	}
 
-    // 직행 링크 (장비 DB)
-    @RequestMapping(value = "/itemDB.do", method = RequestMethod.GET)
-    public ModelAndView itemDB(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return new ModelAndView("redirect:/DB/listItems.do");
-    }
+	// 직행 링크 (장비 DB)
+	@RequestMapping(value = "/itemDB.do", method = RequestMethod.GET)
+	public ModelAndView itemDB(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return new ModelAndView("redirect:/DB/listItems.do");
+	}
 
-    @Override
-    @RequestMapping(value = "/DB/listEtcItems.do", method = RequestMethod.GET)
-    public ModelAndView listEtcItems(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        List<Map<String, Object>> itemsList = itemService.listEtcItemsUnified();
-        System.out.println("[DEBUG] etc itemsList size = " + (itemsList == null ? "null" : itemsList.size()));
+	@Override
+	@RequestMapping(value = "/DB/listEtcItems.do", method = RequestMethod.GET)
+	public ModelAndView listEtcItems(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		List<Map<String, Object>> itemsList = itemService.listEtcItemsUnified();
+		System.out.println("[DEBUG] etc itemsList size = " + (itemsList == null ? "null" : itemsList.size()));
 
-        ModelAndView mav = new ModelAndView("etcDB");    // /WEB-INF/views/etcDB.jsp
-        mav.addObject("itemsList", itemsList);           // ★ 키 통일
-        return mav;
-    }
+		ModelAndView mav = new ModelAndView("etcDB"); // /WEB-INF/views/etcDB.jsp
+		mav.addObject("itemsList", itemsList); // ★ 키 통일
+		return mav;
+	}
 
-    // 직행 링크 (기타 DB)
-    @RequestMapping(value = "/etcDB.do", method = RequestMethod.GET)
-    public ModelAndView EtcItemDB(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return new ModelAndView("redirect:/DB/listEtcItems.do");
-    }
+	// 직행 링크 (기타 DB)
+	@RequestMapping(value = "/etcDB.do", method = RequestMethod.GET)
+	public ModelAndView EtcItemDB(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return new ModelAndView("redirect:/DB/listEtcItems.do");
+	}
+
+	// 피의 형상 진입 버튼 → 목록으로 리다이렉트
+	@RequestMapping(value = "/formDB.do", method = RequestMethod.GET)
+	public String formDB() {
+		return "redirect:/DB/listForm.do"; // ← 컨텍스트패스 직접 넣지 않기
+	}
+
+	// 피의 형상 리스트
+	@RequestMapping(value = { "/DB/listForm.do", "/DB/listform.do" }, method = RequestMethod.GET)
+	public ModelAndView listForm(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("formDB");
+		mav.addObject("formList", java.util.Collections.emptyList());
+		return mav;
+	}
+
+	// 탈 것 진입 버튼 → 목록으로 리다이렉트
+	@RequestMapping(value = "/mountDB.do", method = RequestMethod.GET)
+	public String mountDB() {
+		return "redirect:/DB/listMount.do"; // ← 동일
+	}
+
+	// 탈 것 리스트
+	@RequestMapping(value = { "/DB/listMount.do", "/DB/listmount.do" }, method = RequestMethod.GET)
+	public ModelAndView listMount(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("mountDB");
+		mav.addObject("mountList", java.util.Collections.emptyList());
+		return mav;
+	}
+
 }

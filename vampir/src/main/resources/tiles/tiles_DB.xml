@@ -27,6 +27,20 @@
 			value="/WEB-INF/views/etcDB.jsp" />
 	</definition>
 
+	<!-- /WEB-INF/tiles/tiles_DB.xml (예시) -->
+	<definition name="formDB" extends="baseLayout">
+		<put-attribute name="title" value="피의 형상 DB" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/formDB.jsp" />
+	</definition>
+
+	<definition name="mountDB" extends="baseLayout">
+		<put-attribute name="title" value="탈 것 DB" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/mountDB.jsp" />
+	</definition>
+	
+
 	<!-- home.jsp를 메인으로 쓴다면 -->
 	<definition name="home" extends="baseLayout">
 		<put-attribute name="title" value="홈" />
