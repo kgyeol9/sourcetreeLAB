@@ -14,62 +14,50 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.vampir.DB.service.ItemService;
 
-@Controller // ("itemController") 생략 추천
+@Controller
 public class ItemControllerImpl implements ItemController {
 
     @Autowired
     private ItemService itemService;
 
-    // 루트 진입 시 목록으로 리다이렉트
+    // 루트 진입 시 목록으로 리다이렉트 (장비 DB)
     @RequestMapping(value = { "/", "/main.do" }, method = RequestMethod.GET)
     public ModelAndView main() {
-        return new ModelAndView("redirect:/item/listItems.do");
+        return new ModelAndView("redirect:/DB/listItems.do");
     }
 
     @Override
-    @RequestMapping(value = "/item/listItems.do", method = RequestMethod.GET)
+    @RequestMapping(value = "/DB/listItems.do", method = RequestMethod.GET)
     public ModelAndView listItems(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // ★ 통합(Map) 리스트 호출
         List<Map<String, Object>> itemsList = itemService.listItemsUnified();
-
         System.out.println("[DEBUG] itemsList size = " + (itemsList == null ? "null" : itemsList.size()));
 
-        // ★ 바로 itemDB.jsp 렌더 (ViewResolver에 맞춰 경로 조절)
-        ModelAndView mav = new ModelAndView("itemDB");
-        mav.addObject("itemsList", itemsList);
+        // ★ JSP 파일명이 itemDB.jsp 이므로 뷰 이름도 itemDB로
+        ModelAndView mav = new ModelAndView("itemDB");   // /WEB-INF/views/itemDB.jsp (일반적인 ViewResolver 기준)
+        mav.addObject("itemsList", itemsList);           // JSP들이 기대하는 키로 통일
         return mav;
     }
 
-    // (선택) 기존 /itemDB.do 엔드포인트는 목록으로 리다이렉트하거나 동일 로직 재사용
+    // 직행 링크 (장비 DB)
     @RequestMapping(value = "/itemDB.do", method = RequestMethod.GET)
     public ModelAndView itemDB(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return new ModelAndView("redirect:/item/listItems.do");
+        return new ModelAndView("redirect:/DB/listItems.do");
     }
-    
+
     @Override
-    @RequestMapping(value = "/item/listEtcItems.do", method = RequestMethod.GET)
+    @RequestMapping(value = "/DB/listEtcItems.do", method = RequestMethod.GET)
     public ModelAndView listEtcItems(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    	List<Map<String, Object>> etcitemsList = itemService.listEtcItemsUnified();
-    	
-    	System.out.println("[DEBUG] etcitemsList size = " + (etcitemsList == null ? "null" : etcitemsList.size()));
-    	
-    	ModelAndView mav = new ModelAndView("etcDB");
-    	mav.addObject("etcitemsList", etcitemsList);
-    	return mav;
+        List<Map<String, Object>> itemsList = itemService.listEtcItemsUnified();
+        System.out.println("[DEBUG] etc itemsList size = " + (itemsList == null ? "null" : itemsList.size()));
+
+        ModelAndView mav = new ModelAndView("etcDB");    // /WEB-INF/views/etcDB.jsp
+        mav.addObject("itemsList", itemsList);           // ★ 키 통일
+        return mav;
     }
-    
+
+    // 직행 링크 (기타 DB)
     @RequestMapping(value = "/etcDB.do", method = RequestMethod.GET)
     public ModelAndView EtcItemDB(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    	return new ModelAndView("redirect:/item/listEtcItems.do");
-    }
-    
-    @Override
-    @RequestMapping(value = "/item/listShapeMount.do", method = RequestMethod.GET)
-    public ModelAndView listShapeMount(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    	List<Map<String, Object>> shapeList = itemService.listShapeUnified();
-    	
-    	ModelAndView mav = new ModelAndView("shapeDB");
-    	mav.addObject("shapeList", shapeList);
-    	return mav;
+        return new ModelAndView("redirect:/DB/listEtcItems.do");
     }
 }

@@ -34,5 +34,4 @@ public class ItemDAOImpl implements ItemDAO {
 		return sqlSession.selectList("mapper.etcitemUnified.selectEtcAsMap");
 	}
 
-
 }

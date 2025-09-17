@@ -10,6 +10,4 @@ public interface ItemController {
 
 	public ModelAndView listEtcItems(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-	public ModelAndView listShapeMount(HttpServletRequest request, HttpServletResponse response) throws Exception;
-
 }
