@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -143,7 +145,23 @@ public class MemberControllerImpl   implements MemberController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/home.do");
 		return mav;
-	}	
+	}
+	
+	@Override
+	@RequestMapping(
+	    value = "/member/overlapped.do",
+	    method = RequestMethod.POST,
+	    produces = "text/plain; charset=UTF-8"  // ← 명시
+	)
+	public ResponseEntity<String> overlapped(@RequestParam("id") String id) throws Exception {
+	    // 서비스는 "true"(중복) / "false"(사용 가능) 처럼 문자열만 반환하도록 일관화
+	    String result = memberService.overlapped(id);
+	    if (result == null) result = "true"; // 방어 로직 (원치 않으면 제거)
+	    return ResponseEntity
+	            .ok()
+	            .header("Content-Type", "text/plain; charset=UTF-8")
+	            .body(result.trim());
+	}
 
 	@RequestMapping(value = "/member/*Form.do", method =  {RequestMethod.GET, RequestMethod.POST})
 	private ModelAndView form(@RequestParam(value= "result", required=false) String result,

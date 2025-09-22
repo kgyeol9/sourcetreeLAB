@@ -15,6 +15,13 @@
 		<result property="joinDate" column="joindate" />
 	</resultMap>
 
+	<select id="selectOverlappedID" parameterType="string"
+		resultType="int">
+		SELECT COUNT(1)
+		FROM t_member
+		WHERE mem_id = #{id}   <!-- 파라미터명 'id'와 컨트롤러/DAO 모두 동일 -->
+	</select>
+
 	<!-- 전체 목록 -->
 	<select id="selectAllMemberList" resultMap="memResult">
     <![CDATA[

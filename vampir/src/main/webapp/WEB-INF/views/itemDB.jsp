@@ -6,7 +6,7 @@
 <c:set var="pageActive" value="item"/> <%-- 현재 페이지 활성 탭 --%>
 <%@ page session="false"%>
 <%
-    request.setCharacterEncoding("UTF-8");
+  request.setCharacterEncoding("UTF-8");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -15,44 +15,35 @@
 <title>아이템 DB</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/itemDB.css">
+
 <style>
+/* ===== 상단바 보정 ===== */
+:root { --topbar-h: 64px; }           /* 프로젝트 헤더 높이에 맞춰 조절 */
+body{
+  margin:0;
+  padding-top: var(--topbar-h);       /* 고정/스티키 헤더와 겹침 방지 */
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background:#121212; color:#eee;
+}
 
-<<<<<<< HEAD
-
-=======
-/* ===== 공통/테마 ===== */
-body{ margin:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#121212; color:#eee; }
+/* ===== 공통 ===== */
 a{ text-decoration:none; color:inherit; }
-.db-main{ max-width:1200px; margin:16px auto 24px; padding:0 16px; } /* 상단 마진 통일 */
+.db-main{ max-width:1200px; margin:16px auto 24px; padding:0 16px; }
 .card{ background:#1f1f1f; border:1px solid #333; border-radius:10px; }
 
 /* 버튼 */
 .btn-primary{ background:#bb0000; color:#fff; border:none; border-radius:8px; font-weight:700; cursor:pointer; padding:10px 12px; }
 .btn-primary:hover{ background:#ff4444; }
 
-/* ===== 상단 DB 스위치 (리스트/카드 토글 느낌 재사용) ===== */
+/* ===== 상단 DB 스위치 ===== */
 .db-switch{
-  display:flex;
-  justify-content:flex-start;   /* 왼쪽 정렬 */
-  gap:8px;
-  padding-bottom:12px;
-  border-bottom:2px solid #bb0000; /* 기존 타이틀 하단선 대체 */
-  margin:0 0 12px;
-  background:transparent;
+  display:flex; justify-content:flex-start; gap:8px;
+  padding-bottom:12px; border-bottom:2px solid #bb0000; margin:0 0 12px; background:transparent;
 }
-/* vt-btn 기본은 하단 토글과 동일 */
 .vt-btn{ background:#222; border:1px solid #333; color:#eee; padding:6px 10px; border-radius:6px; cursor:pointer; }
-.vt-btn.active{ background:#bb0000; border-color:#bb0000; }
-/* 스위치 내 눌림 효과 보강 */
-.db-switch .vt-btn{
-  line-height:1;
-  transition:background .15s, border-color .15s, box-shadow .12s, transform .06s;
-}
-.db-switch .vt-btn.active{
-  box-shadow: inset 0 2px 0 rgba(255,255,255,.08), inset 0 -2px 0 rgba(0,0,0,.25);
-  transform: translateY(1px);
-  color:#fff;
-}
+.vt-btn.active{ background:#bb0000; border-color:#bb0000; color:#fff; }  /* 활성 시 흰색 고정 */
+.db-switch .vt-btn{ line-height:1; transition:background .15s, border-color .15s, box-shadow .12s, transform .06s; }
+.db-switch .vt-btn.active{ box-shadow: inset 0 2px 0 rgba(255,255,255,.08), inset 0 -2px 0 rgba(0,0,0,.25); transform: translateY(1px); }
 .db-switch .vt-btn:active{ transform: translateY(1px); }
 
 /* ===== 필터 ===== */
@@ -79,7 +70,7 @@ a{ text-decoration:none; color:inherit; }
 .sidebox .slot-head{ font-size:12px; color:#bbb; margin:-4px 0 8px; display:flex; align-items:center; gap:8px; }
 .chip{ font-size:11px; padding:2px 8px; border:1px solid #444; border-radius:999px; color:#ccc; }
 
-/* ===== 결과바: 총개수/정렬/뷰토글 ===== */
+/* ===== 결과/정렬/뷰 토글 ===== */
 .result-bar{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px; margin:14px 0 8px; }
 .result-info{ color:#bbb; font-size:13px; }
 .sort-group{ display:flex; gap:8px; align-items:center; }
@@ -87,11 +78,9 @@ a{ text-decoration:none; color:inherit; }
 .right-controls{ display:flex; align-items:center; gap:12px; }
 .page-size select{ background:#181818; color:#eee; border:1px solid #333; border-radius:8px; padding:6px 10px; }
 .label-inline{ color:#bbb; font-size:13px; margin-right:6px; }
-
-/* 뷰 토글 (우측) */
 .view-toggle{ display:flex; gap:6px; }
 
-/* ===== 리스트뷰 ===== */
+/* ===== 리스트 뷰 ===== */
 .list{ overflow:hidden; }
 .thead, .r{ display:grid; grid-template-columns:1fr 1.2fr 44px; }
 .thead{ background:#181818; color:#ddd; font-weight:700; user-select:none; }
@@ -114,7 +103,7 @@ a{ text-decoration:none; color:inherit; }
 .meta{ color:#bbb; font-size:13px; }
 .open .detail{ max-height:240px; }
 
-/* ===== 카드뷰 ===== */
+/* ===== 카드 뷰 ===== */
 .item-cards{ display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; padding:12px; }
 @media (max-width:1000px){ .item-cards{ grid-template-columns:repeat(2, 1fr);} }
 @media (max-width:600px){ .item-cards{ grid-template-columns:1fr; } }
@@ -128,13 +117,11 @@ a{ text-decoration:none; color:inherit; }
 .ic-body{ display:grid; gap:6px; }
 .stat{ color:#ccc; font-size:13px; display:flex; gap:8px; align-items:center; }
 
-/* ===== 하단 페이징/검색 ===== */
+/* ===== 페이징/검색 ===== */
 .footerbar{ padding:10px 12px; margin-top:10px; }
 .footerline.footer-two{
-  display:grid;
-  grid-template-columns: 1fr max-content 1fr;
-  align-items:center;
-  column-gap:12px;
+  display:grid; grid-template-columns: 1fr max-content 1fr;
+  align-items:center; column-gap:12px;
 }
 .pager-center{ grid-column: 2; justify-self: center; display:flex; gap:8px; flex-wrap:wrap; padding:4px 0; }
 .page-num{ background:#1b1b1b; border:1px solid #333; color:#eee; border-radius:8px; padding:6px 10px; min-width:36px; line-height:1; cursor:pointer; transition:background .12s, border-color .12s, transform .06s; }
@@ -159,7 +146,7 @@ a{ text-decoration:none; color:inherit; }
   .footerline.footer-two .searchline{ grid-column:1; justify-self:stretch; }
 }
 
-/* 비교 슬롯 카드 - 그대로 */
+/* 비교 슬롯 카드 */
 .slot-item { display:flex; gap:10px; align-items:flex-start; }
 .side-thumb{ width:40px; height:40px; object-fit:contain; border-radius:6px; background:#222; border:1px solid #333; }
 .slot-main{ display:grid; gap:4px; }
@@ -168,20 +155,19 @@ a{ text-decoration:none; color:inherit; }
 .slot-spec{ color:#ccc; font-size:13px; line-height:1.4; }
 .slot-spec .row{ display:flex; gap:6px; }
 
-/* 상세행: 제목과 값을 가로 한 줄로 */
+/* 상세행 한 줄형 */
 .subsec.line{ display:flex; align-items:center; gap:8px; }
 .subsec.line h4{ margin:0; font-size:13px; color:#ffdddd; min-width:max-content; }
 .subsec.line .meta{ color:#bbb; font-size:13px; }
 
-/* ===== 버튼형 체크 ===== */
+/* 버튼형 체크 */
 .toggle-btn{ padding:8px 14px; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; border:2px solid #555; background:#181818; color:#bbb; transition:.15s all; }
 .toggle-btn.active{ border-color:#bb0000; color:#ff4444; }
 .toggle-btn:not(.active):hover{ border-color:#777; color:#eee; }
->>>>>>> itemDB
 </style>
 </head>
-<body>
 
+<body>
 <main class="db-main">
   <!-- 상단 DB 스위치 -->
   <div class="db-switch">

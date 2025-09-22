@@ -14,6 +14,7 @@ import com.myspring.vampir.member.vo.MemberVO;
 public class MemberDAOImpl implements MemberDAO {
 	@Autowired
 	private SqlSession sqlSession;
+	private static final String NS = "mapper.member";
 
 	@Override
 	public List selectAllMemberList() throws DataAccessException {
@@ -39,5 +40,12 @@ public class MemberDAOImpl implements MemberDAO {
 		  MemberVO vo = sqlSession.selectOne("mapper.member.loginById",memberVO);
 		return vo;
 	}
+
+	@Override
+    public int selectOverlappedID(String id) throws DataAccessException{
+        // MyBatis가 Integer/Long을 줄 수 있으니 Number로 받고 int로 변환
+        Number cnt = sqlSession.selectOne(NS + ".selectOverlappedID", id);
+        return (cnt == null) ? 0 : cnt.intValue();
+    }
 
 }

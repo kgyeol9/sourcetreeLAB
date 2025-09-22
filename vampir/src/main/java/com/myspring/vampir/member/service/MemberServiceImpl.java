@@ -41,4 +41,10 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.loginById(memberVO);
 	}
 
+	@Override
+    public String overlapped(String id) throws Exception {
+        int cnt = memberDAO.selectOverlappedID(id);
+        return (cnt > 0) ? "true" : "false"; // true=중복, false=사용가능
+    }
+
 }
