@@ -14,12 +14,9 @@
 <meta charset="UTF-8" />
 <title>아이템 DB</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/itemDB.css">
 <style>
+:root { --subrow-base:84px; --boost:40px; --gap:12px; --row-h:44px; }
 
-<<<<<<< HEAD
-
-=======
 /* ===== 공통/테마 ===== */
 body{ margin:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#121212; color:#eee; }
 a{ text-decoration:none; color:inherit; }
@@ -177,7 +174,6 @@ a{ text-decoration:none; color:inherit; }
 .toggle-btn{ padding:8px 14px; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; border:2px solid #555; background:#181818; color:#bbb; transition:.15s all; }
 .toggle-btn.active{ border-color:#bb0000; color:#ff4444; }
 .toggle-btn:not(.active):hover{ border-color:#777; color:#eee; }
->>>>>>> itemDB
 </style>
 </head>
 <body>

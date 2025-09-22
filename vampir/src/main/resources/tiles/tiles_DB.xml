@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+ "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+ "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+  <!-- 부모 레이아웃 -->
+  <definition name="baseLayout" template="/WEB-INF/views/common/layout.jsp">
+    <put-attribute name="title"  value=""/>
+    <put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
+    <put-attribute name="side"   value="/WEB-INF/views/common/side.jsp"/>
+    <put-attribute name="body"   value=""/>
+    <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
+  </definition>
+
+  <!-- 기존 DB들 -->
+  <definition name="itemDB" extends="baseLayout">
+    <put-attribute name="title" value="ITEM-PROBE"/>
+    <put-attribute name="body"  value="/WEB-INF/views/itemDB.jsp"/>
+  </definition>
+
+  <definition name="etcDB" extends="baseLayout">
+    <put-attribute name="title" value="ETC-PROBE"/>
+    <put-attribute name="body"  value="/WEB-INF/views/etcDB.jsp"/>
+  </definition>
+
+  <!-- 피의 형상 / 탈 것 -->
+  <definition name="formDB" extends="baseLayout">
+    <put-attribute name="title" value="피의 형상 DB"/>
+    <put-attribute name="body"  value="/WEB-INF/views/formDB.jsp"/>
+  </definition>
+
+  <definition name="mountDB" extends="baseLayout">
+    <put-attribute name="title" value="탈 것 DB"/>
+    <put-attribute name="body"  value="/WEB-INF/views/mountDB.jsp"/>
+  </definition>
+
+  <!-- 새로 추가한 묶음들 -->
+  <definition name="collectionDB" extends="baseLayout">
+    <put-attribute name="title" value="컬렉션 DB"/>
+    <put-attribute name="body"  value="/WEB-INF/views/collectionDB.jsp"/>
+  </definition>
+
+  <definition name="portraitDB" extends="baseLayout">
+    <put-attribute name="title" value="초상화 DB"/>
+    <put-attribute name="body"  value="/WEB-INF/views/portraitDB.jsp"/>
+  </definition>
+
+  <definition name="disciplineDB" extends="baseLayout">
+    <put-attribute name="title" value="규율 DB"/>
+    <put-attribute name="body"  value="/WEB-INF/views/disciplineDB.jsp"/>
+  </definition>
+
+  <definition name="magicDB" extends="baseLayout">
+    <put-attribute name="title" value="마력연구 DB"/>
+    <put-attribute name="body"  value="/WEB-INF/views/magicDB.jsp"/>
+  </definition>
+
+  <definition name="artifactDB" extends="baseLayout">
+    <put-attribute name="title" value="아티팩트 DB"/>
+    <put-attribute name="body"  value="/WEB-INF/views/artifactDB.jsp"/>
+  </definition>
+
+  <definition name="sephiraDB" extends="baseLayout">
+    <put-attribute name="title" value="세피라 DB"/>
+    <put-attribute name="body"  value="/WEB-INF/views/sephiraDB.jsp"/>
+  </definition>
+
+  <!-- 홈 -->
+  <definition name="home" extends="baseLayout">
+    <put-attribute name="title" value="홈"/>
+    <put-attribute name="body"  value="/WEB-INF/views/home.jsp"/>
+  </definition>
+
+</tiles-definitions>

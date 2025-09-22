@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:set var="pageActive" value="item"/> <%-- 현재 페이지 활성 탭 --%>
 <%@ page session="false"%>
 <%
     request.setCharacterEncoding("UTF-8");
@@ -14,46 +13,19 @@
 <meta charset="UTF-8" />
 <title>아이템 DB</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/itemDB.css">
 <style>
+:root { --subrow-base:84px; --boost:40px; --gap:12px; --row-h:44px; }
 
-<<<<<<< HEAD
-
-=======
 /* ===== 공통/테마 ===== */
 body{ margin:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#121212; color:#eee; }
 a{ text-decoration:none; color:inherit; }
-.db-main{ max-width:1200px; margin:16px auto 24px; padding:0 16px; } /* 상단 마진 통일 */
+.db-main{ max-width:1200px; margin:110px auto 24px; padding:0 16px; }
 .card{ background:#1f1f1f; border:1px solid #333; border-radius:10px; }
 
-/* 버튼 */
+/* 버튼/타이틀 */
 .btn-primary{ background:#bb0000; color:#fff; border:none; border-radius:8px; font-weight:700; cursor:pointer; padding:10px 12px; }
 .btn-primary:hover{ background:#ff4444; }
-
-/* ===== 상단 DB 스위치 (리스트/카드 토글 느낌 재사용) ===== */
-.db-switch{
-  display:flex;
-  justify-content:flex-start;   /* 왼쪽 정렬 */
-  gap:8px;
-  padding-bottom:12px;
-  border-bottom:2px solid #bb0000; /* 기존 타이틀 하단선 대체 */
-  margin:0 0 12px;
-  background:transparent;
-}
-/* vt-btn 기본은 하단 토글과 동일 */
-.vt-btn{ background:#222; border:1px solid #333; color:#eee; padding:6px 10px; border-radius:6px; cursor:pointer; }
-.vt-btn.active{ background:#bb0000; border-color:#bb0000; }
-/* 스위치 내 눌림 효과 보강 */
-.db-switch .vt-btn{
-  line-height:1;
-  transition:background .15s, border-color .15s, box-shadow .12s, transform .06s;
-}
-.db-switch .vt-btn.active{
-  box-shadow: inset 0 2px 0 rgba(255,255,255,.08), inset 0 -2px 0 rgba(0,0,0,.25);
-  transform: translateY(1px);
-  color:#fff;
-}
-.db-switch .vt-btn:active{ transform: translateY(1px); }
+.page-title{ font-size:20px; margin:0 0 12px; padding-bottom:8px; border-bottom:2px solid #bb0000; color:#ffdddd; }
 
 /* ===== 필터 ===== */
 .filters{ padding:16px; }
@@ -88,8 +60,10 @@ a{ text-decoration:none; color:inherit; }
 .page-size select{ background:#181818; color:#eee; border:1px solid #333; border-radius:8px; padding:6px 10px; }
 .label-inline{ color:#bbb; font-size:13px; margin-right:6px; }
 
-/* 뷰 토글 (우측) */
+/* 뷰 토글 */
 .view-toggle{ display:flex; gap:6px; }
+.vt-btn{ background:#222; border:1px solid #333; color:#eee; padding:6px 10px; border-radius:6px; cursor:pointer; }
+.vt-btn.active{ background:#bb0000; border-color:#bb0000; }
 
 /* ===== 리스트뷰 ===== */
 .list{ overflow:hidden; }
@@ -130,6 +104,7 @@ a{ text-decoration:none; color:inherit; }
 
 /* ===== 하단 페이징/검색 ===== */
 .footerbar{ padding:10px 12px; margin-top:10px; }
+/* 변경: 페이지네이션 중앙 정렬 + 검색 우측 */
 .footerline.footer-two{
   display:grid;
   grid-template-columns: 1fr max-content 1fr;
@@ -146,11 +121,7 @@ a{ text-decoration:none; color:inherit; }
 .footerline.footer-two .searchline{ grid-column: 3; justify-self:end; }
 
 /* 반응형 */
-@media (max-width:900px){
-  .filters-grid{ grid-template-columns:1fr; }
-  .sidebox-row{ height:auto!important; }
-  .sidebox{ height:auto!important; }
-}
+@media (max-width:900px){ .filters-grid{ grid-template-columns:1fr; } .sidebox-row{ height:auto!important; } .sidebox{ height:auto!important; } }
 .searchline.compact{ display:grid; grid-template-columns: 220px max-content; gap:8px; align-items:center; }
 @media (max-width:600px){
   .searchline.compact{ grid-template-columns: 1fr max-content; }
@@ -159,7 +130,7 @@ a{ text-decoration:none; color:inherit; }
   .footerline.footer-two .searchline{ grid-column:1; justify-self:stretch; }
 }
 
-/* 비교 슬롯 카드 - 그대로 */
+/* 비교 슬롯 카드 */
 .slot-item { display:flex; gap:10px; align-items:flex-start; }
 .side-thumb{ width:40px; height:40px; object-fit:contain; border-radius:6px; background:#222; border:1px solid #333; }
 .slot-main{ display:grid; gap:4px; }
@@ -167,29 +138,37 @@ a{ text-decoration:none; color:inherit; }
 .slot-chips{ display:flex; gap:6px; flex-wrap:wrap; color:#bbb; font-size:12px; }
 .slot-spec{ color:#ccc; font-size:13px; line-height:1.4; }
 .slot-spec .row{ display:flex; gap:6px; }
-
 /* 상세행: 제목과 값을 가로 한 줄로 */
 .subsec.line{ display:flex; align-items:center; gap:8px; }
 .subsec.line h4{ margin:0; font-size:13px; color:#ffdddd; min-width:max-content; }
 .subsec.line .meta{ color:#bbb; font-size:13px; }
-
 /* ===== 버튼형 체크 ===== */
-.toggle-btn{ padding:8px 14px; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; border:2px solid #555; background:#181818; color:#bbb; transition:.15s all; }
-.toggle-btn.active{ border-color:#bb0000; color:#ff4444; }
-.toggle-btn:not(.active):hover{ border-color:#777; color:#eee; }
->>>>>>> itemDB
+.toggle-btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid #555;
+  background: #181818;
+  color: #bbb;
+  transition: 0.15s all;
+}
+
+.toggle-btn.active {
+  border-color: #bb0000;
+  color: #ff4444;
+}
+.toggle-btn:not(.active):hover {
+  border-color: #777;
+  color: #eee;
+}
+
 </style>
 </head>
 <body>
-
 <main class="db-main">
-  <!-- 상단 DB 스위치 -->
-  <div class="db-switch">
-    <a class="vt-btn ${pageActive eq 'item' ? 'active' : ''}"
-       href="<c:url value='/itemDB.do'/>" aria-current="${pageActive eq 'item' ? 'page' : ''}">장비DB</a>
-    <a class="vt-btn ${pageActive eq 'etc' ? 'active' : ''}"
-       href="<c:url value='/etcDB.do'/>" aria-current="${pageActive eq 'etc' ? 'page' : ''}">기타아이템DB</a>
-  </div>
+  <h2 class="page-title">아이템 DB</h2>
 
   <!-- ===== 필터 ===== -->
   <section class="card filters" aria-label="아이템 필터">
@@ -200,36 +179,36 @@ a{ text-decoration:none; color:inherit; }
           <!-- 직업 -->
           <div class="subrow">
             <div class="label">직업</div>
-            <div class="checks" id="jobs">
-              <button type="button" class="toggle-btn active" data-value="전체">전체</button>
-              <button type="button" class="toggle-btn" data-value="바이퍼">바이퍼</button>
-              <button type="button" class="toggle-btn" data-value="그림리퍼">그림리퍼</button>
-              <button type="button" class="toggle-btn" data-value="카니지">카니지</button>
-              <button type="button" class="toggle-btn" data-value="블러드스테인">블러드스테인</button>
-            </div>
+            	<div class="checks" id="jobs">
+  					<button type="button" class="toggle-btn active" data-value="전체">전체</button>
+  					<button type="button" class="toggle-btn" data-value="바이퍼">바이퍼</button>
+  					<button type="button" class="toggle-btn" data-value="그림리퍼">그림리퍼</button>
+  					<button type="button" class="toggle-btn" data-value="카니지">카니지</button>
+  					<button type="button" class="toggle-btn" data-value="블러드스테인">블러드스테인</button>
+				</div>
           </div>
           <!-- 분류 -->
           <div class="subrow">
             <div class="label">분류</div>
-            <div class="checks" id="cats">
-              <button type="button" class="toggle-btn" data-value="무기">무기</button>
-              <button type="button" class="toggle-btn" data-value="방어구">방어구</button>
-              <button type="button" class="toggle-btn" data-value="장신구">장신구</button>
-              <button type="button" class="toggle-btn" data-value="부장품">부장품</button>
-            </div>
+              <div class="checks" id="cats">
+  				<button type="button" class="toggle-btn" data-value="무기">무기</button>
+  				<button type="button" class="toggle-btn" data-value="방어구">방어구</button>
+  				<button type="button" class="toggle-btn" data-value="장신구">장신구</button>
+  				<button type="button" class="toggle-btn" data-value="부장품">부장품</button>
+			  </div>
           </div>
           <!-- 등급 -->
           <div class="subrow">
             <div class="label">등급</div>
-            <div class="checks" id="grades">
-              <button type="button" class="toggle-btn active" data-value="전체">전체</button>
-              <button type="button" class="toggle-btn" data-value="일반">일반</button>
-              <button type="button" class="toggle-btn" data-value="고급">고급</button>
-              <button type="button" class="toggle-btn" data-value="희귀">희귀</button>
-              <button type="button" class="toggle-btn" data-value="영웅">영웅</button>
-              <button type="button" class="toggle-btn" data-value="전설">전설</button>
-              <button type="button" class="toggle-btn" data-value="신화">신화</button>
-            </div>
+              <div class="checks" id="grades">
+  				<button type="button" class="toggle-btn active" data-value="전체">전체</button>
+  				<button type="button" class="toggle-btn" data-value="일반">일반</button>
+  				<button type="button" class="toggle-btn" data-value="고급">고급</button>
+  				<button type="button" class="toggle-btn" data-value="희귀">희귀</button>
+  				<button type="button" class="toggle-btn" data-value="영웅">영웅</button>
+  				<button type="button" class="toggle-btn" data-value="전설">전설</button>
+  				<button type="button" class="toggle-btn" data-value="신화">신화</button>
+			  </div>
           </div>
           <!-- 검색 -->
           <div class="subrow">
@@ -354,112 +333,112 @@ a{ text-decoration:none; color:inherit; }
         </div>
 
         <!-- 상세 -->
-        <div class="detail">
-          <div class="detail-inner">
-            <%-- 공통 메타 --%>
-            <c:if test="${not empty item.quality}">
-              <div class="subsec line"><h4>등급</h4><div class="meta">${fn:escapeXml(item.quality)}</div></div>
+<div class="detail">
+  <div class="detail-inner">
+    <%-- 공통 메타 --%>
+    <c:if test="${not empty item.quality}">
+      <div class="subsec line"><h4>등급</h4><div class="meta">${fn:escapeXml(item.quality)}</div></div>
+    </c:if>
+    <c:if test="${not empty item.category}">
+      <div class="subsec line"><h4>분류</h4><div class="meta">${fn:escapeXml(item.category)}</div></div>
+    </c:if>
+    <c:if test="${not empty item.job}">
+      <div class="subsec line"><h4>직업</h4><div class="meta">${fn:escapeXml(item.job)}</div></div>
+    </c:if>
+    <c:if test="${not empty item.slot}">
+      <div class="subsec line"><h4>장착부위</h4><div class="meta">${fn:escapeXml(item.slot)}</div></div>
+    </c:if>
+    <c:if test="${not empty item.upgrade and item.upgrade ne 0}">
+      <div class="subsec line"><h4>강화</h4><div class="meta">${item.upgrade}</div></div>
+    </c:if>
+
+    <%-- 무기 전용 스펙 --%>
+    <c:if test="${item.category eq '무기'}">
+      <c:if test="${
+          (not empty item.min_ATK and item.min_ATK ne 0) or
+          (not empty item.max_ATK and item.max_ATK ne 0)
+        }">
+        <div class="subsec line">
+          <h4>공격력</h4>
+          <div class="meta">
+            ${empty item.min_ATK ? 0 : item.min_ATK} ~ ${empty item.max_ATK ? 0 : item.max_ATK}
+            <c:if test="${not empty item.add_ATK and item.add_ATK ne 0}"> / +${item.add_ATK}</c:if>
+          </div>
+        </div>
+      </c:if>
+
+      <c:if test="${not empty item.accuracy and item.accuracy ne 0}">
+        <div class="subsec line"><h4>명중률</h4><div class="meta">${item.accuracy}</div></div>
+      </c:if>
+      <c:if test="${not empty item.critical and item.critical ne 0}">
+        <div class="subsec line"><h4>치명타</h4><div class="meta">${item.critical}</div></div>
+      </c:if>
+
+      <c:if test="${
+          (not empty item.job_ATK and item.job_ATK ne 0) or
+          (not empty item.job_ACR and item.job_ACR ne 0) or
+          (not empty item.job_amp and item.job_amp ne 0)
+        }">
+        <div class="subsec line">
+          <h4>직업 보정</h4>
+          <div class="meta">
+            <c:if test="${not empty item.job_ATK and item.job_ATK ne 0}">ATK ${item.job_ATK}&nbsp;</c:if>
+            <c:if test="${not empty item.job_ACR and item.job_ACR ne 0}">ACR ${item.job_ACR}&nbsp;</c:if>
+            <c:if test="${not empty item.job_amp and item.job_amp ne 0}">증폭 ${item.job_amp}</c:if>
+          </div>
+        </div>
+      </c:if>
+
+      <c:if test="${
+          (not empty item.skill_ATK and item.skill_ATK ne 0) or
+          (not empty item.skill_ACR and item.skill_ACR ne 0) or
+          (not empty item.skill_amp and item.skill_amp ne 0)
+        }">
+        <div class="subsec line">
+          <h4>스킬 보정</h4>
+          <div class="meta">
+            <c:if test="${not empty item.skill_ATK and item.skill_ATK ne 0}">ATK ${item.skill_ATK}&nbsp;</c:if>
+            <c:if test="${not empty item.skill_ACR and item.skill_ACR ne 0}">ACR ${item.skill_ACR}&nbsp;</c:if>
+            <c:if test="${not empty item.skill_amp and item.skill_amp ne 0}">증폭 ${item.skill_amp}</c:if>
+          </div>
+        </div>
+      </c:if>
+
+      <c:if test="${
+          (not empty item.engraveOP1 and not empty item.engravePT1 and item.engravePT1 ne 0) or
+          (not empty item.engraveOP2 and not empty item.engravePT2 and item.engravePT2 ne 0) or
+          (not empty item.engraveOP3 and not empty item.engravePT3 and item.engravePT3 ne 0)
+        }">
+        <div class="subsec line">
+          <h4>각인 옵션</h4>
+          <div class="meta">
+            <c:if test="${not empty item.engraveOP1 and not empty item.engravePT1 and item.engravePT1 ne 0}">
+              ${fn:escapeXml(item.engraveOP1)} ${item.engravePT1}%&nbsp;
             </c:if>
-            <c:if test="${not empty item.category}">
-              <div class="subsec line"><h4>분류</h4><div class="meta">${fn:escapeXml(item.category)}</div></div>
+            <c:if test="${not empty item.engraveOP2 and not empty item.engravePT2 and item.engravePT2 ne 0}">
+              ${fn:escapeXml(item.engraveOP2)} ${item.engravePT2}%&nbsp;
             </c:if>
-            <c:if test="${not empty item.job}">
-              <div class="subsec line"><h4>직업</h4><div class="meta">${fn:escapeXml(item.job)}</div></div>
-            </c:if>
-            <c:if test="${not empty item.slot}">
-              <div class="subsec line"><h4>장착부위</h4><div class="meta">${fn:escapeXml(item.slot)}</div></div>
-            </c:if>
-            <c:if test="${not empty item.upgrade and item.upgrade ne 0}">
-              <div class="subsec line"><h4>강화</h4><div class="meta">${item.upgrade}</div></div>
-            </c:if>
-
-            <%-- 무기 전용 스펙 --%>
-            <c:if test="${item.category eq '무기'}">
-              <c:if test="${
-                  (not empty item.min_ATK and item.min_ATK ne 0) or
-                  (not empty item.max_ATK and item.max_ATK ne 0)
-                }">
-                <div class="subsec line">
-                  <h4>공격력</h4>
-                  <div class="meta">
-                    ${empty item.min_ATK ? 0 : item.min_ATK} ~ ${empty item.max_ATK ? 0 : item.max_ATK}
-                    <c:if test="${not empty item.add_ATK and item.add_ATK ne 0}"> / +${item.add_ATK}</c:if>
-                  </div>
-                </div>
-              </c:if>
-
-              <c:if test="${not empty item.accuracy and item.accuracy ne 0}">
-                <div class="subsec line"><h4>명중률</h4><div class="meta">${item.accuracy}</div></div>
-              </c:if>
-              <c:if test="${not empty item.critical and item.critical ne 0}">
-                <div class="subsec line"><h4>치명타</h4><div class="meta">${item.critical}</div></div>
-              </c:if>
-
-              <c:if test="${
-                  (not empty item.job_ATK and item.job_ATK ne 0) or
-                  (not empty item.job_ACR and item.job_ACR ne 0) or
-                  (not empty item.job_amp and item.job_amp ne 0)
-                }">
-                <div class="subsec line">
-                  <h4>직업 보정</h4>
-                  <div class="meta">
-                    <c:if test="${not empty item.job_ATK and item.job_ATK ne 0}">ATK ${item.job_ATK}&nbsp;</c:if>
-                    <c:if test="${not empty item.job_ACR and item.job_ACR ne 0}">ACR ${item.job_ACR}&nbsp;</c:if>
-                    <c:if test="${not empty item.job_amp and item.job_amp ne 0}">증폭 ${item.job_amp}</c:if>
-                  </div>
-                </div>
-              </c:if>
-
-              <c:if test="${
-                  (not empty item.skill_ATK and item.skill_ATK ne 0) or
-                  (not empty item.skill_ACR and item.skill_ACR ne 0) or
-                  (not empty item.skill_amp and item.skill_amp ne 0)
-                }">
-                <div class="subsec line">
-                  <h4>스킬 보정</h4>
-                  <div class="meta">
-                    <c:if test="${not empty item.skill_ATK and item.skill_ATK ne 0}">ATK ${item.skill_ATK}&nbsp;</c:if>
-                    <c:if test="${not empty item.skill_ACR and item.skill_ACR ne 0}">ACR ${item.skill_ACR}&nbsp;</c:if>
-                    <c:if test="${not empty item.skill_amp and item.skill_amp ne 0}">증폭 ${item.skill_amp}</c:if>
-                  </div>
-                </div>
-              </c:if>
-
-              <c:if test="${
-                  (not empty item.engraveOP1 and not empty item.engravePT1 and item.engravePT1 ne 0) or
-                  (not empty item.engraveOP2 and not empty item.engravePT2 and item.engravePT2 ne 0) or
-                  (not empty item.engraveOP3 and not empty item.engravePT3 and item.engravePT3 ne 0)
-                }">
-                <div class="subsec line">
-                  <h4>각인 옵션</h4>
-                  <div class="meta">
-                    <c:if test="${not empty item.engraveOP1 and not empty item.engravePT1 and item.engravePT1 ne 0}">
-                      ${fn:escapeXml(item.engraveOP1)} ${item.engravePT1}%&nbsp;
-                    </c:if>
-                    <c:if test="${not empty item.engraveOP2 and not empty item.engravePT2 and item.engravePT2 ne 0}">
-                      ${fn:escapeXml(item.engraveOP2)} ${item.engravePT2}%&nbsp;
-                    </c:if>
-                    <c:if test="${not empty item.engraveOP3 and not empty item.engravePT3 and item.engravePT3 ne 0}">
-                      ${fn:escapeXml(item.engraveOP3)} ${item.engravePT3}%
-                    </c:if>
-                  </div>
-                </div>
-              </c:if>
-
-              <c:if test="${not empty item.skill_name}">
-                <div class="subsec line"><h4>무기 스킬</h4><div class="meta">${fn:escapeXml(item.skill_name)}</div></div>
-              </c:if>
-              <c:if test="${not empty item.skill_comment}">
-                <div class="subsec line"><h4>스킬 설명</h4><div class="meta">${fn:escapeXml(item.skill_comment)}</div></div>
-              </c:if>
-            </c:if>
-
-            <%-- 획득처(공통) --%>
-            <c:if test="${not empty item.obtain_source}">
-              <div class="subsec line"><h4>획득처</h4><div class="meta">${fn:escapeXml(item.obtain_source)}</div></div>
+            <c:if test="${not empty item.engraveOP3 and not empty item.engravePT3 and item.engravePT3 ne 0}">
+              ${fn:escapeXml(item.engraveOP3)} ${item.engravePT3}%
             </c:if>
           </div>
         </div>
+      </c:if>
+
+      <c:if test="${not empty item.skill_name}">
+        <div class="subsec line"><h4>무기 스킬</h4><div class="meta">${fn:escapeXml(item.skill_name)}</div></div>
+      </c:if>
+      <c:if test="${not empty item.skill_comment}">
+        <div class="subsec line"><h4>스킬 설명</h4><div class="meta">${fn:escapeXml(item.skill_comment)}</div></div>
+      </c:if>
+    </c:if>
+
+    <%-- 획득처(공통) --%>
+    <c:if test="${not empty item.obtain_source}">
+      <div class="subsec line"><h4>획득처</h4><div class="meta">${fn:escapeXml(item.obtain_source)}</div></div>
+    </c:if>
+  </div>
+</div>
 
       </c:forEach>
     </div>
@@ -530,7 +509,7 @@ a{ text-decoration:none; color:inherit; }
             <c:if test="${item.critical != 0}">
               <div class="stat"><b>치명타</b> ${item.critical}</div>
             </c:if>
-            <c:if test="${not empty item.obtain_source}">
+            <c:if test="${not empty item.obtain_source}}">
               <div class="stat"><b>획득처</b> ${fn:escapeXml(item.obtain_source)}</div>
             </c:if>
           </div>

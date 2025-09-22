@@ -5,7 +5,7 @@
 <mapper namespace="mapper.item">
 
   <!-- 결과 매핑: DB 컬럼 -> VO 프로퍼티 -->
-  <resultMap id="itemResult" type="com.myspring.vampir.item.vo.ItemVO">
+  <resultMap id="itemResult" type="com.myspring.vampir.DB.vo.ItemVO">
     <id     property="item_code"    column="item_code"/>
     <result property="name"          column="name"/>
     <result property="upgrade"       column="upgrade"/>
