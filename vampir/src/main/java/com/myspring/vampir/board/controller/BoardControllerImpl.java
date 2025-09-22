@@ -61,9 +61,15 @@ public class BoardControllerImpl implements BoardController {
 	}
 
 	@RequestMapping(value = "/board/edit.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView editPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView editPage(@RequestParam("articleNO") int articleNO, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName"); // ex) "/board/edit"
-		return new ModelAndView(viewName);
+
+		articleVO = boardService.viewArticle(articleNO);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		mav.addObject("article", articleVO);
+		return mav;
 	}
 
 	@RequestMapping(value = "/board/view.do", method = { RequestMethod.GET, RequestMethod.POST })

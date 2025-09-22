@@ -10,6 +10,8 @@
 <style>
 #container {
 	width: 100%;
+	  margin: 0;
+  padding-top: 70px;
 }
 
 #header {

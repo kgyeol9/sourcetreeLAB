@@ -1,12 +1,12 @@
-/* ·Î°í ÆùÆ® */
+/* ï¿½Î°ï¿½ ï¿½ï¿½Æ® */
 @import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap');
-/* ¹Ùµð & »çÀÌµå¹Ù ÆùÆ® */
+/* ï¿½Ùµï¿½ & ï¿½ï¿½ï¿½Ìµï¿½ï¿½ ï¿½ï¿½Æ® */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Nanum+Gothic:wght@400;700&display=swap');
 
 :root {
-  --bg-dark: #0a0001;        /* °ËÁ¤ */
-  --bg-gray: #2a2a2a;        /* Â£Àº È¸»ö */
-  --bg-red: #1b0002;         /* µö ·¹µå */
+  --bg-dark: #0a0001;        /* ï¿½ï¿½ï¿½ï¿½ */
+  --bg-gray: #2a2a2a;        /* Â£ï¿½ï¿½ È¸ï¿½ï¿½ */
+  --bg-red: #1b0002;         /* ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 
   --header-bg: linear-gradient(-45deg, #0a0001, #1b0002, #2a2a2a); 
   --sidebar-bg: linear-gradient(-45deg, #0a0001, #1b0002, #2a2a2a);
@@ -17,20 +17,23 @@
   --ink: #eaeaea;
   --muted: #888;
 
-  /* Æ÷ÀÎÆ® ÄÃ·¯ */
+  /* ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ã·ï¿½ */
   --accent: #9c8347;       /* Firebrick Red */
-  --accent-hover: #e5e1c9; /* °­ÇÑ ºÓÀº hover */
+  --accent-hover: #e5e1c9; /* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ hover */
   --accent-soft: #8B0000;  /* Dark Red */
 
   --border: #330000;
 }
 
-/* === °øÅë === */
+
+
+
+/* === ï¿½ï¿½ï¿½ï¿½ === */
 body {
   margin: 0;
   font-family: 'Noto Sans KR', 'Nanum Gothic', sans-serif;
 
-  /* °ËÁ¤ + È¸»ö + ºÓÀº ¿À·Î¶ó ¾Ö´Ï¸ÞÀÌ¼Ç */
+  /* ï¿½ï¿½ï¿½ï¿½ + È¸ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¶ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ */
   background: linear-gradient(-45deg, var(--bg-dark), var(--bg-gray), var(--bg-red), #000);
   background-size: 400% 400%;
   animation: auroraFlow 30s ease infinite;
@@ -55,7 +58,7 @@ a:hover { color: var(--accent-hover); }
 
 
 
-/* === Ä«µå/¼½¼Ç === */
+/* === Ä«ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ === */
 main {
   margin-left: 270px;
   margin-top: 90px;
@@ -64,9 +67,9 @@ main {
 }
 section {
   background: 
-    radial-gradient(circle at 70% 30%, rgba(230, 220, 170, 0.15), transparent 60%), /* ¾ÆÀÌº¸¸®/¿»·Î¿ì ºû ¾È°³ */
-    radial-gradient(circle at 20% 80%, rgba(200, 190, 150, 0.12), transparent 70%), /* Èå¸° ¾È°³ Ãß°¡ */
-    linear-gradient(160deg, #0a0d14, #1b1f26 70%); /* ¾îµÎ¿î ºí·ç±×·¹ÀÌ ±â¹Ý */
+    radial-gradient(circle at 70% 30%, rgba(230, 220, 170, 0.15), transparent 60%), /* ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ ï¿½È°ï¿½ */
+    radial-gradient(circle at 20% 80%, rgba(200, 190, 150, 0.12), transparent 70%), /* ï¿½å¸° ï¿½È°ï¿½ ï¿½ß°ï¿½ */
+    linear-gradient(160deg, #0a0d14, #1b1f26 70%); /* ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ */
   padding: 1.5em 2em;
   margin-bottom: 2em;
   border-radius: 10px;
@@ -77,25 +80,25 @@ section {
 
 section:hover {
   transform: translateY(-3px);
-  box-shadow: 0 0 35px rgba(230, 220, 170, 0.25); /* hover ½Ã ¾È°³ºû °­Á¶ */
+  box-shadow: 0 0 35px rgba(230, 220, 170, 0.25); /* hover ï¿½ï¿½ ï¿½È°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 }
 
 section h2 {
-  border-bottom: 2px solid var(--accent); /* Æ÷ÀÎÆ®´Â ºÓÀº ¶óÀÎ */
+  border-bottom: 2px solid var(--accent); /* ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
   padding-bottom: 0.3em;
   margin-bottom: 1em;
   
-  /* ±ÛÀÚ »ö»ó¸¸ ºí·ç±×·¹ÀÌ ÅæÀ¸·Î */
+  /* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
   color: #bbb;
   
   font-weight: 700;
-  text-shadow: none; /* ¹øÁü Á¦°Å */
-  animation: none;   /* glow È¿°ú Á¦°Å */
+  text-shadow: none; /* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
+  animation: none;   /* glow È¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 }
 
 
 
-/* === ±×¸®µå ·¹ÀÌ¾Æ¿ô === */
+/* === ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾Æ¿ï¿½ === */
 .grid-layout {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -106,19 +109,19 @@ section h2 {
   .grid-layout { grid-template-columns: 1fr; }
 }
 
-/* === ½Ò °è»ê±â === */
+/* === ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ === */
 #rice-calculator {
   background: linear-gradient(
       160deg,
-      rgba(15, 15, 25, 1) 0%,     /* ºí·ç±×·¹ÀÌ ´ÙÅ© */
-      rgba(25, 25, 35, 0.95) 40%,     /* ´õ ÁøÇÑ ºí·ç±×·¹ÀÌ */
-      rgba(240, 220, 160, 0.09) 100% /* ¾ÆÀÌº¸¸®/¿»·Î¿ì ¾È°³ */
+      rgba(15, 15, 25, 1) 0%,     /* ï¿½ï¿½ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½Å© */
+      rgba(25, 25, 35, 0.95) 40%,     /* ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½ï¿½ */
+      rgba(240, 220, 160, 0.09) 100% /* ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½È°ï¿½ */
   );
   padding: 2em;
   border-radius: 8px;
   border: 1px solid var(--border);
-  box-shadow: 0 0 25px rgba(240, 220, 160, 0.15), /* ¾ÆÀÌº¸¸® ºû */
-              0 0 15px rgba(0, 0, 0, 0.6) inset; /* ³»ºÎ ±íÀÌ */
+  box-shadow: 0 0 25px rgba(240, 220, 160, 0.15), /* ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ */
+              0 0 15px rgba(0, 0, 0, 0.6) inset; /* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
   margin-bottom: 2em;
   transition: transform 0.3s, box-shadow 0.3s;
 }
