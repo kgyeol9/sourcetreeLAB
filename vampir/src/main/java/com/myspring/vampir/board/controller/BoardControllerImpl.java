@@ -328,14 +328,7 @@ public class BoardControllerImpl implements BoardController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/help.do", method = { RequestMethod.GET, RequestMethod.POST })
-	private ModelAndView help(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String viewName = (String) request.getAttribute("viewName");
-		System.out.println("viewName : " + viewName);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
-		return mav;
-	}
+	
 	
 	// �Ѱ� �̹��� ���ε��ϱ�
 	private String upload(MultipartHttpServletRequest multipartRequest) throws Exception {

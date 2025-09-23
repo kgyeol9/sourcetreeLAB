@@ -21,11 +21,11 @@
 			<td><header>
 					<a href="${contextPath}/home.do" class="logo">VAMPI.GG</a>
 					<nav class="center-nav">
-						<a href="#notices">새소식</a>
+						<a href="${contextPath}/news.do">새소식</a>
 						<a href="${contextPath}/itemDB.do">DB</a>
 						<a href="#game-info">게시판</a>
 						<a href="${contextPath}/board/list.do">커뮤니티</a>
-						<a href="#">고객센터</a>
+						<a href="${contextPath}/help.do">고객센터</a>
 					</nav>
 					<div class="settings">
 					
