@@ -10,22 +10,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller("helpController")
 public class HelpControllerImpl {
-	
-	@RequestMapping(value = "/help.do", method = { RequestMethod.GET, RequestMethod.POST })
-	private ModelAndView help(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String viewName = (String) request.getAttribute("viewName");
-		System.out.println("viewName : " + viewName);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
-		return mav;
-	}
-	
-	@RequestMapping(value = "/news.do", method = { RequestMethod.GET, RequestMethod.POST })
-	private ModelAndView notice(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String viewName = (String) request.getAttribute("viewName");
-		System.out.println("viewName : " + viewName);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
-		return mav;
-	}
+
+    @RequestMapping(value = "/help/help.do", method = { RequestMethod.GET, RequestMethod.POST })
+    private ModelAndView help(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("help");   // ← Tiles 정의 name="help"
+        return mav;
+    }
+
+    @RequestMapping(value = "/news.do", method = { RequestMethod.GET, RequestMethod.POST })
+    private ModelAndView news(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("news");   // ← Tiles 정의 name="news"
+        return mav;
+    }
 }

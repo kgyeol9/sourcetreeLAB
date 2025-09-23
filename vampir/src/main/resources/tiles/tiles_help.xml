@@ -20,7 +20,7 @@
 	<definition name="help" extends="baseLayout">
 		<put-attribute name="title" value="고객센터" />
 		<put-attribute name="body"
-			value="/WEB-INF/views/help.jsp" />
+			value="/WEB-INF/views/help/help.jsp" />
 	</definition>
 	
 	<definition name="news" extends="baseLayout">

@@ -21,25 +21,19 @@ public class ItemControllerImpl implements ItemController {
 	@Autowired
 	private ItemService itemService;
 
-	// ·çÆ® ÁøÀÔ ½Ã ¸ñ·ÏÀ¸·Î ¸®´ÙÀÌ·ºÆ® (Àåºñ DB)
-	@RequestMapping(value = { "/", "/main.do" }, method = RequestMethod.GET)
-	public ModelAndView main() {
-		return new ModelAndView("redirect:/DB/listItems.do");
-	}
-
 	@Override
 	@RequestMapping(value = "/DB/listItems.do", method = RequestMethod.GET)
 	public ModelAndView listItems(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<Map<String, Object>> itemsList = itemService.listItemsUnified();
 		System.out.println("[DEBUG] itemsList size = " + (itemsList == null ? "null" : itemsList.size()));
 
-		// ¡Ú JSP ÆÄÀÏ¸íÀÌ itemDB.jsp ÀÌ¹Ç·Î ºä ÀÌ¸§µµ itemDB·Î
-		ModelAndView mav = new ModelAndView("itemDB"); // /WEB-INF/views/itemDB.jsp (ÀÏ¹ÝÀûÀÎ ViewResolver ±âÁØ)
-		mav.addObject("itemsList", itemsList); // JSPµéÀÌ ±â´ëÇÏ´Â Å°·Î ÅëÀÏ
+		// ï¿½ï¿½ JSP ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ itemDB.jsp ï¿½Ì¹Ç·ï¿½ ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ itemDBï¿½ï¿½
+		ModelAndView mav = new ModelAndView("itemDB"); // /WEB-INF/views/itemDB.jsp (ï¿½Ï¹ï¿½ï¿½ï¿½ï¿½ï¿½ ViewResolver ï¿½ï¿½ï¿½ï¿½)
+		mav.addObject("itemsList", itemsList); // JSPï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		return mav;
 	}
 
-	// Á÷Çà ¸µÅ© (Àåºñ DB)
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å© (ï¿½ï¿½ï¿½ DB)
 	@RequestMapping(value = "/itemDB.do", method = RequestMethod.GET)
 	public ModelAndView itemDB(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		return new ModelAndView("redirect:/DB/listItems.do");
@@ -52,23 +46,23 @@ public class ItemControllerImpl implements ItemController {
 		System.out.println("[DEBUG] etc itemsList size = " + (itemsList == null ? "null" : itemsList.size()));
 
 		ModelAndView mav = new ModelAndView("etcDB"); // /WEB-INF/views/etcDB.jsp
-		mav.addObject("itemsList", itemsList); // ¡Ú Å° ÅëÀÏ
+		mav.addObject("itemsList", itemsList); // ï¿½ï¿½ Å° ï¿½ï¿½ï¿½ï¿½
 		return mav;
 	}
 
-	// Á÷Çà ¸µÅ© (±âÅ¸ DB)
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å© (ï¿½ï¿½Å¸ DB)
 	@RequestMapping(value = "/etcDB.do", method = RequestMethod.GET)
 	public ModelAndView EtcItemDB(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		return new ModelAndView("redirect:/DB/listEtcItems.do");
 	}
 
-	// ÇÇÀÇ Çü»ó ÁøÀÔ ¹öÆ° ¡æ ¸ñ·ÏÀ¸·Î ¸®´ÙÀÌ·ºÆ®
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½Æ®
 	@RequestMapping(value = "/formDB.do", method = RequestMethod.GET)
 	public String formDB() {
-		return "redirect:/DB/listForm.do"; // ¡ç ÄÁÅØ½ºÆ®ÆÐ½º Á÷Á¢ ³ÖÁö ¾Ê±â
+		return "redirect:/DB/listForm.do"; // ï¿½ï¿½ ï¿½ï¿½ï¿½Ø½ï¿½Æ®ï¿½Ð½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½
 	}
 
-	// ÇÇÀÇ Çü»ó ¸®½ºÆ®
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 	@RequestMapping(value = { "/DB/listForm.do", "/DB/listform.do" }, method = RequestMethod.GET)
 	public ModelAndView listForm(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("formDB");
@@ -76,13 +70,13 @@ public class ItemControllerImpl implements ItemController {
 		return mav;
 	}
 
-	// Å» °Í ÁøÀÔ ¹öÆ° ¡æ ¸ñ·ÏÀ¸·Î ¸®´ÙÀÌ·ºÆ®
+	// Å» ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½Æ®
 	@RequestMapping(value = "/mountDB.do", method = RequestMethod.GET)
 	public String mountDB() {
-		return "redirect:/DB/listMount.do"; // ¡ç µ¿ÀÏ
+		return "redirect:/DB/listMount.do"; // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	}
 
-	// Å» °Í ¸®½ºÆ®
+	// Å» ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 	@RequestMapping(value = { "/DB/listMount.do", "/DB/listmount.do" }, method = RequestMethod.GET)
 	public ModelAndView listMount(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("mountDB");
@@ -90,7 +84,7 @@ public class ItemControllerImpl implements ItemController {
 		return mav;
 	}
 
-	/* ===== ÄÃ·º¼Ç ===== */
+	/* ===== ï¿½Ã·ï¿½ï¿½ï¿½ ===== */
 	@RequestMapping(value = "/collectionDB.do", method = RequestMethod.GET)
 	public String collectionDB() {
 		return "redirect:/DB/listCollection.do";
@@ -99,12 +93,12 @@ public class ItemControllerImpl implements ItemController {
 	@RequestMapping(value = "/DB/listCollection.do", method = RequestMethod.GET)
 	public ModelAndView listCollection(HttpServletRequest req, HttpServletResponse res) {
 		ModelAndView mav = new ModelAndView("collectionDB");
-		mav.addObject("collectionList", Collections.emptyList()); // TODO: ¼­ºñ½º ¿¬µ¿
+		mav.addObject("collectionList", Collections.emptyList()); // TODO: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		mav.addObject("pageActive", "collection");
 		return mav;
 	}
 
-	/* ===== ÃÊ»óÈ­ ===== */
+	/* ===== ï¿½Ê»ï¿½È­ ===== */
 	@RequestMapping(value = "/portraitDB.do", method = RequestMethod.GET)
 	public String portraitDB() {
 		return "redirect:/DB/listPortrait.do";
@@ -118,7 +112,7 @@ public class ItemControllerImpl implements ItemController {
 		return mav;
 	}
 
-	/* ===== ±ÔÀ² ===== */
+	/* ===== ï¿½ï¿½ï¿½ï¿½ ===== */
 	@RequestMapping(value = "/disciplineDB.do", method = RequestMethod.GET)
 	public String disciplineDB() {
 		return "redirect:/DB/listDiscipline.do";
@@ -132,7 +126,7 @@ public class ItemControllerImpl implements ItemController {
 		return mav;
 	}
 
-	/* ===== ¸¶·Â¿¬±¸ ===== */
+	/* ===== ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ===== */
 	@RequestMapping(value = "/magicDB.do", method = RequestMethod.GET)
 	public String magicDB() {
 		return "redirect:/DB/listMagicResearch.do";
@@ -140,13 +134,13 @@ public class ItemControllerImpl implements ItemController {
 
 	@RequestMapping(value = "/DB/listMagicResearch.do", method = RequestMethod.GET)
 	public ModelAndView listMagicResearch(HttpServletRequest req, HttpServletResponse res) {
-		ModelAndView mav = new ModelAndView("magicDB"); // ÆÄÀÏ¸í°ú ÀÏÄ¡
+		ModelAndView mav = new ModelAndView("magicDB"); // ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ ï¿½ï¿½Ä¡
 		mav.addObject("magicList", Collections.emptyList());
 		mav.addObject("pageActive", "magic");
 		return mav;
 	}
 
-	/* ===== ¾ÆÆ¼ÆÑÆ® ===== */
+	/* ===== ï¿½ï¿½Æ¼ï¿½ï¿½Æ® ===== */
 	@RequestMapping(value = "/artifactDB.do", method = RequestMethod.GET)
 	public String artifactDB() {
 		return "redirect:/DB/listArtifact.do";
@@ -160,7 +154,7 @@ public class ItemControllerImpl implements ItemController {
 		return mav;
 	}
 
-	/* ===== ¼¼ÇÇ¶ó ===== */
+	/* ===== ï¿½ï¿½ï¿½Ç¶ï¿½ ===== */
 	@RequestMapping(value = "/sephiraDB.do", method = RequestMethod.GET)
 	public String sephiraDB() {
 		return "redirect:/DB/listSephira.do";
