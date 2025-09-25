@@ -20,7 +20,7 @@
   <!-- 상세 -->
   <definition name="newsView" extends="baseLayout">
     <put-attribute name="title" value="새소식 상세"/>
-    <put-attribute name="body"  value="/WEB-INF/views/news/newsView.jsp"/>
+    <put-attribute name="body" value="/WEB-INF/views/news/newsView.jsp"/>
   </definition>
 
   <!-- 작성/수정 -->
