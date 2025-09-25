@@ -21,7 +21,7 @@
     </div>
     <div class="subcategory" id="c3">
       <h3>새소식</h3>
-      <ul><li><a href="<c:url value='/news.do'/>">공지사항</a></li><li><a href="#">업데이트</a></li><li><a href="#">개발자노트</a></li></ul>
+      <ul><li><a href="<c:url value='/news/news.do'/>">공지사항</a></li><li><a href="#">업데이트</a></li><li><a href="#">개발자노트</a></li></ul>
     </div>
     <div class="subcategory" id="c4">
       <h3>고객센터</h3>
