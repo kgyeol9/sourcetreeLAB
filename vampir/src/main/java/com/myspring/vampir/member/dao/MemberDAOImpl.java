@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import com.myspring.vampir.board.vo.CommentVO;
 import com.myspring.vampir.member.vo.MemberVO;
 
 
@@ -14,6 +15,7 @@ import com.myspring.vampir.member.vo.MemberVO;
 public class MemberDAOImpl implements MemberDAO {
 	@Autowired
 	private SqlSession sqlSession;
+
 
 	@Override
 	public List selectAllMemberList() throws DataAccessException {
@@ -39,5 +41,6 @@ public class MemberDAOImpl implements MemberDAO {
 		  MemberVO vo = sqlSession.selectOne("mapper.member.loginById",memberVO);
 		return vo;
 	}
+	
 
 }

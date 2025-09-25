@@ -105,10 +105,13 @@ public class MemberControllerImpl   implements MemberController {
 	
 	
 	memberVO = memberService.login(member);
+	
+	
 	if(memberVO != null) {
 	    HttpSession session = request.getSession();
 	    session.setAttribute("member", memberVO);
 	    session.setAttribute("isLogOn", true);
+	    System.out.println(memberVO.getMemCode());
 	    //mav.setViewName("redirect:/member/listMembers.do");
 	    String redirectURL = (String) session.getAttribute("redirectURL");
 	    System.out.println("redirectURL:" + redirectURL);

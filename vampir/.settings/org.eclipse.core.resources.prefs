@@ -1,4 +1,8 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/myspring/vampir/board/controller/BoardControllerImpl.java=UTF-8
+encoding//src/main/java/com/myspring/vampir/board/dao/BoardDAOImpl.java=UTF-8
+encoding//src/main/java/com/myspring/vampir/board/service/BoardServiceImpl.java=UTF-8
+encoding//src/main/java/com/myspring/vampir/member/vo/MemberVO.java=UTF-8
 encoding//src/main/webapp/WEB-INF/views/home.jsp=UTF-8
 encoding//src/main/webapp/resources/css/itemDB.css=UTF-8
 encoding//src/main/webapp/resources/css/style.css=UTF-8

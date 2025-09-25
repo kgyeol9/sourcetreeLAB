@@ -1,7 +1,6 @@
 package com.myspring.vampir.board.controller;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,11 +13,12 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.vampir.board.service.BoardService;
 import com.myspring.vampir.board.vo.ArticleVO;
-import com.myspring.vampir.board.vo.ImageVO;
+import com.myspring.vampir.board.vo.CommentVO;
 import com.myspring.vampir.member.vo.MemberVO;
 
 @Controller("boardController")
@@ -40,7 +40,7 @@ public class BoardControllerImpl implements BoardController {
 	@Autowired
 	private ArticleVO articleVO;
 
-	// 화면 확인용(목록/작성/수정/상세) - 페이지 라우팅만
+	// �솕硫� �솗�씤�슜(紐⑸줉/�옉�꽦/�닔�젙/�긽�꽭) - �럹�씠吏� �씪�슦�똿留�
 	@RequestMapping(value = "/board/list.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView listPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
@@ -107,7 +107,7 @@ public class BoardControllerImpl implements BoardController {
 		return mav;
 	}
 
-	// �� �� �̹��� �۾���
+	// 占쏙옙 占쏙옙 占싱뱄옙占쏙옙 占쌜억옙占쏙옙
 	@Override
 	@RequestMapping(value = "/board/addNewArticle.do", method = RequestMethod.POST)
 	@ResponseBody
@@ -143,7 +143,7 @@ public class BoardControllerImpl implements BoardController {
 			}
 
 			message = "<script>";
-			message += " alert('새글 추가');";
+			message += " alert('�깉湲� 異붽�');";
 			message += " location.href='" + multipartRequest.getContextPath() + "/board/list.do'; ";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -152,7 +152,7 @@ public class BoardControllerImpl implements BoardController {
 			srcFile.delete();
 
 			message = " <script>";
-			message += " alert('오류 발생');');";
+			message += " alert('�삤瑜� 諛쒖깮');');";
 			message += " location.href='" + multipartRequest.getContextPath() + "/board/articleForm.do'; ";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -161,7 +161,7 @@ public class BoardControllerImpl implements BoardController {
 		return resEnt;
 	}
 
-	// �Ѱ��� �̹��� �����ֱ�
+	// 占싼곤옙占쏙옙 占싱뱄옙占쏙옙 占쏙옙占쏙옙占쌍깍옙
 	@RequestMapping(value = "/board/viewArticle.do", method = RequestMethod.GET)
 	public ModelAndView viewArticle(@RequestParam("articleNO") int articleNO, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -174,7 +174,7 @@ public class BoardControllerImpl implements BoardController {
 	}
 
 	/*
-	 * //���� �̹��� �����ֱ�
+	 * //占쏙옙占쏙옙 占싱뱄옙占쏙옙 占쏙옙占쏙옙占쌍깍옙
 	 * 
 	 * @RequestMapping(value="/board/viewArticle.do" ,method = RequestMethod.GET)
 	 * public ModelAndView viewArticle(@RequestParam("articleNO") int articleNO,
@@ -185,7 +185,7 @@ public class BoardControllerImpl implements BoardController {
 	 * articleMap); return mav; }
 	 */
 
-	// �� �� �̹��� ���� ���
+	// 占쏙옙 占쏙옙 占싱뱄옙占쏙옙 占쏙옙占쏙옙 占쏙옙占�
 	@RequestMapping(value = "/board/modArticle.do", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity modArticle(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
@@ -219,7 +219,7 @@ public class BoardControllerImpl implements BoardController {
 				oldFile.delete();
 			}
 			message = "<script>";
-			message += " alert('글자가 안 깨졌으면 좋겠네요');";
+			message += " alert('湲��옄媛� �븞 源⑥죱�쑝硫� 醫뗪쿋�꽕�슂');";
 			message += " location.href='" + multipartRequest.getContextPath() + "/board/view.do?articleNO="
 					+ articleNO + "';";
 			message += " </script>";
@@ -228,7 +228,7 @@ public class BoardControllerImpl implements BoardController {
 			File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName);
 			srcFile.delete();
 			message = "<script>";
-			message += " alert('글자가 안 깨졌으면 좋겠네요');";
+			message += " alert('湲��옄媛� �븞 源⑥죱�쑝硫� 醫뗪쿋�꽕�슂');";
 			message += " location.href='" + multipartRequest.getContextPath() + "/board/view.do?articleNO="
 					+ articleNO + "';";
 			message += " </script>";
@@ -254,14 +254,14 @@ public class BoardControllerImpl implements BoardController {
 			FileUtils.deleteDirectory(destDir);
 
 			message = "<script>";
-			message += " alert('글자가 안 깨졌으면 좋겠네요.');";
+			message += " alert('湲��옄媛� �븞 源⑥죱�쑝硫� 醫뗪쿋�꽕�슂.');";
 			message += " location.href='" + request.getContextPath() + "/board/list.do';";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 
 		} catch (Exception e) {
 			message = "<script>";
-			message += " alert('글자가 안 깨졌으면 좋겠네요.');";
+			message += " alert('湲��옄媛� �븞 源⑥죱�쑝硫� 醫뗪쿋�꽕�슂.');";
 			message += " location.href='" + request.getContextPath() + "/board/list.do';";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -271,7 +271,7 @@ public class BoardControllerImpl implements BoardController {
 	}
 
 	/*
-	 * //글자가 안 깨졌으면 좋겠네요
+	 * //湲��옄媛� �븞 源⑥죱�쑝硫� 醫뗪쿋�꽕�슂
 	 * 
 	 * @Override
 	 * 
@@ -286,7 +286,7 @@ public class BoardControllerImpl implements BoardController {
 	 * String name=(String)enu.nextElement(); String
 	 * value=multipartRequest.getParameter(name); articleMap.put(name,value); }
 	 * 
-	 * //글자가 안 깨졌으면 좋겠네요 HttpSession session = multipartRequest.getSession();
+	 * //湲��옄媛� �븞 源⑥죱�쑝硫� 醫뗪쿋�꽕�슂 HttpSession session = multipartRequest.getSession();
 	 * MemberVO memberVO = (MemberVO) session.getAttribute("member"); String id =
 	 * memberVO.getId(); articleMap.put("id",id); articleMap.put("parentNO", 0);
 	 * 
@@ -304,7 +304,7 @@ public class BoardControllerImpl implements BoardController {
 	 * File(ARTICLE_IMAGE_REPO+"\\"+articleNO); //destDir.mkdirs();
 	 * FileUtils.moveFileToDirectory(srcFile, destDir,true); } }
 	 * 
-	 * message = "<script>"; message += " alert('글자가 안 깨졌으면 좋겠네요');"; message +=
+	 * message = "<script>"; message += " alert('湲��옄媛� �븞 源⑥죱�쑝硫� 醫뗪쿋�꽕�슂');"; message +=
 	 * " location.href='"+multipartRequest.getContextPath()
 	 * +"/board/listArticles.do'; "; message +=" </script>"; resEnt = new
 	 * ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -317,7 +317,7 @@ public class BoardControllerImpl implements BoardController {
 	 * }
 	 * 
 	 * 
-	 * message = " <script>"; message +=" alert('글자가 안 깨졌으면 좋겠네요');');"; message
+	 * message = " <script>"; message +=" alert('湲��옄媛� �븞 源⑥죱�쑝硫� 醫뗪쿋�꽕�슂');');"; message
 	 * +=" location.href='"+multipartRequest.getContextPath()
 	 * +"/board/articleForm.do'; "; message +=" </script>"; resEnt = new
 	 * ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -334,7 +334,7 @@ public class BoardControllerImpl implements BoardController {
 		return mav;
 	}
 
-	// �Ѱ� �̹��� ���ε��ϱ�
+	// 占싼곤옙 占싱뱄옙占쏙옙 占쏙옙占싸듸옙占싹깍옙
 	private String upload(MultipartHttpServletRequest multipartRequest) throws Exception {
 		String imageFileName = null;
 		Iterator<String> fileNames = multipartRequest.getFileNames();
@@ -345,13 +345,13 @@ public class BoardControllerImpl implements BoardController {
 			imageFileName = mFile.getOriginalFilename();
 			File file = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + fileName);
 			if (mFile.getSize() != 0) { // File Null Check
-				if (!file.exists()) { // ��λ� ������ �������� ���� ���
-					file.getParentFile().mkdirs(); // ��ο� �ش��ϴ� ���丮���� ����
-					mFile.transferTo(new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName)); // �ӽ÷� �����
-																											// multipartFile��
-																											// ����
-																											// ���Ϸ�
-																											// ����
+				if (!file.exists()) { // 占쏙옙貫占� 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占�
+					file.getParentFile().mkdirs(); // 占쏙옙恝占� 占쌔댐옙占싹댐옙 占쏙옙占썰리占쏙옙占쏙옙 占쏙옙占쏙옙
+					mFile.transferTo(new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName)); // 占쌈시뤄옙 占쏙옙占쏙옙占�
+																											// multipartFile占쏙옙
+																											// 占쏙옙占쏙옙
+																											// 占쏙옙占싹뤄옙
+																											// 占쏙옙占쏙옙
 				}
 			}
 
@@ -360,7 +360,7 @@ public class BoardControllerImpl implements BoardController {
 	}
 
 	/*
-	 * //���� �̹��� ���ε��ϱ� private List<String> upload(MultipartHttpServletRequest
+	 * //占쏙옙占쏙옙 占싱뱄옙占쏙옙 占쏙옙占싸듸옙占싹깍옙 private List<String> upload(MultipartHttpServletRequest
 	 * multipartRequest) throws Exception{ List<String> fileList= new
 	 * ArrayList<String>(); Iterator<String> fileNames =
 	 * multipartRequest.getFileNames(); while(fileNames.hasNext()){ String fileName
@@ -368,10 +368,49 @@ public class BoardControllerImpl implements BoardController {
 	 * String originalFileName=mFile.getOriginalFilename();
 	 * fileList.add(originalFileName); File file = new File(ARTICLE_IMAGE_REPO
 	 * +"\\"+"temp"+"\\" + fileName); if(mFile.getSize()!=0){ //File Null Check
-	 * if(!file.exists()){ //��λ� ������ �������� ���� ���
-	 * file.getParentFile().mkdirs(); //��ο� �ش��ϴ� ���丮���� ����
+	 * if(!file.exists()){ //占쏙옙貫占� 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占�
+	 * file.getParentFile().mkdirs(); //占쏙옙恝占� 占쌔댐옙占싹댐옙 占쏙옙占썰리占쏙옙占쏙옙 占쏙옙占쏙옙
 	 * mFile.transferTo(new File(ARTICLE_IMAGE_REPO
-	 * +"\\"+"temp"+ "\\"+originalFileName)); //�ӽ÷� ����� multipartFile�� ����
-	 * ���Ϸ� ���� } } } return fileList; }
+	 * +"\\"+"temp"+ "\\"+originalFileName)); //占쌈시뤄옙 占쏙옙占쏙옙占� multipartFile占쏙옙 占쏙옙占쏙옙
+	 * 占쏙옙占싹뤄옙 占쏙옙占쏙옙 } } } return fileList; }
 	 */
+	
+    // ✅ 댓글 목록 조회
+    @RequestMapping(value = "/comment/list.do", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<CommentVO>> list(@RequestParam("articleId") int articleId) throws Exception {
+        List<CommentVO> comments = boardService.listComments(articleId);
+        return new ResponseEntity<List<CommentVO>>(comments, HttpStatus.OK);
+    }
+
+    // ✅ 댓글 추가 (세션에서 member_code 꺼내서 사용)
+    @RequestMapping(value = "/comment/add.do", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<String> add(@RequestBody CommentVO comment, HttpSession session) throws Exception {
+        MemberVO member = (MemberVO) session.getAttribute("member");
+
+        System.out.println("✅ 세션에서 가져온 memCode: " + member.getMemCode());
+        
+        if (member == null) {
+            return new ResponseEntity<String>("로그인이 필요합니다.", HttpStatus.UNAUTHORIZED);
+        }
+
+        comment.setMemberId(member.getMemCode()); // 세션에서 member_code 설정
+        boardService.addComment(comment);
+        return new ResponseEntity<String>("success", HttpStatus.OK);
+    }
+
+    // ✅ 댓글 삭제
+    @RequestMapping(value = "/comment/delete.do", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<String> delete(@RequestParam("id") int id, HttpSession session) throws Exception {
+        MemberVO member = (MemberVO) session.getAttribute("member");
+        if (member == null) {
+            return new ResponseEntity<String>("로그인이 필요합니다.", HttpStatus.UNAUTHORIZED);
+        }
+
+        boardService.removeComment(id, member.getMemCode());
+        return new ResponseEntity<String>("success", HttpStatus.OK);
+    }
 }
+

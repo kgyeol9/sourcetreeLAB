@@ -8,6 +8,7 @@
 	<!-- 결과 매핑: DB 컬럼 → VO 프로퍼티 -->
 	<resultMap id="memResult"
 		type="com.myspring.vampir.member.vo.MemberVO">
+		<result property="memCode" column="mem_code"/>
 		<result property="memId" column="mem_id" />
 		<result property="memPwd" column="mem_pwd" />
 		<result property="nickname" column="nickname" />
@@ -60,7 +61,7 @@
 		parameterType="com.myspring.vampir.member.vo.MemberVO"
 		resultMap="memResult">
     <![CDATA[
-      SELECT mem_id, mem_pwd, nickname, email, joindate
+      SELECT mem_code, mem_id, mem_pwd, nickname, email, joindate
       FROM t_member
       WHERE mem_id = #{memId}
         AND mem_pwd = #{memPwd}
