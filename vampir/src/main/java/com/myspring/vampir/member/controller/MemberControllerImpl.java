@@ -29,7 +29,7 @@ public class MemberControllerImpl   implements MemberController {
 	@Autowired
 	private MemberVO memberVO ;
 	
-	@RequestMapping(value= {"/", "/home.do"}, method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value= {"", "/", "/home.do"}, method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView home(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String)request.getAttribute("viewName");
 		

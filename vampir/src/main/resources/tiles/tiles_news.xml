@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+  "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+  <!-- /vampir/news.do 처리를 위한 별칭 정의 (선택) -->
+  <definition name="news" extends="baseLayout">
+    <put-attribute name="title" value="새소식"/>
+    <put-attribute name="body"  value="/WEB-INF/views/news/news.jsp"/>
+  </definition>
+
+  <!-- 목록 -->
+  <definition name="newsList" extends="baseLayout">
+    <put-attribute name="title" value="새소식 목록"/>
+    <put-attribute name="body"  value="/WEB-INF/views/news/news.jsp"/>
+  </definition>
+
+  <!-- 상세 -->
+  <definition name="newsView" extends="baseLayout">
+    <put-attribute name="title" value="새소식 상세"/>
+    <put-attribute name="body"  value="/WEB-INF/views/news/newsView.jsp"/>
+  </definition>
+
+  <!-- 작성/수정 -->
+  <definition name="newsForm" extends="baseLayout">
+    <put-attribute name="title" value="새소식 작성/수정"/>
+    <put-attribute name="body"  value="/WEB-INF/views/news/newsForm.jsp"/>
+  </definition>
+
+</tiles-definitions>

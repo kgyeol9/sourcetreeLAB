@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myspring.vampir.news.mapper.NewsMapper">
+
+  <!-- 공통 컬럼 -->
+  <sql id="columns">
+    articleNO, parentNO, title, content, imageFileName, writedate, id
+  </sql>
+
+  <!-- 결과 매핑 -->
+  <resultMap id="NewsResult" type="com.myspring.vampir.news.vo.NewsVO">
+    <id     property="articleNO"    column="articleNO"/>
+    <result property="parentNO"     column="parentNO"/>
+    <result property="title"        column="title"/>
+    <result property="content"      column="content"/>
+    <result property="imageFileName" column="imageFileName"/>
+    <result property="writedate"    column="writedate"/>
+    <result property="id"           column="id"/>
+  </resultMap>
+
+  <!-- 전체 개수 -->
+  <select id="countAll" resultType="int">
+    SELECT COUNT(*) FROM newsDB
+  </select>
+
+  <!-- 목록 (페이지네이션: limit/offset) -->
+  <select id="listPaged" resultMap="NewsResult">
+    SELECT <include refid="columns"/>
+    FROM newsDB
+    ORDER BY writedate DESC, articleNO DESC
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+
+  <!-- 단건 조회 -->
+  <select id="findById" resultMap="NewsResult" parameterType="string">
+    SELECT <include refid="columns"/>
+    FROM newsDB
+    WHERE articleNO = #{articleNO}
+  </select>
+
+  <!-- 등록 -->
+  <insert id="insert" parameterType="com.myspring.vampir.news.vo.NewsVO">
+    INSERT INTO newsDB
+      (articleNO, parentNO, title, content, imageFileName, writedate, id)
+    VALUES
+      (#{articleNO}, #{parentNO}, #{title}, #{content}, #{imageFileName}, NOW(), #{id})
+  </insert>
+
+  <!-- 수정 -->
+  <update id="update" parameterType="com.myspring.vampir.news.vo.NewsVO">
+    UPDATE newsDB SET
+      parentNO = #{parentNO},
+      title = #{title},
+      content = #{content},
+      imageFileName = #{imageFileName}
+    WHERE articleNO = #{articleNO}
+  </update>
+
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="string">
+    DELETE FROM newsDB WHERE articleNO = #{articleNO}
+  </delete>
+
+</mapper>
