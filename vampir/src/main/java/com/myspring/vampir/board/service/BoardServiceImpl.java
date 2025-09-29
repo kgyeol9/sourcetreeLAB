@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.myspring.vampir.board.dao.BoardDAO;
 import com.myspring.vampir.board.vo.ArticleVO;
-import com.myspring.vampir.board.vo.ImageVO;
+import com.myspring.vampir.board.vo.CommentVO;
 
 
 @Service("boardService")
@@ -27,13 +27,13 @@ public class BoardServiceImpl  implements BoardService{
 	}
 
 	
-	//���� �̹��� �߰��ϱ�
+	//占쏙옙占쏙옙 占싱뱄옙占쏙옙 占쌩곤옙占싹깍옙
 	@Override
 	public int addNewArticle(Map articleMap) throws Exception{
 		return boardDAO.insertNewArticle(articleMap);
 	}
 	
-	 //���� �̹��� �߰��ϱ�
+	 //占쏙옙占쏙옙 占싱뱄옙占쏙옙 占쌩곤옙占싹깍옙
 	/*
 	@Override
 	public int addNewArticle(Map articleMap) throws Exception{
@@ -44,7 +44,7 @@ public class BoardServiceImpl  implements BoardService{
 	}
 	*/
 	/*
-	//���� ���� ���̱�
+	//占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占싱깍옙
 	@Override
 	public Map viewArticle(int articleNO) throws Exception {
 		Map articleMap = new HashMap();
@@ -57,7 +57,7 @@ public class BoardServiceImpl  implements BoardService{
    */
 	
 	
-	 //���� ���� ���̱�
+	 //占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占싱깍옙
 	@Override
 	public ArticleVO viewArticle(int articleNO) throws Exception {
 		ArticleVO articleVO = boardDAO.selectArticle(articleNO);
@@ -73,11 +73,11 @@ public class BoardServiceImpl  implements BoardService{
 	@Override
     public void removeArticle(int articleNO) {
         List<Integer> targetIds = new ArrayList<Integer>();
-        collectChildren(articleNO, targetIds); // 자식 글 재귀 탐색
-        boardDAO.deleteArticle(targetIds);    // 한 번에 삭제
+        collectChildren(articleNO, targetIds); // �옄�떇 湲� �옱洹� �깘�깋
+        boardDAO.deleteArticle(targetIds);    // �븳 踰덉뿉 �궘�젣
     }
 	
-    // 재귀적으로 모든 자식글을 찾아 리스트에 추가
+    // �옱洹��쟻�쑝濡� 紐⑤뱺 �옄�떇湲��쓣 李얠븘 由ъ뒪�듃�뿉 異붽�
     private void collectChildren(int articleNO, List<Integer> collector) {
         collector.add(articleNO);
         List<Integer> children = boardDAO.selectChildArticles(articleNO);
@@ -85,6 +85,32 @@ public class BoardServiceImpl  implements BoardService{
             collectChildren(child, collector);
         }
     }
+    
+    @Override
+    public void addComment(CommentVO comment) throws Exception {
+        boardDAO.insertComment(comment);
+    }
 
+    @Override
+    public List<CommentVO> listComments(int articleId) throws Exception {
+        return boardDAO.selectCommentsByArticleId(articleId);
+    }
+
+    @Override
+    public void removeComment(int commentId, int memberId) throws Exception {
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("commentId", commentId);
+        param.put("memberId", memberId);
+        boardDAO.deleteComment(param);
+    }
+
+    @Override
+    public void updateComment(int commentId, int memberId, String content) throws Exception {
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("commentId", commentId);
+        param.put("memberId", memberId);
+        param.put("content", content);
+        boardDAO.updateComment(param);
+    }
 	
 }

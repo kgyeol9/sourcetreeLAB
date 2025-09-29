@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myspring.vampir.board.dao.BoardDAO">
+
+    <resultMap id="CommentResult" type="com.myspring.vampir.board.vo.CommentVO">
+        <id property="id" column="id"/>
+        <result property="articleId" column="article_id"/>
+        <result property="memberId" column="member_id"/>
+        <result property="content" column="content"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+<select id="selectCommentsByArticleId" parameterType="int" resultType="com.myspring.vampir.board.vo.CommentVO">
+  SELECT c.id, c.article_id, c.member_id, c.content, c.created_at, m.nickname AS nickname
+  FROM comments c
+  LEFT JOIN t_member m ON c.member_id = m.mem_code
+  WHERE c.article_id = #{articleId}
+  ORDER BY c.created_at ASC
+</select>
+
+  <!-- 댓글 등록: VO의 'id' 필드에 자동생성 키를 채움 -->
+  <insert id="insertComment" parameterType="com.myspring.vampir.board.vo.CommentVO"
+          useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO comments (article_id, member_id, content, created_at)
+    VALUES (#{articleId}, #{memberId}, #{content}, NOW())
+  </insert>
+
+  <!-- 댓글 삭제: 작성자(member_id) 일치하는 경우만 삭제 -->
+  <delete id="deleteComment" parameterType="map">
+    DELETE FROM comments
+    WHERE id = #{commentId}
+      AND member_id = #{memberId}
+  </delete>
+  
+  <update id="updateComment" parameterType="map">
+  UPDATE comments
+  SET content = #{content}, updated_at = NOW()
+  WHERE id = #{commentId}
+    AND member_id = #{memberId}
+</update>
+
+</mapper>

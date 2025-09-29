@@ -1,6 +1,5 @@
 package com.myspring.vampir.board.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +9,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.myspring.vampir.board.vo.ArticleVO;
+import com.myspring.vampir.board.vo.CommentVO;
 import com.myspring.vampir.board.vo.ImageVO;
 
 
@@ -33,7 +33,7 @@ public class BoardDAOImpl implements BoardDAO {
 		return articleNO;
 	}
     
-	//���� ���� ���ε�
+	//占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占싸듸옙
 	/*
 	@Override
 	public void insertNewImage(Map articleMap) throws DataAccessException {
@@ -59,13 +59,13 @@ public class BoardDAOImpl implements BoardDAO {
 		sqlSession.update("mapper.board.updateArticle", articleMap);
 	}
 
-    // 자식 글 번호 조회
+    // �옄�떇 湲� 踰덊샇 議고쉶
 	@Override
     public List<Integer> selectChildArticles(int articleNO) {
         return sqlSession.selectList("mapper.board.selectChildArticles", articleNO);
     }
 
-    // 여러 글 삭제
+    // �뿬�윭 湲� �궘�젣
 	@Override
     public void deleteArticle(List<Integer> ids) {
         sqlSession.delete("mapper.board.deleteArticles", ids);
@@ -87,9 +87,25 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.selectOne("mapper.board.selectNewImageFileNO");
 	}
 
+    @Override
+    public void insertComment(CommentVO comment) throws Exception {
+        sqlSession.insert("com.myspring.vampir.board.dao.BoardDAO.insertComment", comment);
+    }
 
+    @Override
+    public List<CommentVO> selectCommentsByArticleId(int articleId) throws Exception {
+        return sqlSession.selectList("com.myspring.vampir.board.dao.BoardDAO.selectCommentsByArticleId", articleId);
+    }
 
+    @Override
+    public void deleteComment(Map<String, Object> param) throws Exception {
+        sqlSession.delete("com.myspring.vampir.board.dao.BoardDAO.deleteComment", param);
+    }
 
+    @Override
+    public void updateComment(Map<String, Object> param) throws Exception {
+        sqlSession.update("com.myspring.vampir.board.dao.BoardDAO.updateComment", param);
+    }
 
 
 }
