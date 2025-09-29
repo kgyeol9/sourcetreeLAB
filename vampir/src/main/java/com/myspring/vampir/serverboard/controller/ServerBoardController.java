@@ -13,59 +13,86 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ServerBoardController {
 
-    // (¼±ÅÃ) ¿ùµå ÄÚµå ¡æ Ç¥½Ã¸í ¸ÅÇÎ (ºä¿¡¼­ ¿ùµå ÇÑ±Û¸íÀ» º¸¿©ÁÖ°í ½ÍÀ» ¶§ »ç¿ë)
+    // (ì„ íƒ) ì›”ë“œ ì½”ë“œ â†’ í‘œì‹œëª… ë§¤í•‘ (ë·°ì—ì„œ ì›”ë“œ í•œê¸€ëª…ì„ ë³´ì—¬ì£¼ê³  ì‹¶ì„ ë•Œ ì‚¬ìš©)
     private static final Map<String, String> WORLD_LABELS = new LinkedHashMap<String, String>();
     static {
-        WORLD_LABELS.put("kapf", "Ä«ÇÁ");
-        WORLD_LABELS.put("olga", "¿Ã°¡");
-        WORLD_LABELS.put("shima", "½¬¸¶");
-        WORLD_LABELS.put("oscar", "¿À½ºÄ«");
-        WORLD_LABELS.put("damir", "´Ù¹Ì¸£");
-        WORLD_LABELS.put("moarte", "¸ğ¾Æ¸£Å×");
-        WORLD_LABELS.put("razvi", "¶óÁîºñ");
-        WORLD_LABELS.put("foam", "Æ÷¾Æ¸Ş");
-        WORLD_LABELS.put("dorlingen", "µ¹¸µ¿£");
-        WORLD_LABELS.put("kizaiya", "Å°ÀÚÀÌ¾Æ");
-        WORLD_LABELS.put("nel", "³Ú");
-        WORLD_LABELS.put("mila", "¹Ğ¶ó");
-        WORLD_LABELS.put("lilith", "¸±¸®½º");
-        WORLD_LABELS.put("kain", "Ä«ÀÎ");
-        WORLD_LABELS.put("ridel", "¸®µ¨");
+        WORLD_LABELS.put("kapf", "ì¹´í”„");
+        WORLD_LABELS.put("olga", "ì˜¬ê°€");
+        WORLD_LABELS.put("shima", "ì‰¬ë§ˆ");
+        WORLD_LABELS.put("oscar", "ì˜¤ìŠ¤ì¹´");
+        WORLD_LABELS.put("damir", "ë‹¤ë¯¸ë¥´");
+        WORLD_LABELS.put("moarte", "ëª¨ì•„ë¥´í…Œ");
+        WORLD_LABELS.put("razvi", "ë¼ì¦ˆë¹„");
+        WORLD_LABELS.put("foam", "í¬ì•„ë©”");
+        WORLD_LABELS.put("dorlingen", "ëŒë§ì—”");
+        WORLD_LABELS.put("kizaiya", "í‚¤ìì´ì•„");
+        WORLD_LABELS.put("nel", "ë„¬");
+        WORLD_LABELS.put("mila", "ë°€ë¼");
+        WORLD_LABELS.put("lilith", "ë¦´ë¦¬ìŠ¤");
+        WORLD_LABELS.put("kain", "ì¹´ì¸");
+        WORLD_LABELS.put("ridel", "ë¦¬ë¸");
     }
 
-    /** ¼±ÅÃ È­¸é: /vampir/serverboard.do */
+    /** ì„ íƒ í™”ë©´: /vampir/serverboard.do */
     @RequestMapping(value = "/serverboard.do", method = RequestMethod.GET)
     public ModelAndView select() {
-        ModelAndView mav = new ModelAndView("/serverboardSelect"); // Tiles Á¤ÀÇ¸í
-        // (¼±ÅÃ) ¿ùµå ¸®½ºÆ®¸¦ ºä¿¡ ³Ñ±â°í ½Í´Ù¸é ÁÖ¼®À» ÇØÁ¦ÇÏ¼¼¿ä.
+        ModelAndView mav = new ModelAndView("/serverboardSelect"); // Tiles ì •ì˜ëª…
+        // (ì„ íƒ) ì›”ë“œ ë¦¬ìŠ¤íŠ¸ë¥¼ ë·°ì— ë„˜ê¸°ê³  ì‹¶ë‹¤ë©´ ì£¼ì„ì„ í•´ì œí•˜ì„¸ìš”.
         // mav.addObject("worldLabels", WORLD_LABELS);
         return mav;
     }
 
-    /** ¸ñ·Ï È­¸é: /vampir/serverboard/{world}/{server}  (¿¹: /serverboard/kapf/1) */
+    /** ëª©ë¡ í™”ë©´: /vampir/serverboard/{world}/{server}  (ì˜ˆ: /serverboard/kapf/1) */
     @RequestMapping(value = { "/serverboard/{world}/{server}", "/serverboard/{world}/{server}.do" },
                     method = RequestMethod.GET)
     public ModelAndView list(@PathVariable("world") String world,
                              @PathVariable("server") String server) {
-        ModelAndView mav = new ModelAndView("/serverboard/list"); // Tiles Á¤ÀÇ¸í
+        ModelAndView mav = new ModelAndView("/serverboard/list"); // Tiles ì •ì˜ëª…
         mav.addObject("world", world);
         mav.addObject("server", server);
-        // (¼±ÅÃ) Ç¥½Ã¿ë ÇÑ±Û¸í
+        // (ì„ íƒ) í‘œì‹œìš© í•œê¸€ëª…
         mav.addObject("worldLabel", WORLD_LABELS.get(world));
-        mav.addObject("serverLabel", server + " ¼­¹ö");
+        mav.addObject("serverLabel", server + " ì„œë²„");
         return mav;
     }
 
-    /** (¿É¼Ç) Äõ¸®½ºÆ®¸µ ¹öÀü: /serverboard/list.do?world=kapf&server=1 */
+    /** (ì˜µì…˜) ì¿¼ë¦¬ìŠ¤íŠ¸ë§ ë²„ì „: /serverboard/list.do?world=kapf&server=1 */
     @RequestMapping(value = "/serverboard/list.do", method = RequestMethod.GET)
     public ModelAndView listWithParams(@RequestParam("world") String world,
                                        @RequestParam("server") String server) {
-        ModelAndView mav = new ModelAndView("/serverboard/list"); // Tiles Á¤ÀÇ¸í
+        ModelAndView mav = new ModelAndView("/serverboard/list"); // Tiles ì •ì˜ëª…
         mav.addObject("world", world);
         mav.addObject("server", server);
-        // (¼±ÅÃ) Ç¥½Ã¿ë ÇÑ±Û¸í
+        // (ì„ íƒ) í‘œì‹œìš© í•œê¸€ëª…
         mav.addObject("worldLabel", WORLD_LABELS.get(world));
-        mav.addObject("serverLabel", server + " ¼­¹ö");
+        mav.addObject("serverLabel", server + " ì„œë²„");
+        return mav;
+    }
+    
+ // ê¸€ì“°ê¸° í¼ (ì›”ë“œ/ì„œë²„ íŒŒë¼ë¯¸í„°ë¡œ ë¯¸ë¦¬ ì„ íƒ)
+    @RequestMapping(value = {"/serverboard/write", "/serverboard/write.do"}, method = RequestMethod.GET)
+    public ModelAndView writeForm(
+            @RequestParam(value="world", required=false, defaultValue="ALL") String world,
+            @RequestParam(value="server", required=false, defaultValue="ALL") String server) {
+        ModelAndView mav = new ModelAndView("/serverboard/write"); // tiles ì •ì˜ëª…
+        mav.addObject("world", world);
+        mav.addObject("server", server);
+        return mav;
+    }
+
+    // ê¸€ ë“±ë¡ ì²˜ë¦¬ (ì €ì¥ ë¡œì§ì€ ì„œë¹„ìŠ¤ì— ë§ê²Œ êµ¬í˜„)
+    @RequestMapping(value = {"/serverboard/add", "/serverboard/add.do"}, method = RequestMethod.POST)
+    public ModelAndView add(
+            @RequestParam("world")  String world,
+            @RequestParam("server") String server,
+            @RequestParam("title")  String title,
+            @RequestParam("content") String content) {
+
+        // TODO: ì €ì¥ ë¡œì§ (DB insert) â€” ì„œë¹„ìŠ¤ í˜¸ì¶œ
+        // serverBoardService.save(world, server, title, content, writer ...);
+
+        // ë“±ë¡ í›„ ëª©ë¡ìœ¼ë¡œ
+        ModelAndView mav = new ModelAndView("redirect:/serverboard/" + world + "/" + server);
         return mav;
     }
 }

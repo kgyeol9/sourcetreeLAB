@@ -77,7 +77,12 @@
 <put-attribute name="body" value="/WEB-INF/views/serverboard/select.jsp"/> 
 
 </definition> <definition name="/serverboard/list" extends="baseLayout"> 
-<put-attribute name="title" value="서버 게시판"/> <put-attribute name="body" value="/WEB-INF/views/serverboard/list.jsp"/> 
+<put-attribute name="title" value="서버 게시판"/> <put-attribute name="body" value="/WEB-INF/views/serverboard/list.jsp"/>
+</definition>
+
+<definition name="/serverboard/write" extends="baseLayout">
+  <put-attribute name="title" value="서버 게시판 - 글쓰기"/>
+  <put-attribute name="body" value="/WEB-INF/views/serverboard/write.jsp"/>
 </definition>
 
 	
