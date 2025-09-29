@@ -29,7 +29,7 @@
       <li><a href="#">공략 게시판</a></li>
       <li><a href="${pageContext.request.contextPath}/partyboard.do">파티 게시판</a></li>
 	  <li><a href="#">길드 게시판</a></li>
-  	  <li><a href="#">월드 게시판</a></li>
+  	  <li><a href="${pageContext.request.contextPath}/serverboard.do">서버 게시판</a></li>
   	  <li><a href="#">직업 게시판</a></li>
 	  </ul>
     </div>
