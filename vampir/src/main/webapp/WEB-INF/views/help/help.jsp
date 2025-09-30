@@ -82,7 +82,7 @@
     .grid > .card form{ flex:1; }
     .grid > .card .notice-list{ min-height:120px; }
 
-    /* Notice list */
+    /* Notice-like list (재사용) */
     .notice-list{ list-style:none; margin:0; padding:0; }
     .notice-list li{ border-top:1px solid var(--line); }
     .notice-list li:first-child{ border-top:none; }
@@ -141,7 +141,7 @@
   <main class="main-wrap" id="support-content">
     <div class="title-row">
       <h1>고객센터</h1>
-      <span class="caption">FAQ · 공지사항 · 1:1 문의</span>
+      <span class="caption">FAQ · QnA · 1:1 문의</span>
     </div>
 
     <!-- 상단 툴바 -->
@@ -158,25 +158,27 @@
     </form>
 
     <section class="grid">
-      <!-- 좌측: 공지 + FAQ -->
+      <!-- (변경 1) 좌측: 내 문의 내역(요약 리스트) + FAQ -->
       <div class="card">
-        <h2>공지사항</h2>
+        <h2>내 문의 내역</h2>
         <ul class="notice-list">
-          <c:forEach var="n" items="${noticeList}">
+          <c:forEach var="t" items="${ticketList}">
             <li>
-              <a class="notice-item" href="${contextPath}/notice/view.do?id=${n.id}">
-                <span class="tag"><c:out value="${n.category}" /></span>
-                <span class="subject"><c:out value="${n.title}" /></span>
-                <span class="date"><c:out value="${n.createdAt}" /></span>
+              <a class="notice-item" href="${contextPath}/support/ticket/view.do?id=${t.id}">
+                <!-- 상태 배지: eq 사용 -->
+                <span class="status ${t.status eq '답변완료' ? 'done' : 'wait'}"><c:out value="${t.status}" /></span>
+                <span class="subject"><c:out value="${t.title}" /></span>
+                <!-- 최신 업데이트 기준 표시 -->
+                <span class="date"><c:out value="${empty t.updatedAt ? t.createdAt : t.updatedAt}" /></span>
               </a>
             </li>
           </c:forEach>
-          <c:if test="${empty noticeList}">
-            <li class="muted" style="padding:12px 4px;">등록된 공지가 없습니다.</li>
+          <c:if test="${empty ticketList}">
+            <li class="muted" style="padding:12px 4px;">등록된 문의가 없습니다.</li>
           </c:if>
         </ul>
         <div class="actions" style="margin-top:10px;">
-          <a class="btn" href="${contextPath}/notice/list.do">공지 더보기</a>
+          <a class="btn" href="${contextPath}/support/ticket/list.do">내 문의 전체보기</a>
         </div>
 
         <h2 style="margin-top:18px;">자주 묻는 질문(FAQ)</h2>
@@ -193,7 +195,7 @@
         </div>
       </div>
 
-      <!-- 우측: 1:1 문의 -->
+      <!-- 우측: 1:1 문의 폼 (변경 없음) -->
       <div class="card">
         <h2>1:1 문의 보내기</h2>
         <form action="${contextPath}/support/ticket/create.do" method="post">
@@ -224,38 +226,34 @@
       </div>
     </section>
 
-    <!-- 하단: 내 문의 내역 -->
+    <!-- (변경 2) 하단: QnA 목록 -->
     <section class="card" style="margin-top:16px;">
-      <h2>내 문의 내역</h2>
+      <h2>QnA 목록</h2>
       <table class="tickets">
         <thead>
           <tr>
-            <th style="width:88px;">상태</th>
             <th>제목</th>
             <th style="width:160px;">등록일</th>
-            <th style="width:160px;">최종 업데이트</th>
           </tr>
         </thead>
         <tbody>
-          <c:forEach var="t" items="${ticketList}">
+          <c:forEach var="q" items="${qnaList}">
             <tr>
               <td>
-                <span class="status ${t.status == '답변완료' ? 'done' : 'wait'}">
-                  <c:out value="${t.status}" />
-                </span>
-              </td>
-              <td>
-                <a href="${contextPath}/support/ticket/view.do?id=${t.id}">
-                  <c:out value="${t.title}" />
+                <a href="${contextPath}/qna/view.do?id=${q.id}">
+                  <c:out value="${q.title}" />
                 </a>
-                <div class="muted">${fn:length(t.content) > 60 ? fn:substring(t.content, 0, 60).concat('...') : t.content}</div>
+                <c:if test="${not empty q.content}">
+                  <div class="muted">
+                    ${fn:length(q.content) > 60 ? fn:substring(q.content, 0, 60).concat('...') : q.content}
+                  </div>
+                </c:if>
               </td>
-              <td><c:out value="${t.createdAt}" /></td>
-              <td><c:out value="${t.updatedAt}" /></td>
+              <td><c:out value="${q.createdAt}" /></td>
             </tr>
           </c:forEach>
-          <c:if test="${empty ticketList}">
-            <tr><td colspan="4" class="muted">등록된 문의가 없습니다.</td></tr>
+          <c:if test="${empty qnaList}">
+            <tr><td colspan="2" class="muted">등록된 QnA가 없습니다.</td></tr>
           </c:if>
         </tbody>
       </table>

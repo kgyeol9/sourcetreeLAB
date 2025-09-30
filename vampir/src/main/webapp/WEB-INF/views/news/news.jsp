@@ -12,7 +12,8 @@
   <style>
     :root{--bg:#0e0e0f;--ink:#e9e9ea;--muted:#9a9aa0;--card:#161618;--line:#26262a;--accent:#bb0000;--header-h:64px;--maxw:980px;}
     body{margin:0;background:var(--bg);color:var(--ink);}
-    .main{max-width:var(--maxw);margin:0 auto 72px;padding:calc(var(--header-h)+18px) 16px 24px;}
+    /* ▲ 10px 위로: 58px → 48px */
+    .main{max-width:var(--maxw);margin:0 auto 72px;padding:calc(var(--header-h) + 48px) 16px 24px;}
     .row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
     .btn{display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 12px;border-radius:10px;border:1px solid var(--line);background:#1b1b1f;color:#fff;text-decoration:none}
     .btn.primary{background:var(--accent);border-color:#5a0000}

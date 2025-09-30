@@ -17,18 +17,35 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/itemDB.css">
 
 <style>
-/* ===== 상단바 보정 ===== */
-:root { --topbar-h: 64px; }           /* 프로젝트 헤더 높이에 맞춰 조절 */
+/* ===== 공통 상단 오프셋을 '컨텐츠 컨테이너'에서만 처리 ===== */
+/* (외부 CSS보다 뒤에 위치 + !important 로 최종 우선) */
+:root{
+  --topbar-h: 64px;           /* 실제 고정 헤더 높이 */
+  --page-offset-extra: 10px;  /* 추가 여백(두 페이지 동일) */
+  /* 페이지 내에서 사용하는 CSS 변수 기본값 */
+  --subrow-base:84px;
+  --boost:40px;
+  --gap:12px;
+  --row-h:44px;
+}
+/* body에는 상단 패딩을 주지 않음(겹침/중첩 회피) */
 body{
   margin:0;
-  padding-top: var(--topbar-h);       /* 고정/스티키 헤더와 겹침 방지 */
+  padding-top:0 !important;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background:#121212; color:#eee;
 }
+/* 컨텐츠 컨테이너에서만 헤더 오프셋 확보 */
+main.db-main{
+  max-width:1200px;
+  margin:16px auto 24px !important;
+  padding:calc(var(--topbar-h) + var(--page-offset-extra)) 16px 0 !important; /* top,left/right,bottom */
+}
+/* 첫 요소 마진 겹침 방지 */
+main.db-main > *:first-child{ margin-top:0 !important; }
 
 /* ===== 공통 ===== */
 a{ text-decoration:none; color:inherit; }
-.db-main{ max-width:1200px; margin:16px auto 24px; padding:0 16px; }
 .card{ background:#1f1f1f; border:1px solid #333; border-radius:10px; }
 
 /* 버튼 */
@@ -41,7 +58,7 @@ a{ text-decoration:none; color:inherit; }
   padding-bottom:12px; border-bottom:2px solid #bb0000; margin:0 0 12px; background:transparent;
 }
 .vt-btn{ background:#222; border:1px solid #333; color:#eee; padding:6px 10px; border-radius:6px; cursor:pointer; }
-.vt-btn.active{ background:#bb0000; border-color:#bb0000; color:#fff; }  /* 활성 시 흰색 고정 */
+.vt-btn.active{ background:#bb0000; border-color:#bb0000; color:#fff; }
 .db-switch .vt-btn{ line-height:1; transition:background .15s, border-color .15s, box-shadow .12s, transform .06s; }
 .db-switch .vt-btn.active{ box-shadow: inset 0 2px 0 rgba(255,255,255,.08), inset 0 -2px 0 rgba(0,0,0,.25); transform: translateY(1px); }
 .db-switch .vt-btn:active{ transform: translateY(1px); }

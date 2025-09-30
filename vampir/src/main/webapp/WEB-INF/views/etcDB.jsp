@@ -16,24 +16,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <style>
-/* ---------- 변수 ---------- */
+/* ---------- 공통 상단 오프셋을 '컨텐츠 컨테이너'에서만 처리 ---------- */
 :root{
-  --topbar-h:64px;      /* 상단 고정 헤더 높이 */
+  --topbar-h:64px;            /* 고정 헤더 높이 */
+  --page-offset-extra:10px;   /* 추가 여백(두 페이지 동일) */
   --subrow-base:84px;
   --boost:40px;
   --gap:12px;
   --row-h:44px;
 }
-
-/* ---------- 공통/테마 ---------- */
+/* body에는 상단 패딩 제거 — 겹침 방지 */
 body{
   margin:0;
-  padding-top:var(--topbar-h); /* 헤더와 겹침 방지 */
+  padding-top:0 !important;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background:#121212; color:#eee;
 }
 a{ text-decoration:none; color:inherit; }
-.db-main{ max-width:1200px; margin:16px auto 24px; padding:0 16px; }
+/* 컨텐츠 컨테이너에서만 오프셋 */
+main.db-main{
+  max-width:1200px;
+  margin:16px auto 24px !important;
+  padding:calc(var(--topbar-h) + var(--page-offset-extra)) 16px 0 !important;
+}
+main.db-main > *:first-child{ margin-top:0 !important; }
+
+/* ---------- 카드 공통 ---------- */
 .card{ background:#1f1f1f; border:1px solid #333; border-radius:10px; }
 
 /* 버튼 */
@@ -46,7 +54,7 @@ a{ text-decoration:none; color:inherit; }
   padding-bottom:12px; border-bottom:2px solid #bb0000; margin:0 0 12px;
 }
 .vt-btn{ background:#222; border:1px solid #333; color:#eee; padding:6px 10px; border-radius:6px; cursor:pointer; }
-.vt-btn.active{ background:#bb0000; border-color:#bb0000; color:#fff; } /* 활성 글자색 흰색 */
+.vt-btn.active{ background:#bb0000; border-color:#bb0000; color:#fff; }
 .db-switch .vt-btn{ line-height:1; transition:background .15s, border-color .15s, box-shadow .12s, transform .06s; }
 .db-switch .vt-btn.active{ box-shadow: inset 0 2px 0 rgba(255,255,255,.08), inset 0 -2px 0 rgba(0,0,0,.25); transform: translateY(1px); }
 .db-switch .vt-btn:active{ transform: translateY(1px); }
@@ -337,7 +345,7 @@ a{ text-decoration:none; color:inherit; }
 
   <!-- 하단: 숫자 페이징 + 검색 -->
   <section class="card footerbar" aria-label="페이징/검색">
-    <div class="footerline.footer-two">
+    <div class="footerline footer-two">
       <div id="pageNums" class="pager-center"></div>
       <div class="searchline">
         <input type="text" id="qBottom" placeholder="아이템 이름으로 검색" />
