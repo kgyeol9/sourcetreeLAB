@@ -6,28 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <title>서버 게시판 선택</title>
-<style>
-  :root{--bg:#111;--panel:#1a1a1a;--line:#2a2a2a;--muted:#9aa0a6;--ink:#eee;--accent:#bb0000;}
-  body{background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto;margin:0}
-  .wrap{max-width:720px;margin:48px auto;padding:0 12px}
-  h2{margin:0 0 16px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
-  .row{display:flex;gap:10px;margin-top:12px}
-  .sel,.btn{height:42px;border-radius:10px;border:1px solid var(--line);background:#202020;color:#fff;padding:0 12px}
-  .sel{flex:1}
-  .btn{min-width:120px;cursor:pointer;font-weight:700}
-  .btn.primary{background:var(--accent);border-color:var(--accent)}
-  .muted{color:var(--muted);font-size:14px}
-</style>
+<link rel="stylesheet" href="${ctx}/resources/css/serverboard-select.css">
 </head>
 <body>
-<div class="wrap">
-  <h2>서버 게시판 선택</h2>
-  <div class="card">
-    <div class="muted">월드와 서버를 선택하세요.</div>
+<div class="sbsel-wrap">
+  <h2 class="sbsel-title"><span class="accent">서버 게시판</span> 선택</h2>
 
-    <div class="row" style="margin-top:10px">
-      <select id="world" class="sel">
+  <div class="sbsel-card">
+    <p class="sbsel-muted">월드와 서버를 선택하세요.</p>
+
+    <div class="sbsel-row">
+      <label class="sr-only" for="world">월드 선택</label>
+      <select id="world" class="sbsel-sel">
         <option value="kapf">카프</option>
         <option value="olga">올가</option>
         <option value="shima">쉬마</option>
@@ -45,13 +35,14 @@
         <option value="ridel">리델</option>
       </select>
 
-      <select id="server" class="sel" style="max-width:180px">
+      <label class="sr-only" for="server">서버 선택</label>
+      <select id="server" class="sbsel-sel sbsel-sel--narrow">
         <option value="1">1 서버</option>
         <option value="2">2 서버</option>
         <option value="3">3 서버</option>
       </select>
 
-      <button id="go" class="btn primary">이동</button>
+      <button id="go" class="sbsel-btn sbsel-btn--primary" type="button">이동</button>
     </div>
   </div>
 </div>

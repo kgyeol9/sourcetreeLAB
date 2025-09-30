@@ -1,0 +1,134 @@
+/* ===== Deep Dark Palette (Crimson turned down) ===== */
+:root{
+  --bg:#0a0c10;         /* darker page background */
+  --panel:#11151e;      /* deep card background */
+  --elev:#0e121b;       /* elevated bg (reserve) */
+  --line:#242b3a;       /* borders/dividers - colder, darker */
+  --ink:#e4e8ee;        /* main text (slightly cooler) */
+  --muted:#8f98ad;      /* secondary text (desaturated) */
+
+  /* toned-down crimson & muted gold */
+  --accent:#b3122f;     /* deep crimson (primary) */
+  --accent-2:#d9a441;   /* muted gold (secondary highlights) */
+
+  --ok:#36b07f; --warn:#d8b14a; --danger:#e0464b;
+
+  --radius-12:12px;
+  --radius-10:10px;
+  --ctl-h:42px;
+
+  /* subtler shadow for dark UI */
+  --shadow:0 10px 24px rgba(0,0,0,.45);
+}
+
+/* ===== Base ===== */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Apple SD Gothic Neo","Malgun Gothic", sans-serif;
+  letter-spacing:.1px;
+}
+
+/* ===== Layout ===== */
+.sbsel-wrap{
+  max-width:720px;
+  margin:48px auto;
+  padding:0 12px;
+}
+.sbsel-title{
+  margin:0 0 16px;
+  font-size:24px;
+  font-weight:800;
+  line-height:1.25;
+  letter-spacing:.2px;
+}
+.sbsel-title .accent{
+  color:var(--accent); /* “서버 게시판”만 딥 크림슨 */
+}
+
+/* ===== Card ===== */
+.sbsel-card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius-12);
+  padding:16px;
+  box-shadow:var(--shadow);
+}
+.sbsel-muted{
+  color:var(--muted);
+  font-size:14px;
+  margin:0 0 8px;
+}
+
+/* ===== Controls ===== */
+.sbsel-row{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+  align-items:center;
+}
+.sbsel-sel{
+  height:var(--ctl-h);
+  border-radius:var(--radius-10);
+  border:1px solid var(--line);
+  background:#141a24;               /* 더 어두운 컨트롤 배경 */
+  color:#e9edf3;
+  padding:0 12px;
+  flex:1;
+  outline:none;
+  transition:border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+.sbsel-sel--narrow{ max-width:180px; }
+.sbsel-sel:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(179,18,47,.35); /* deep crimson ring */
+  background:#101620;                        /* 포커스 시 더 어둡게 */
+}
+
+/* ===== Buttons ===== */
+.sbsel-btn{
+  height:var(--ctl-h);
+  min-width:120px;
+  border-radius:var(--radius-10);
+  border:1px solid var(--line);
+  background:#141a24;     /* 기본은 어둡게 */
+  color:#e9edf3;
+  padding:0 14px;
+  cursor:pointer;
+  font-weight:800;
+  transition:transform .06s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
+  outline:none;
+}
+.sbsel-btn:active{ transform: translateY(1px); }
+
+.sbsel-btn--primary{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#fff;
+}
+.sbsel-btn--primary:hover{
+  background:#c91f3b;   /* 여전히 딥톤 유지 */
+  border-color:#c91f3b;
+}
+.sbsel-btn--primary:focus{
+  box-shadow:0 0 0 3px rgba(179,18,47,.45);
+}
+
+/* ===== A11y ===== */
+.sr-only{
+  position:absolute !important;
+  width:1px; height:1px;
+  padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0);
+  white-space:nowrap; border:0;
+}
+
+/* ===== Small screens ===== */
+@media (max-width:480px){
+  .sbsel-row{ flex-wrap:wrap; }
+  .sbsel-sel--narrow{ max-width:unset; flex:1; }
+  .sbsel-btn{ width:100%; }
+}

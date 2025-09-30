@@ -1,12 +1,14 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=4f991a9 (board \u00EB\u008C\u0093\u00EA\u00B8\u0080 \u00EA\u00B8\u00B0\u00EB\u008A\u00A5)
 eclipse.preferences.version=1
-<<<<<<< HEAD
-encoding//src/main/java/com/myspring/vampir/serverboard/controller/ServerBoardController.java=UTF-8
-=======
 encoding//src/main/java/com/myspring/vampir/board/controller/BoardControllerImpl.java=UTF-8
 encoding//src/main/java/com/myspring/vampir/board/dao/BoardDAOImpl.java=UTF-8
 encoding//src/main/java/com/myspring/vampir/board/service/BoardServiceImpl.java=UTF-8
 encoding//src/main/java/com/myspring/vampir/member/vo/MemberVO.java=UTF-8
->>>>>>> 4f991a9 (board 댓글 기능)
+encoding//src/main/java/com/myspring/vampir/serverboard/controller/ServerBoardController.java=UTF-8
 encoding//src/main/webapp/WEB-INF/views/home.jsp=UTF-8
 encoding//src/main/webapp/resources/css/itemDB.css=UTF-8
+encoding//src/main/webapp/resources/css/serverboard-list.css=UTF-8
+encoding//src/main/webapp/resources/css/serverboard.css=UTF-8
 encoding//src/main/webapp/resources/css/style.css=UTF-8

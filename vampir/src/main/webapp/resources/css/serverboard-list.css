@@ -1,0 +1,147 @@
+/* ===== Deep Charcoal + Warm Beige Accent (#e5e1c9) ===== */
+:root{
+  --bg:#0b0b0c;
+  --panel:#131315;
+  --line:#262626;
+  --ink:#e7e7e9;
+  --muted:#9a9aa0;
+
+  --accent:#9c8347;     /* Primary accent (이동/글쓰기/포커스/호버) */
+
+  --ok:#34b07d; --warn:#d0ac3a; --danger:#e0464b;
+
+  --radius-12:12px;
+  --radius-10:10px;
+  --ctl-h:38px;
+
+  --shadow:0 10px 24px rgba(0,0,0,.45);
+}
+
+/* 전역 */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Apple SD Gothic Neo","Malgun Gothic", sans-serif;
+  letter-spacing:.1px;
+}
+
+/* 선택 하이라이트를 베이지 톤으로 */
+::selection{ background: rgba(229,225,201,.28); color: var(--ink); }
+::-moz-selection{ background: rgba(229,225,201,.28); color: var(--ink); }
+
+.wrap{max-width:1100px;margin:32px auto;padding:0 12px}
+
+/* toolbar */
+.toolbar{display:flex;gap:8px;align-items:center;margin-bottom:14px}
+.sel,.btn,.input{
+  height:var(--ctl-h);
+  border-radius:var(--radius-10);
+  border:1px solid var(--line);
+  background:#171717;          /* 중립 다크 (청색기 제거) */
+  color:#efefef;
+  padding:0 12px;
+  outline:none;
+  transition:border-color .15s ease, box-shadow .15s ease, background-color .15s ease, color .15s ease;
+}
+.sel{min-width:120px}
+.btn{cursor:pointer;font-weight:800}
+
+/* Primary: 이동/글쓰기 공통 */
+.btn.primary{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#121212;               /* 밝은 베이지 위 가독성 확보 */
+}
+.btn.primary:hover{
+  background:#f0ecd7;          /* 살짝 밝게 */
+  border-color:#f0ecd7;
+  color:#0f0f0f;
+}
+.btn:focus{
+  box-shadow:0 0 0 3px rgba(229,225,201,.45);
+}
+
+.sel:focus,.input:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(229,225,201,.35);
+  background:#141414;
+}
+
+.toolbar .spacer{flex:1}
+.muted{color:var(--muted)}
+
+/* 배지 (테이블 안 월드/서버 표시) */
+.badge{
+  display:inline-block;
+  padding:3px 10px;
+  border:1px solid #2a2a2a;
+  border-radius:999px;
+  background:#1a1a1a;
+  color:#dddddf;
+  font-size:.86rem;
+  margin-right:6px;
+}
+
+/* table */
+.board{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  border:1px solid var(--line);
+  border-radius:var(--radius-12);
+  overflow:hidden;
+  background:var(--panel);
+  box-shadow:var(--shadow);
+}
+.board th,.board td{padding:12px 14px;border-bottom:1px solid var(--line)}
+.board th{
+  background:#181818;           /* 푸른기 없는 헤더 */
+  text-align:center;
+  font-weight:800;
+  color:#d8d8dc;
+}
+.board td{vertical-align:middle}
+.board tr:last-child td{border-bottom:0}
+.wsv,.writer,.date,.hits{text-align:center;white-space:nowrap;color:#d3d3d6}
+
+/* 링크 색상 */
+.title a{color:#f0f2f5;text-decoration:none;transition:color .15s ease}
+.title a:hover{color:var(--accent)}   /* 베이지 호버 */
+
+/* empty */
+.empty{padding:48px 0;text-align:center;color:var(--muted)}
+
+/* pager */
+.pager{display:flex;justify-content:center;gap:6px;margin:14px 0}
+.pager a{
+  display:inline-block;
+  min-width:34px;
+  text-align:center;
+  border:1px solid var(--line);
+  padding:6px 10px;
+  border-radius:8px;
+  background:#171717;
+  color:#efefef;
+  text-decoration:none;
+  transition:background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+.pager a.on,.pager a:hover{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#0f0f0f;               /* 베이지 위 텍스트 */
+}
+
+/* backlink */
+.backlink{margin-top:12px}
+.backlink a{color:#efefef;text-decoration:none;transition:color .15s ease}
+.backlink a:hover{color:var(--accent)}
+
+/* small screens */
+@media (max-width:640px){
+  .toolbar{flex-wrap:wrap}
+  .sel{flex:1}
+  .btn{flex:1}
+}

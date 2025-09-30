@@ -7,40 +7,33 @@
 <c:set var="currServer" value="${empty server ? 'ALL' : server}" />
 <fmt:setTimeZone value="Asia/Seoul"/>
 
+<c:choose>
+  <c:when test="${currWorld eq 'kapf'}"><c:set var="currWorldKo" value="카프"/></c:when>
+  <c:when test="${currWorld eq 'olga'}"><c:set var="currWorldKo" value="올가"/></c:when>
+  <c:when test="${currWorld eq 'shima'}"><c:set var="currWorldKo" value="쉬마"/></c:when>
+  <c:when test="${currWorld eq 'oscar'}"><c:set var="currWorldKo" value="오스카"/></c:when>
+  <c:when test="${currWorld eq 'damir'}"><c:set var="currWorldKo" value="다미르"/></c:when>
+  <c:when test="${currWorld eq 'moarte'}"><c:set var="currWorldKo" value="모아르테"/></c:when>
+  <c:when test="${currWorld eq 'razvi'}"><c:set var="currWorldKo" value="라즈비"/></c:when>
+  <c:when test="${currWorld eq 'foam'}"><c:set var="currWorldKo" value="포아메"/></c:when>
+  <c:when test="${currWorld eq 'dorlingen'}"><c:set var="currWorldKo" value="돌링엔"/></c:when>
+  <c:when test="${currWorld eq 'kizaiya'}"><c:set var="currWorldKo" value="키자이아"/></c:when>
+  <c:when test="${currWorld eq 'nel'}"><c:set var="currWorldKo" value="넬"/></c:when>
+  <c:when test="${currWorld eq 'mila'}"><c:set var="currWorldKo" value="밀라"/></c:when>
+  <c:when test="${currWorld eq 'lilith'}"><c:set var="currWorldKo" value="릴리스"/></c:when>
+  <c:when test="${currWorld eq 'kain'}"><c:set var="currWorldKo" value="카인"/></c:when>
+  <c:when test="${currWorld eq 'ridel'}"><c:set var="currWorldKo" value="리델"/></c:when>
+  <c:when test="${currWorld eq 'ALL'}"><c:set var="currWorldKo" value="전체"/></c:when>
+  <c:otherwise><c:set var="currWorldKo" value="${currWorld}"/></c:otherwise>
+</c:choose>
+<c:set var="currServerKo" value="${currServer eq 'ALL' ? '전체' : currServer += ' 서버'}"/>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>서버 게시판</title>
-<style>
-  :root{--bg:#111;--panel:#1a1a1a;--line:#2a2a2a;--muted:#9aa0a6;--ink:#eee;--accent:#bb0000;}
-  body{background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto;margin:0}
-  .wrap{max-width:1100px;margin:32px auto;padding:0 12px}
-
-  .toolbar{display:flex;gap:8px;align-items:center;margin-bottom:14px}
-  .sel,.btn,.input{height:38px;border-radius:10px;border:1px solid var(--line);background:#202020;color:#fff;padding:0 12px}
-  .sel{min-width:120px}
-  .btn{cursor:pointer;font-weight:700}
-  .btn.primary{background:var(--accent);border-color:var(--accent)}
-  .toolbar .spacer{flex:1}
-  .muted{color:var(--muted)}
-
-  .board{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel)}
-  .board th,.board td{padding:12px 14px;border-bottom:1px solid var(--line)}
-  .board th{background:#1f1f1f;text-align:center;font-weight:700}
-  .board td{vertical-align:middle}
-  .board tr:last-child td{border-bottom:0}
-  .wsv, .writer, .date, .hits {text-align:center;white-space:nowrap;color:#ddd}
-  .title a{color:#fff;text-decoration:none}
-  .title a:hover{color:#ffdddd}
-  .empty{padding:48px 0;text-align:center;color:var(--muted)}
-
-  .pager{display:flex;justify-content:center;gap:6px;margin:14px 0}
-  .pager a{display:inline-block;min-width:34px;text-align:center;border:1px solid var(--line);padding:6px 10px;border-radius:8px;background:#202020;color:#fff;text-decoration:none}
-  .pager a.on,.pager a:hover{background:var(--accent);border-color:var(--accent)}
-
-  .badge{display:inline-block;padding:3px 8px;border:1px solid #333;border-radius:999px;background:#191919;color:#dcdcdc;font-size:.85rem}
-</style>
+<link rel="stylesheet" href="${ctx}/resources/css/serverboard-list.css">
 </head>
 <body>
 <div class="wrap">
@@ -75,25 +68,20 @@
       <option value="3" ${currServer eq '3' ? 'selected' : ''}>3 서버</option>
     </select>
 
-    <button id="moveBtn" class="btn primary">이동</button>
+    <button id="moveBtn" class="btn primary" type="button">이동</button>
     <span class="spacer"></span>
-    <button id="writeBtn" class="btn">글쓰기</button>
-  </div>
-
-  <!-- 현재 선택 표시 -->
-  <div style="margin:8px 0 14px 0">
-    <span class="badge">월드: <strong>${currWorld}</strong></span>
-    <span class="badge">서버: <strong>${currServer}</strong></span>
+    <!-- ✅ 글쓰기 버튼도 강조색(Primary)로 통일 -->
+    <button id="writeBtn" class="btn primary" type="button">글쓰기</button>
   </div>
 
   <!-- 일반 게시판 테이블 -->
   <table class="board">
     <colgroup>
-      <col style="width:140px"><!-- 월드/서버 -->
-      <col><!-- 제목 -->
-      <col style="width:140px"><!-- 작성자 -->
-      <col style="width:160px"><!-- 날짜 -->
-      <col style="width:90px"><!-- 조회 -->
+      <col style="width:160px">
+      <col>
+      <col style="width:160px">
+      <col style="width:160px">
+      <col style="width:90px">
     </colgroup>
     <thead>
       <tr>
@@ -108,10 +96,29 @@
       <c:choose>
         <c:when test="${not empty articles}">
           <c:forEach var="a" items="${articles}">
+            <c:choose>
+              <c:when test="${a.world eq 'kapf'}"><c:set var="rowWorldKo" value="카프"/></c:when>
+              <c:when test="${a.world eq 'olga'}"><c:set var="rowWorldKo" value="올가"/></c:when>
+              <c:when test="${a.world eq 'shima'}"><c:set var="rowWorldKo" value="쉬마"/></c:when>
+              <c:when test="${a.world eq 'oscar'}"><c:set var="rowWorldKo" value="오스카"/></c:when>
+              <c:when test="${a.world eq 'damir'}"><c:set var="rowWorldKo" value="다미르"/></c:when>
+              <c:when test="${a.world eq 'moarte'}"><c:set var="rowWorldKo" value="모아르테"/></c:when>
+              <c:when test="${a.world eq 'razvi'}"><c:set var="rowWorldKo" value="라즈비"/></c:when>
+              <c:when test="${a.world eq 'foam'}"><c:set var="rowWorldKo" value="포아메"/></c:when>
+              <c:when test="${a.world eq 'dorlingen'}"><c:set var="rowWorldKo" value="돌링엔"/></c:when>
+              <c:when test="${a.world eq 'kizaiya'}"><c:set var="rowWorldKo" value="키자이아"/></c:when>
+              <c:when test="${a.world eq 'nel'}"><c:set var="rowWorldKo" value="넬"/></c:when>
+              <c:when test="${a.world eq 'mila'}"><c:set var="rowWorldKo" value="밀라"/></c:when>
+              <c:when test="${a.world eq 'lilith'}"><c:set var="rowWorldKo" value="릴리스"/></c:when>
+              <c:when test="${a.world eq 'kain'}"><c:set var="rowWorldKo" value="카인"/></c:when>
+              <c:when test="${a.world eq 'ridel'}"><c:set var="rowWorldKo" value="리델"/></c:when>
+              <c:otherwise><c:set var="rowWorldKo" value="${a.world}"/></c:otherwise>
+            </c:choose>
+
             <tr>
               <td class="wsv">
-                <span class="badge">${a.world}</span>
-                <span class="badge">${a.server}서버</span>
+                <span class="badge">${rowWorldKo}</span>
+                <span class="badge"><c:out value="${a.server}"/> 서버</span>
               </td>
               <td class="title">
                 <a href="${ctx}/serverboard/${currWorld}/${currServer}/view.do?id=${a.id}">
@@ -119,9 +126,7 @@
                 </a>
               </td>
               <td class="writer"><c:out value="${a.writer}"/></td>
-              <td class="date">
-                <fmt:formatDate value="${a.regDate}" pattern="yyyy-MM-dd HH:mm"/>
-              </td>
+              <td class="date"><fmt:formatDate value="${a.regDate}" pattern="yyyy-MM-dd HH:mm"/></td>
               <td class="hits"><c:out value="${a.views}"/></td>
             </tr>
           </c:forEach>
@@ -133,49 +138,24 @@
     </tbody>
   </table>
 
-  <!-- (예시) 페이지네이션 -->
   <div class="pager">
-    <a href="#" class="on">1</a>
-    <a href="#">2</a>
-    <a href="#">3</a>
-    <a href="#">›</a>
+    <a href="#" class="on">1</a><a href="#">2</a><a href="#">3</a><a href="#">›</a>
   </div>
 
-  <p style="margin-top:12px">
-    <a href="${ctx}/serverboard.do" style="color:#fff">← 월드/서버 다시 선택</a>
-  </p>
+  <p class="backlink"><a href="${ctx}/serverboard.do">← 월드/서버 다시 선택</a></p>
 </div>
 
 <script>
   (function(){
-    var ctx = '${ctx}';
-    var worldSel = document.getElementById('world');
-    var serverSel = document.getElementById('server');
-    var moveBtn  = document.getElementById('moveBtn');
-    var writeBtn = document.getElementById('writeBtn');
-
-    function applyWorldRules(){
-      if(worldSel.value === 'ALL'){
-        serverSel.value = 'ALL';
-        serverSel.disabled = true;
-      } else {
-        serverSel.disabled = false;
-      }
-    }
-    applyWorldRules();
-    worldSel.addEventListener('change', applyWorldRules);
-
-    moveBtn.addEventListener('click', function(){
-      var w = worldSel.value || 'ALL';
-      var s = serverSel.value || 'ALL';
-      location.href = ctx + '/serverboard/' + w + '/' + s;
+    var ctx='${ctx}', worldSel=document.getElementById('world'), serverSel=document.getElementById('server');
+    document.getElementById('moveBtn').addEventListener('click',function(){
+      location.href = ctx + '/serverboard/' + (worldSel.value||'ALL') + '/' + (serverSel.value||'ALL');
     });
-
-    writeBtn.addEventListener('click', function(){
-      var w = worldSel.value || 'ALL';
-      var s = serverSel.value || 'ALL';
-      location.href = ctx + '/serverboard/write.do?world=' + w + '&server=' + s;
+    document.getElementById('writeBtn').addEventListener('click',function(){
+      location.href = ctx + '/serverboard/write.do?world=' + (worldSel.value||'ALL') + '&server=' + (serverSel.value||'ALL');
     });
+    function applyWorldRules(){ if(worldSel.value==='ALL'){ serverSel.value='ALL'; serverSel.disabled=true; } else { serverSel.disabled=false; } }
+    applyWorldRules(); worldSel.addEventListener('change',applyWorldRules);
   })();
 </script>
 </body>
