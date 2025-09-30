@@ -1,66 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans
-	xmlns="http://www.springframework.org/schema/mvc"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:beans="http://www.springframework.org/schema/beans"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    xmlns="http://www.springframework.org/schema/mvc"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/mvc    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- DispatcherServlet Context: defines this servlet's request-processing 
-		infrastructure -->
+    <!-- @Controller 등 어노테이션 활성화 -->
+    <mvc:annotation-driven />
 
-	<!-- Enables the Spring MVC @Controller programming model -->
-	<annotation-driven />
+    <!-- 정적 리소스 매핑 -->
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+    <!-- 업로드 파일 서빙 -->
+    <mvc:resources mapping="/uploads/**" location="/uploads/" />
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
-		up static resources in the ${webappRoot}/resources directory -->
-	<resources mapping="/resources/**" location="/resources/" />
+    <!-- 기본 서블릿 위임 -->
+    <mvc:default-servlet-handler />
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
-		in the /WEB-INF/views directory -->
-	<!-- <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
-		<beans:property name="prefix" value="/WEB-INF/views/" /> <beans:property 
-		name="suffix" value=".jsp" /> </beans:bean> -->
-	
-	<beans:bean id="tilesConfigurer"
-		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
-		<beans:property name="definitions">
-			<beans:list>
-				<beans:value>classpath:tiles/*.xml</beans:value>
-			</beans:list>
-		</beans:property>
-		<beans:property name="preparerFactoryClass"
-			value="org.springframework.web.servlet.view.tiles2.SpringBeanPreparerFactory" />
-	</beans:bean>
-	<beans:bean id="viewResolver"
-		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-		<beans:property name="viewClass"
-			value="org.springframework.web.servlet.view.tiles2.TilesView" />
-	</beans:bean>
-	
-	<context:component-scan
-		base-package="com.myspring.vampir" />
+    <!-- Tiles 설정 -->
+    <beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+        <beans:property name="definitions">
+            <beans:list>
+                <beans:value>classpath:tiles/*.xml</beans:value>
+            </beans:list>
+        </beans:property>
+        <beans:property name="preparerFactoryClass"
+                        value="org.springframework.web.servlet.view.tiles2.SpringBeanPreparerFactory" />
+    </beans:bean>
 
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/*/*.do" />
-			<beans:bean
-				class="com.myspring.vampir.common.interceptor.ViewNameInterceptor" />
-		</mvc:interceptor>
-	</mvc:interceptors>
-	<mvc:annotation-driven />
-	<mvc:resources mapping="/resources/**"
-		location="/resources/" />
-	<mvc:default-servlet-handler />
-	<!-- 멀티파트 리졸버 -->
-	<beans:bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property name="maxUploadSize" value="52428800" />
-		<beans:property name="maxInMemorySize" value="52428800" />
-		<beans:property name="defaultEncoding" value="utf-8" />
-	</beans:bean>
+    <!-- Tiles ViewResolver -->
+    <beans:bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView" />
+    </beans:bean>
 
+    <!-- 컴포넌트 스캔 -->
+    <context:component-scan base-package="com.myspring.vampir" />
+
+    <!-- 인터셉터 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/*/*.do" />
+            <beans:bean class="com.myspring.vampir.common.interceptor.ViewNameInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- 멀티파트 리졸버 (파일 업로드) -->
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <beans:property name="defaultEncoding" value="UTF-8" />
+        <beans:property name="maxUploadSize" value="52428800" />
+        <beans:property name="maxInMemorySize" value="52428800" />
+    </beans:bean>
+
+    <!-- JSP 뷰리졸버를 Tiles 대신 쓰려면 아래 활성화
+    <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <beans:property name="prefix" value="/WEB-INF/views/" />
+        <beans:property name="suffix" value=".jsp" />
+    </beans:bean>
+    -->
 </beans:beans>

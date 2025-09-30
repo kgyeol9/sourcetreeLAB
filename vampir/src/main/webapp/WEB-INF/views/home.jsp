@@ -201,10 +201,12 @@ main{ max-width:1200px; margin:-80px auto 2em auto; padding:0 1em; }
         else if(rightInp.value) recalcFromRight();
       });
 
-      // 링크 버튼
-      function openBarotem(){ window.open('https://www.barotem.com/', '_blank', 'noopener'); }
-      buyBtn.addEventListener('click', openBarotem);
-      sellBtn.addEventListener('click', openBarotem);
+      // 링크 버튼 (각각 별도 URL)
+      const BUY_URL  = 'https://www.barotem.com/product/lists/2382r765?page=1&sell=buy&category=&display=1&orderby=1&minpay=&maxpay=&search_word=&brand=&buyloc=&opt1=&opt2=&opt3=&opt4=&opt5=&opt6=&opt7=&opt8=&opt9=&opt10=';
+      const SELL_URL = 'https://www.barotem.com/product/lists/2382r765?page=1&sell=sell&category=&display=1&orderby=1&minpay=&maxpay=&search_word=&brand=&buyloc=&opt1=&opt2=&opt3=&opt4=&opt5=&opt6=&opt7=&opt8=&opt9=&opt10=';
+
+      buyBtn.addEventListener('click', function(){ window.open(BUY_URL,  '_blank', 'noopener'); });
+      sellBtn.addEventListener('click', function(){ window.open(SELL_URL, '_blank', 'noopener'); });
     })();
   </script>
 </body>
