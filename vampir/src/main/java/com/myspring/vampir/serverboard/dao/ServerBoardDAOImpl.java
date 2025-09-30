@@ -1,5 +1,6 @@
 package com.myspring.vampir.serverboard.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ public class ServerBoardDAOImpl implements ServerBoardDAO {
     @Autowired
     private SqlSession sqlSession;
 
+    // ===== °Ô½Ã±Û =====
     @Override
     public List<ServerPostVO> listPosts(Map<String, Object> params) {
         return sqlSession.selectList(NS + "listPosts", params);
@@ -45,12 +47,13 @@ public class ServerBoardDAOImpl implements ServerBoardDAO {
 
     @Override
     public void deletePost(int id, String writer) {
-        java.util.Map<String,Object> p = new java.util.HashMap<String,Object>();
+        Map<String,Object> p = new HashMap<String,Object>();
         p.put("id", id);
         p.put("writer", writer);
         sqlSession.delete(NS + "deletePost", p);
     }
 
+    // ===== ´ñ±Û/´ë´ñ±Û =====
     @Override
     public List<ServerCommentVO> listComments(int postId) {
         return sqlSession.selectList(NS + "listComments", postId);
@@ -68,7 +71,7 @@ public class ServerBoardDAOImpl implements ServerBoardDAO {
 
     @Override
     public void deleteComment(int id, String writer) {
-        java.util.Map<String,Object> p = new java.util.HashMap<String,Object>();
+        Map<String,Object> p = new HashMap<String,Object>();
         p.put("id", id);
         p.put("writer", writer);
         sqlSession.delete(NS + "deleteComment", p);

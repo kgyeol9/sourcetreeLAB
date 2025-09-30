@@ -20,13 +20,19 @@ public class ServerBoardServiceImpl implements ServerBoardService {
     @Override
     public List<ServerPostVO> list(String world, String server) {
         Map<String, Object> p = new HashMap<String, Object>();
-        p.put("world", world);
+        p.put("world",  world);
         p.put("server", server);
         return dao.listPosts(p);
     }
 
     @Override
     public void write(ServerPostVO vo) {
+        // world/server 유효성
+        if (vo == null) return;
+        if (vo.getWorld() == null || vo.getServer() == null) return;
+        if ("ALL".equalsIgnoreCase(vo.getWorld()) || "ALL".equalsIgnoreCase(vo.getServer())) {
+            throw new IllegalArgumentException("월드/서버는 '전체'로 저장할 수 없습니다.");
+        }
         dao.insertPost(vo);
     }
 
@@ -40,21 +46,21 @@ public class ServerBoardServiceImpl implements ServerBoardService {
         dao.increaseViews(id);
     }
 
+    // ===== 게시글 수정/삭제 =====
     @Override
     public void update(ServerPostVO vo, String loginNick) {
-        // 작성자 본인만
-        if (loginNick == null || !loginNick.equals(vo.getWriter())) {
-            throw new IllegalStateException("작성자만 수정할 수 있습니다.");
-        }
+        if (vo == null) return;
+        // 작성자 검증은 Mapper(where writer = #{writer})에서 처리
+        vo.setWriter(loginNick);
         dao.updatePost(vo);
     }
 
     @Override
     public void delete(int id, String loginNick) {
-        if (loginNick == null) throw new IllegalStateException("삭제 권한이 없습니다.");
-        dao.deletePost(id, loginNick); // 쿼리에서 writer 매칭 검증
+        dao.deletePost(id, loginNick);
     }
 
+    // ===== 댓글/대댓글 =====
     @Override
     public List<ServerCommentVO> comments(int postId) {
         return dao.listComments(postId);
@@ -62,20 +68,20 @@ public class ServerBoardServiceImpl implements ServerBoardService {
 
     @Override
     public void addComment(ServerCommentVO vo, String loginNick) {
-        vo.setWriter(loginNick != null && !loginNick.trim().isEmpty() ? loginNick : "익명");
+        if (vo == null) return;
+        vo.setWriter(loginNick == null || loginNick.trim().isEmpty() ? "익명" : loginNick.trim());
         dao.insertComment(vo);
     }
 
     @Override
     public void editComment(ServerCommentVO vo, String loginNick) {
-        if (loginNick == null) throw new IllegalStateException("수정 권한이 없습니다.");
+        if (vo == null) return;
         vo.setWriter(loginNick);
-        dao.updateComment(vo); // mapper에서 writer 일치 조건으로 업데이트
+        dao.updateComment(vo);
     }
 
     @Override
     public void removeComment(int id, String loginNick) {
-        if (loginNick == null) throw new IllegalStateException("삭제 권한이 없습니다.");
         dao.deleteComment(id, loginNick);
     }
 }

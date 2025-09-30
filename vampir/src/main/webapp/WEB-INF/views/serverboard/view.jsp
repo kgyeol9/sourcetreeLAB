@@ -11,10 +11,6 @@
   .wrap{max-width:900px;margin:40px auto;font-family:system-ui,AppleSDGothicNeo,Malgun Gothic,sans-serif}
   .meta{color:#666;font-size:13px;margin-top:8px}
   .content{white-space:pre-wrap;line-height:1.6;border:1px solid #eee;padding:16px;border-radius:8px;margin-top:16px}
-  .attach{margin-top:14px;border:1px solid #eee;padding:12px;border-radius:8px;background:#fafafa}
-  .attach h4{margin:0 0 10px 0;font-size:14px;color:#444}
-  .attach img{max-width:100%;height:auto;display:block;border-radius:6px}
-  .attach .links{margin-top:8px;font-size:13px}
   .btns{display:flex;gap:8px;margin-top:24px}
   .btn{padding:8px 14px;border:1px solid #ddd;border-radius:8px;background:#f9f9f9;text-decoration:none;color:#222}
   .btn.primary{background:#efefef;font-weight:600}
@@ -37,23 +33,11 @@
     <fmt:formatDate value="${post.regDate}" pattern="yyyy-MM-dd HH:mm"/>
   </div>
 
-  <div class="content"><c:out value="${post.content}"/></div>
-
-  <!-- ▼ 이미지가 있는 경우만 표시 (post.imagePath는 컨트롤러/DB에서 세팅) -->
-  <c:if test="${not empty post.imagePath}">
-    <div class="attach">
-      <h4>첨부 이미지</h4>
-      <img src="${ctx}${post.imagePath}" alt="첨부 이미지">
-      <div class="links">
-        <a href="${ctx}${post.imagePath}" download>이미지 다운로드</a>
-      </div>
-    </div>
-  </c:if>
-  <!-- ▲ 여기까지 추가 -->
+  <!-- ★ 본문을 HTML로 렌더링 (이미지 태그 보이게) -->
+  <div class="content"><c:out value="${post.content}" escapeXml="false"/></div>
 
   <div class="btns">
     <a class="btn" href="${ctx}/serverboard/${world}/${server}.do">목록</a>
-    <!-- 로그인 닉네임은 컨트롤러에서 model에 loginNick 으로 넣음 -->
     <c:if test="${post.writer eq loginNick}">
       <a class="btn" href="${ctx}/serverboard/${world}/${server}/edit/${post.id}.do">수정</a>
       <form method="post" action="${ctx}/serverboard/${world}/${server}/delete.do" style="display:inline">
@@ -63,11 +47,10 @@
     </c:if>
   </div>
 
-  <!-- 댓글 영역 -->
+  <!-- 댓글 -->
   <div class="comments">
     <h3>댓글</h3>
 
-    <!-- 댓글 작성 -->
     <form method="post" action="${ctx}/serverboard/${world}/${server}/comment/add.do" style="margin-bottom:16px">
       <input type="hidden" name="postId" value="${post.id}">
       <textarea name="content" style="width:100%;min-height:80px" placeholder="댓글을 입력하세요" required></textarea>
@@ -76,7 +59,6 @@
       </div>
     </form>
 
-    <!-- 댓글 목록 -->
     <c:forEach var="cmt" items="${comments}">
       <div class="c-item ${cmt.parentId != null ? 'reply' : ''}">
         <div class="c-meta">
@@ -87,7 +69,6 @@
         <div class="c-content"><c:out value="${cmt.content}"/></div>
 
         <div class="c-actions">
-          <!-- 대댓글 폼 토글 -->
           <a href="#" onclick="this.nextElementSibling.style.display = (this.nextElementSibling.style.display==='block'?'none':'block'); return false;">답글</a>
           <div style="display:none;margin-top:8px;flex:1">
             <form method="post" action="${ctx}/serverboard/${world}/${server}/comment/add.do">
@@ -98,7 +79,6 @@
             </form>
           </div>
 
-          <!-- 본인 댓글이면 수정/삭제 -->
           <c:if test="${cmt.writer eq loginNick}">
             <a href="#" onclick="this.nextElementSibling.style.display = (this.nextElementSibling.style.display==='block'?'none':'block'); return false;">수정</a>
             <div style="display:none;margin-top:8px;flex:1">

@@ -4,22 +4,18 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.vampir.serverboard.service.ServerBoardService;
 import com.myspring.vampir.serverboard.vo.ServerPostVO;
 import com.myspring.vampir.serverboard.vo.ServerCommentVO;
-
-// ▼ 이미지 업로드에 필요한 import (기존 기능 유지, 추가만)
-import org.springframework.web.multipart.MultipartFile;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Controller
 public class ServerBoardController {
@@ -36,16 +32,17 @@ public class ServerBoardController {
         WORLD_LABELS.put("lilith","릴리스"); WORLD_LABELS.put("kain","카인"); WORLD_LABELS.put("ridel","리델");
     }
 
-    // 로그인 닉네임 해석 (여러 세션 키 지원) — 기존 그대로 사용
+    /** 세션에서 로그인 닉네임 추출 */
     private String resolveLoginNick(HttpSession session) {
         if (session == null) return null;
-        Object v;
-        v = session.getAttribute("loginNick");
+        Object v = session.getAttribute("loginNick");
         if (v instanceof String && !((String) v).trim().isEmpty()) return ((String) v).trim();
+
         v = session.getAttribute("nickname");
         if (v instanceof String && !((String) v).trim().isEmpty()) return ((String) v).trim();
         v = session.getAttribute("userNick");
         if (v instanceof String && !((String) v).trim().isEmpty()) return ((String) v).trim();
+
         Object m = session.getAttribute("member");
         if (m != null) {
             try {
@@ -75,7 +72,7 @@ public class ServerBoardController {
         return new ModelAndView("/serverboardSelect");
     }
 
-    /** 목록 화면 (경로형) */
+    /** 목록 (경로형) */
     @RequestMapping(value = {"/serverboard/{world}/{server}", "/serverboard/{world}/{server}.do"}, method = RequestMethod.GET)
     public ModelAndView list(@PathVariable("world") String world,
                              @PathVariable("server") String server) {
@@ -89,7 +86,7 @@ public class ServerBoardController {
         return mav;
     }
 
-    /** 목록 화면 (쿼리스트링형) */
+    /** 목록 (쿼리형) */
     @RequestMapping(value = "/serverboard/list.do", method = RequestMethod.GET)
     public ModelAndView listWithParams(@RequestParam("world") String world,
                                        @RequestParam("server") String server) {
@@ -113,13 +110,15 @@ public class ServerBoardController {
         return mav;
     }
 
-    /** 글 등록 처리 */
+    /** 글 등록 (+ 이미지 저장 후 본문에 <img> 자동삽입: 컨텍스트 경로 포함) */
     @RequestMapping(value = {"/serverboard/add", "/serverboard/add.do"}, method = RequestMethod.POST)
     public ModelAndView add(@RequestParam("world") String world,
                             @RequestParam("server") String server,
                             @RequestParam("title") String title,
                             @RequestParam("content") String content,
-                            HttpSession session) {
+                            @RequestParam(value = "image", required = false) MultipartFile image,
+                            HttpSession session,
+                            HttpServletRequest request) {
 
         String writer = resolveLoginNick(session);
         if (writer == null || writer.trim().isEmpty()) writer = "익명";
@@ -132,10 +131,38 @@ public class ServerBoardController {
         vo.setWriter(writer);
 
         service.write(vo);
+
+        // 업로드 파일 저장 (옵션) + 본문 자동 삽입
+        try {
+            if (image != null && !image.isEmpty()) {
+                String uploadsAbs = session.getServletContext().getRealPath("/uploads");
+                java.nio.file.Path upDir = java.nio.file.Paths.get(uploadsAbs);
+                java.nio.file.Files.createDirectories(upDir);
+
+                String orig = image.getOriginalFilename();
+                String ext  = (orig != null && orig.lastIndexOf('.')!=-1) ? orig.substring(orig.lastIndexOf('.')+1) : "";
+                String fname = "post_" + vo.getId() + "_" + System.currentTimeMillis() + (ext.isEmpty()?"":"."+ext.toLowerCase());
+                java.nio.file.Path dest = upDir.resolve(fname);
+                image.transferTo(dest.toFile());
+
+                // ★ 컨텍스트 경로 포함
+                String ctx = request.getContextPath(); // 예: /vampir
+                String rel = ctx + "/uploads/" + fname;
+
+                String body = (content == null ? "" : content) + "\n\n<img src=\"" + rel + "\" style=\"max-width:100%\"/>";
+                ServerPostVO patch = new ServerPostVO();
+                patch.setId(vo.getId());
+                patch.setTitle(vo.getTitle());
+                patch.setContent(body);
+                patch.setWriter(writer);
+                service.update(patch, writer);
+            }
+        } catch (Exception ignore) {}
+
         return new ModelAndView("redirect:/serverboard/" + world + "/" + server);
     }
 
-    /** 상세 보기 (경로형) */
+    /** 상세 (경로형) */
     @RequestMapping(value = {"/serverboard/{world}/{server}/view/{id}", "/serverboard/{world}/{server}/view/{id}.do"}, method = RequestMethod.GET)
     public ModelAndView viewPath(@PathVariable("world") String world,
                                  @PathVariable("server") String server,
@@ -154,7 +181,7 @@ public class ServerBoardController {
         return mav;
     }
 
-    /** 상세 보기 (쿼리형) */
+    /** 상세 (쿼리형) */
     @RequestMapping(value = {"/serverboard/{world}/{server}/view", "/serverboard/{world}/{server}/view.do"}, method = RequestMethod.GET)
     public ModelAndView viewQuery(@PathVariable("world") String world,
                                   @PathVariable("server") String server,
@@ -173,7 +200,7 @@ public class ServerBoardController {
         return mav;
     }
 
-    /** 게시글 수정 폼 */
+    /** 수정 폼 */
     @RequestMapping(value={"/serverboard/{world}/{server}/edit/{id}","/serverboard/{world}/{server}/edit/{id}.do"}, method=RequestMethod.GET)
     public ModelAndView editForm(@PathVariable("world") String world,
                                  @PathVariable("server") String server,
@@ -189,58 +216,72 @@ public class ServerBoardController {
         return mav;
     }
 
-    /** 게시글 수정 처리 — 이미지 추가/삭제 지원 (기존 기능 유지, 추가만) */
+    /**
+     * 수정 처리
+     * - deleteImage=1 이면 /uploads의 post_{id}_* 일괄 삭제
+     * - 새 image 업로드 시 저장 후 본문(content) 하단에 <img ...> 자동 삽입 (컨텍스트 경로 포함)
+     */
     @RequestMapping(value={"/serverboard/{world}/{server}/update.do"}, method=RequestMethod.POST)
     public ModelAndView update(@PathVariable("world") String world,
                                @PathVariable("server") String server,
                                @RequestParam("id") int id,
                                @RequestParam("title") String title,
                                @RequestParam("content") String content,
-                               @RequestParam(value="image", required=false) MultipartFile image,      // ★추가
-                               @RequestParam(value="deleteImage", required=false) String deleteImage, // ★추가
-                               HttpSession session) {
+                               @RequestParam(value="deleteImage", required=false) String deleteImage,
+                               @RequestParam(value="image", required=false) MultipartFile image,
+                               @RequestParam(value="autoEmbed", required=false, defaultValue="1") String autoEmbed,
+                               HttpSession session,
+                               HttpServletRequest request) {
         String loginNick = resolveLoginNick(session);
+
+        // 1) 기존 이미지 삭제 (옵션)
+        try {
+            if ("1".equals(deleteImage)) {
+                String uploadsAbs = session.getServletContext().getRealPath("/uploads");
+                java.nio.file.Path up = java.nio.file.Paths.get(uploadsAbs);
+                if (java.nio.file.Files.exists(up)) {
+                    try (java.nio.file.DirectoryStream<java.nio.file.Path> ds =
+                             java.nio.file.Files.newDirectoryStream(up, "post_" + id + "_*")) {
+                        for (java.nio.file.Path p : ds) {
+                            try { java.nio.file.Files.deleteIfExists(p); } catch (Exception ignore) {}
+                        }
+                    }
+                }
+            }
+        } catch (Exception ignore) {}
+
+        // 2) 새 이미지 저장 (옵션) + 본문 자동 삽입 (옵션)
+        try {
+            if (image != null && !image.isEmpty()) {
+                String uploadsAbs = session.getServletContext().getRealPath("/uploads");
+                java.nio.file.Path upDir = java.nio.file.Paths.get(uploadsAbs);
+                java.nio.file.Files.createDirectories(upDir);
+
+                String orig = image.getOriginalFilename();
+                String ext  = (orig != null && orig.lastIndexOf('.')!=-1) ? orig.substring(orig.lastIndexOf('.')+1) : "";
+                String fname = "post_" + id + "_" + System.currentTimeMillis() + (ext.isEmpty() ? "" : "."+ext.toLowerCase());
+                java.nio.file.Path dest = upDir.resolve(fname);
+                image.transferTo(dest.toFile());
+
+                if ("1".equals(autoEmbed)) {
+                    String ctx = request.getContextPath(); // 예: /vampir
+                    String rel = ctx + "/uploads/" + fname;
+                    content = (content == null ? "" : content) + "\n\n<img src=\"" + rel + "\" style=\"max-width:100%\"/>";
+                }
+            }
+        } catch (Exception ignore) {}
 
         ServerPostVO vo = new ServerPostVO();
         vo.setId(id);
         vo.setTitle(title);
         vo.setContent(content);
         vo.setWriter(loginNick);
-
-        // ▼ 이미지 처리 (DB 스키마/매퍼 변경 없음 — 파일만 저장/삭제)
-        try {
-            // 삭제 체크 시: 기존 파일 경로를 별도 보관 중이라면 여기서 제거
-            if ("1".equals(deleteImage)) {
-                // 예시) String old = service.findById(id).getImagePath();
-                // if (old != null) Files.deleteIfExists(Paths.get(session.getServletContext().getRealPath(old)));
-                // vo.setImagePath(null); // DB에 경로 필드가 있다면 null 설정
-            }
-
-            // 새 파일 업로드 시 저장
-            if (image != null && !image.isEmpty()) {
-                String uploadsRel = "/uploads"; // servlet-context.xml 에서 /uploads/** 매핑이 있어야 함
-                String uploadsAbs = session.getServletContext().getRealPath(uploadsRel);
-                Files.createDirectories(Paths.get(uploadsAbs));
-
-                String orig = image.getOriginalFilename();
-                String ext = (orig != null && orig.lastIndexOf('.') != -1) ? orig.substring(orig.lastIndexOf('.')+1) : "";
-                String safeName = "post_" + id + "_" + System.currentTimeMillis() + (ext.isEmpty() ? "" : "."+ext.toLowerCase());
-                Path dest = Paths.get(uploadsAbs, safeName);
-                image.transferTo(dest.toFile());
-
-                String relPath = uploadsRel + "/" + safeName; // 예) /uploads/post_123_....
-                // DB에 이미지 경로 컬럼이 있다면 아래처럼 설정
-                // vo.setImagePath(relPath);
-            }
-        } catch (Exception ignore) {
-            // 업로드 실패가 본문 수정까지 막지 않도록 무시(로그만 권장)
-        }
-
         service.update(vo, loginNick);
+
         return new ModelAndView("redirect:/serverboard/" + world + "/" + server + "/view.do?id=" + id);
     }
 
-    /** 게시글 삭제 */
+    /** 삭제 */
     @RequestMapping(value={"/serverboard/{world}/{server}/delete.do"}, method=RequestMethod.POST)
     public ModelAndView delete(@PathVariable("world") String world,
                                @PathVariable("server") String server,

@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.serverboard">
 
-  <!-- 게시글 매핑 -->
+  <!-- ===== 게시글 매핑 ===== -->
   <resultMap id="ServerPostMap" type="com.myspring.vampir.serverboard.vo.ServerPostVO">
     <id     property="id"        column="id"/>
     <result property="world"     column="world"/>
@@ -53,7 +53,7 @@
     WHERE id = #{id}
   </update>
 
-  <!-- 게시글 수정 (제목/내용, 필요 시 이미지 교체) -->
+  <!-- 수정 (이미지 교체 선택적) -->
   <update id="updatePost" parameterType="com.myspring.vampir.serverboard.vo.ServerPostVO">
     UPDATE server_posts
     <set>
@@ -67,16 +67,14 @@
       AND writer = #{writer}
   </update>
 
-  <!-- 게시글 삭제 (작성자 검증) -->
+  <!-- 삭제 (작성자 검증) -->
   <delete id="deletePost" parameterType="map">
     DELETE FROM server_posts
     WHERE id = #{id}
       AND writer = #{writer}
   </delete>
 
-  <!-- =========================
-       댓글/대댓글 (server_post_comments)
-       ========================= -->
+  <!-- ===== 댓글/대댓글 (server_post_comments) ===== -->
   <resultMap id="CommentMap" type="com.myspring.vampir.serverboard.vo.ServerCommentVO">
     <id     property="id"       column="id"/>
     <result property="postId"   column="post_id"/>
@@ -86,6 +84,7 @@
     <result property="regDate"  column="reg_date"/>
   </resultMap>
 
+  <!-- 댓글 목록: 부모먼저, 자식순 -->
   <select id="listComments" parameterType="int" resultMap="CommentMap">
     SELECT id, post_id, parent_id, writer, content, reg_date
     FROM server_post_comments
@@ -95,6 +94,7 @@
       id ASC
   </select>
 
+  <!-- 댓글 등록 -->
   <insert id="insertComment"
           parameterType="com.myspring.vampir.serverboard.vo.ServerCommentVO"
           useGeneratedKeys="true" keyProperty="id">
@@ -102,6 +102,7 @@
     VALUES (#{postId}, #{parentId}, #{writer}, #{content})
   </insert>
 
+  <!-- 댓글 수정(작성자 본인) -->
   <update id="updateComment"
           parameterType="com.myspring.vampir.serverboard.vo.ServerCommentVO">
     UPDATE server_post_comments
@@ -110,6 +111,7 @@
       AND writer = #{writer}
   </update>
 
+  <!-- 댓글 삭제(작성자 본인) -->
   <delete id="deleteComment" parameterType="map">
     DELETE FROM server_post_comments
     WHERE id = #{id}
