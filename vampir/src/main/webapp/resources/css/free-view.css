@@ -1,0 +1,163 @@
+/* ───── 자유게시판 상세 전용: free-view.css (단일 파일, 전체) ───── */
+.free-view{
+  max-width:1040px;
+  margin:24px auto;
+  padding:0 16px;
+  color:#e6ebf0;
+}
+
+/* 제목 */
+.free-view .fv-title{
+  margin:0 0 6px;
+  font-size:28px;
+  letter-spacing:.02em;
+}
+
+/* 메타: 박스 밖, 오른쪽 정렬 */
+.free-view .fv-meta{ font-size:13px; opacity:.9; }
+.free-view .fv-meta-right{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin:2px 4px 10px;
+  white-space:nowrap;
+}
+
+/* 박스 밖 버튼들(목록/수정/삭제) */
+.free-view .fv-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin:10px 4px 0;
+}
+.free-view .fv-btn{
+  display:inline-block;
+  padding:8px 12px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.15);
+  background:rgba(255,255,255,0.06);
+  color:#e6ebf0;
+  text-decoration:none;
+  cursor:pointer;
+}
+.free-view .fv-btn:hover{ filter:brightness(1.05); }
+.free-view .fv-btn-primary{ background:rgba(120,160,255,0.16); border-color:rgba(120,160,255,0.28); }
+.free-view .fv-btn-danger{  background:rgba(237,87,87,0.18);   border-color:rgba(237,87,87,0.32); }
+
+/* ===== 댓글 영역 ===== */
+.free-view .fv-comments{ margin-top:18px; }
+.free-view .fv-comments > h3{ margin:2px 0 12px; font-size:16px; }
+
+.free-view .fv-cmt-form textarea{
+  width:100%;
+  min-height:88px;
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.14);
+  background:rgba(12,16,24,0.45);
+  color:#e6ebf0;
+  box-sizing:border-box;
+  line-height:1.55;
+}
+.free-view .fv-cmt-form-actions{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:8px;
+}
+
+.free-view .fv-cmt-item{
+  margin:10px 0 12px;
+  padding-bottom:10px;
+  border-bottom:1px solid rgba(255,255,255,0.10);
+}
+.free-view .fv-cmt-item.reply{ margin-left:22px; }
+.free-view .fv-cmt-meta{ color:#b9c2cc; font-size:13px; margin-bottom:6px; }
+
+.free-view .fv-cmt-body{
+  display:inline-block;
+  max-width:920px;
+  padding:8px 10px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.06);
+  background:rgba(255,255,255,0.03);
+  line-height:1.6;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+.free-view .fv-cmt-body.deleted{
+  border:0;
+  background:transparent;
+  padding:0;
+  color:#9aa0a6;
+  font-style:italic;
+}
+.free-view .fv-cmt-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  margin-top:6px;
+}
+.free-view .fv-cmt-inline{
+  display:inline-flex;
+  flex-direction:column;
+  gap:6px;
+  margin-top:6px;
+}
+.free-view .fv-cmt-inline textarea{
+  width:100%;
+  min-height:78px;
+  padding:10px 12px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.16);
+  background:rgba(12,16,24,0.45);
+  color:#e6ebf0;
+  box-sizing:border-box;
+}
+
+/* ===== 본문 박스(텍스트가 쓰이는 바로 그 안쪽 영역) ===== */
+/* .fv-content에 가상요소를 깔아 배경을 아주 옅게 표시하고, 텍스트는 그 위에 보이게 */
+.free-view .fv-content{
+  position: relative;      /* ::before 기준 */
+  padding: 18px;           /* 여백 유지 */
+  min-height: 520px;       /* 기본 세로 높이 넉넉히 */
+  white-space: pre-wrap;   /* 줄바꿈 유지 */
+  word-break: break-word;  /* 긴 단어 줄바꿈 */
+  border-radius: 12px;     /* 배경과 모서리 일치 */
+}
+
+.free-view .fv-content::before{
+  content: "";
+  position: absolute;
+  inset: 0;                           /* 상하좌우 꽉 채움 */
+  border-radius: inherit;
+
+  /* 댓글 박스 톤(그라데이션 + 베이스)을 매우 옅게 */
+  background:
+    radial-gradient(1200px 600px at 70% -50%,
+      rgba(255,255,255,0.06) 0%,
+      rgba(255,255,255,0.03) 35%,
+      rgba(0,0,0,0) 100%),
+    rgba(12,16,24,0.35);
+
+  /* 라인과 그림자도 약하게 */
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 4px 12px rgba(0,0,0,.12);
+
+  /* 전체 투명도 ↓ (거의 안 보일 정도) */
+  opacity: 0.06;
+
+  z-index: 0;             /* 텍스트 아래 */
+  pointer-events: none;   /* 클릭/드래그 방해 금지 */
+}
+
+/* 자식(텍스트/이미지 등)을 배경 위로 올리기 */
+.free-view .fv-content > *{
+  position: relative;
+  z-index: 1;
+}
+
+/* 모바일 */
+@media (max-width:560px){
+  .free-view .fv-meta-right{ justify-content:flex-start; }
+}

@@ -1,0 +1,88 @@
+/* ── 자유게시판 상세 전용 오버라이드 ── */
+
+/* 1) 메타: 박스 밖, 오른쪽 정렬 (강한 선택자 + !important) */
+.wrap > .meta.meta-right{
+  width: 100%;
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center;
+  gap: 8px;
+  text-align: right !important;
+  float: none !important;
+  margin: 4px 6px 10px 6px; /* 위·오른쪽 여백 약간 */
+  font-size: 13px;
+  opacity: .9;
+  white-space: nowrap;
+}
+
+/* 2) 본문 카드: 기본 세로 높이 넉넉하게 */
+.content.content-card{
+  padding: 18px;
+  min-height: 520px;        /* ↑ 더 크게 */
+  box-sizing: border-box;
+}
+.content.content-card .content-body{
+  min-height: 420px;        /* ↑ 실제 내용 최소 높이 */
+  line-height: 1.85;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* 3) 버튼: 박스 밖, 오른쪽 정렬 (강하게 고정) */
+.wrap > .btns.btns-right{
+  width: 100%;
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 8px;
+  margin-top: 10px;
+  text-align: right !important;
+  float: none !important;
+}
+
+/* 4) 댓글: 입력창은 조금 더 낮춤 (공간 절약) */
+.comments > h3{ margin: 12px 0 10px; }
+.comments form textarea{
+  min-height: 80px;         /* ↓ 더 낮춤 */
+  padding: 12px 14px;
+  line-height: 1.5;
+}
+
+/* 댓글 아이템 컴팩트 유지 */
+.c-item{ margin: 10px 0 12px; }
+.c-item.reply{ margin-left: 22px; }
+.c-content{
+  display: inline-block;
+  max-width: 920px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.03);
+  line-height: 1.6;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+.c-content.deleted{
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: #9aa0a6;
+  font-style: italic;
+}
+.c-actions{
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 6px;
+}
+.c-actions .btn{
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+/* 5) 좁은 화면 보호 */
+@media (max-width: 560px){
+  .wrap > .meta.meta-right{ justify-content: flex-start !important; text-align: left !important; }
+  .content.content-card{ min-height: 420px; }
+  .content.content-card .content-body{ min-height: 300px; }
+  .wrap > .btns.btns-right{ justify-content: flex-end !important; }
+}

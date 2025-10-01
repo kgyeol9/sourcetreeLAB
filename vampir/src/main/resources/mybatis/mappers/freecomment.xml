@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myspring.vampir.freeboard.mapper.FreeCommentMapper">
+
+  <resultMap id="FreeCommentMap" type="com.myspring.vampir.freeboard.vo.FreeCommentVO">
+    <id     property="id"         column="id"/>
+    <result property="postId"     column="post_id"/>
+    <result property="parentId"   column="parent_id"/>
+    <result property="content"    column="content"/>
+    <result property="writerId"   column="writer_id"/>
+    <result property="writerName" column="writer_name"/>
+    <result property="isDeleted"  column="is_deleted"/>
+    <result property="createdAt"  column="created_at"/>
+    <result property="updatedAt"  column="updated_at"/>
+  </resultMap>
+
+  <!-- 게시글의 댓글 목록 (상위먼저, 같은 부모 내에서 오래된순) -->
+  <select id="listByPost" resultMap="FreeCommentMap">
+    SELECT id, post_id, parent_id, content, writer_id, writer_name,
+           is_deleted, created_at, updated_at
+    FROM tb_free_comment
+    WHERE post_id = #{postId}
+    ORDER BY COALESCE(parent_id, id) ASC, id ASC
+  </select>
+
+  <insert id="insert" parameterType="com.myspring.vampir.freeboard.vo.FreeCommentVO"
+          useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO tb_free_comment
+      (post_id, parent_id, content, writer_id, writer_name)
+    VALUES
+      (#{postId}, #{parentId}, #{content}, #{writerId}, #{writerName})
+  </insert>
+
+  <update id="updateOwn">
+    UPDATE tb_free_comment
+    SET content = #{content}, updated_at = NOW()
+    WHERE id = #{id}
+      AND writer_id = #{writerId}
+      AND is_deleted = 0
+  </update>
+
+  <update id="softDeleteOwn">
+    UPDATE tb_free_comment
+    SET is_deleted = 1, updated_at = NOW()
+    WHERE id = #{id}
+      AND writer_id = #{writerId}
+      AND is_deleted = 0
+  </update>
+</mapper>

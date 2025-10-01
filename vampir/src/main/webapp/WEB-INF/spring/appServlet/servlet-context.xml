@@ -10,13 +10,12 @@
         http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- @Controller 등 어노테이션 활성화 -->
+    <!-- @Controller 활성화 -->
     <mvc:annotation-driven />
 
-    <!-- 정적 리소스 매핑 -->
+    <!-- 정적 리소스 -->
     <mvc:resources mapping="/resources/**" location="/resources/" />
-    <!-- 업로드 파일 서빙 -->
-    <mvc:resources mapping="/uploads/**" location="/uploads/" />
+    <mvc:resources mapping="/uploads/**"  location="/uploads/" />
 
     <!-- 기본 서블릿 위임 -->
     <mvc:default-servlet-handler />
@@ -37,7 +36,7 @@
         <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView" />
     </beans:bean>
 
-    <!-- 컴포넌트 스캔 -->
+    <!-- 컴포넌트 스캔 (Controller/Service 등) -->
     <context:component-scan base-package="com.myspring.vampir" />
 
     <!-- 인터셉터 -->
@@ -48,17 +47,21 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-    <!-- 멀티파트 리졸버 (파일 업로드) -->
+    <!-- 파일 업로드 -->
     <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <beans:property name="defaultEncoding" value="UTF-8" />
         <beans:property name="maxUploadSize" value="52428800" />
         <beans:property name="maxInMemorySize" value="52428800" />
     </beans:bean>
 
-    <!-- JSP 뷰리졸버를 Tiles 대신 쓰려면 아래 활성화
-    <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <beans:property name="prefix" value="/WEB-INF/views/" />
-        <beans:property name="suffix" value=".jsp" />
+    <!-- === 여기가 핵심: MyBatis 매퍼 스캔 추가 ===
+         주의: sqlSessionFactoryBeanName 값은 너의 프로젝트에서 쓰는 팩토리 빈 이름과 같아야 함.
+         (보통 'sqlSessionFactory'를 많이 씀. 다르면 그 이름으로 바꿔줘) -->
+    <beans:bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 자유게시판 매퍼 패키지 추가 -->
+        <beans:property name="basePackage"
+                        value="com.myspring.vampir.freeboard.mapper" />
+        <beans:property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </beans:bean>
-    -->
+
 </beans:beans>

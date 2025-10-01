@@ -1,0 +1,58 @@
+/* 서버게시판 테이블/툴바/버튼 등 공통 룩앤필 재사용 */
+@import url("serverboard-list.css");
+
+/* ===========================
+   자유게시판 전용 - 최소 보강
+   (전역 클래스 충돌 방지를 위해
+    .wrap/.toolbar/.btn/.content/.post 등은 정의하지 않음)
+   =========================== */
+
+/* 글쓰기/수정 폼 */
+.form .row{
+  display:flex;
+  flex-direction:column;
+  margin-bottom:12px;
+}
+.form label{
+  font-weight:600;
+  margin-bottom:6px;
+}
+.form input[type="text"],
+.form textarea{
+  border:1px solid #ddd;
+  border-radius:8px;
+  padding:10px 12px;
+  font-size:15px;
+  box-sizing:border-box;
+}
+.form textarea{
+  resize:vertical;
+}
+
+/* 작성자 표시용 고정 박스 */
+.writer-fixed{
+  padding:10px 12px;
+  border:1px dashed #ccc;
+  border-radius:8px;
+  background:#fafafa;
+}
+
+/* 필수 표시 */
+.req{ color:#d00; }
+
+/* 폼 하단 버튼 묶음 */
+.actions{
+  margin-top:12px;
+  display:flex;
+  gap:8px;
+  justify-content:flex-end;
+  flex-wrap:wrap;
+}
+
+/* ===== 주의 =====
+   댓글/상세 레이아웃/버튼/메타 등은
+   - serverboard.css (베이스)
+   - freeboard-view-override.css (상세 전용)
+   - freeboard-comment-override.css (댓글 전용)
+   에서 관리합니다. 여기서는 중복 선언하지 않습니다.
+*/

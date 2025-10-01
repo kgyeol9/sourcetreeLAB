@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myspring.vampir.freeboard.mapper.FreeBoardMapper">
+
+  <resultMap id="FreePostMap" type="com.myspring.vampir.freeboard.vo.FreePostVO">
+    <id     property="postId"     column="post_id"/>
+    <result property="title"      column="title"/>
+    <result property="content"    column="content"/>
+    <result property="writerId"   column="writer_id"/>
+    <result property="writerName" column="writer_name"/>
+    <result property="viewCnt"    column="view_cnt"/>
+    <result property="commentCnt" column="comment_cnt"/>
+    <result property="isDeleted"  column="is_deleted"/>
+    <result property="createdAt"  column="created_at"/>
+    <result property="updatedAt"  column="updated_at"/>
+  </resultMap>
+
+  <!-- 목록 -->
+  <select id="listPaged" resultMap="FreePostMap">
+    SELECT
+      post_id, title, content, writer_id, writer_name,
+      view_cnt, comment_cnt, is_deleted, created_at, updated_at
+    FROM tb_free_post
+    WHERE is_deleted = 0
+    ORDER BY post_id DESC
+    LIMIT #{limit} OFFSET #{offset}
+  </select>
+
+  <select id="countAll" resultType="int">
+    SELECT COUNT(*) FROM tb_free_post WHERE is_deleted = 0
+  </select>
+
+  <!-- 상세 -->
+  <select id="selectOne" resultMap="FreePostMap">
+    SELECT
+      post_id, title, content, writer_id, writer_name,
+      view_cnt, comment_cnt, is_deleted, created_at, updated_at
+    FROM tb_free_post
+    WHERE post_id = #{postId} AND is_deleted = 0
+  </select>
+
+  <!-- 조회수 증가 -->
+  <update id="increaseViewCnt">
+    UPDATE tb_free_post
+    SET view_cnt = view_cnt + 1
+    WHERE post_id = #{postId} AND is_deleted = 0
+  </update>
+
+  <!-- 작성 -->
+  <insert id="insert" parameterType="com.myspring.vampir.freeboard.vo.FreePostVO"
+          useGeneratedKeys="true" keyProperty="postId">
+    INSERT INTO tb_free_post
+      (title, content, writer_id, writer_name)
+    VALUES
+      (#{title}, #{content}, #{writerId}, #{writerName})
+  </insert>
+
+  <!-- 수정: 본인 글만 -->
+  <update id="updateOwn">
+    UPDATE tb_free_post
+    SET title = #{title},
+        content = #{content},
+        updated_at = NOW()
+    WHERE post_id = #{postId}
+      AND writer_id = #{writerId}
+      AND is_deleted = 0
+  </update>
+
+  <!-- 삭제(소프트): 본인 글만 -->
+  <update id="softDeleteOwn">
+    UPDATE tb_free_post
+    SET is_deleted = 1, updated_at = NOW()
+    WHERE post_id = #{postId}
+      AND writer_id = #{writerId}
+      AND is_deleted = 0
+  </update>
+
+</mapper>
