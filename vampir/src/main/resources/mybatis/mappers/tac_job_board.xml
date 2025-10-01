@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.myspring.vampir.tac_job_board.dao.tac_job_boardDAO">
+
+  <select id="selectBoardList" resultType="com.myspring.vampir.tac_job_board.vo.tac_job_boardVO">
+    SELECT b.*, m.nickname
+    FROM tac_job_board b
+    JOIN t_member m ON b.mem_code = m.mem_code
+    WHERE b.board_type = #{board_type}
+    ORDER BY b.board_id DESC
+    LIMIT #{start}, #{limit}
+  </select>
+
+  <select id="countBoardList" resultType="int">
+    SELECT COUNT(*) FROM tac_job_board WHERE board_type = #{board_type}
+  </select>
+
+  <select id="selectBoardById" resultType="com.myspring.vampir.tac_job_board.vo.tac_job_boardVO">
+    SELECT b.*, m.nickname
+    FROM tac_job_board b
+    JOIN t_member m ON b.mem_code = m.mem_code
+    WHERE b.board_id = #{board_id}
+  </select>
+
+  <insert id="insertBoard" parameterType="com.myspring.vampir.tac_job_board.vo.tac_job_boardVO">
+    INSERT INTO tac_job_board (board_type, mem_code, title, content)
+    VALUES (#{board_type}, #{mem_code}, #{title}, #{content})
+  </insert>
+
+  <update id="updateBoard" parameterType="com.myspring.vampir.tac_job_board.vo.tac_job_boardVO">
+    UPDATE tac_job_board SET title=#{title}, content=#{content}, updated_at=NOW()
+    WHERE board_id=#{board_id}
+  </update>
+
+  <delete id="deleteBoard" parameterType="int">
+    DELETE FROM tac_job_board WHERE board_id=#{board_id}
+  </delete>
+
+  <update id="increaseViewCount" parameterType="int">
+    UPDATE tac_job_board SET view_count=view_count+1 WHERE board_id=#{board_id}
+  </update>
+
+  <update id="increaseRecommendCount" parameterType="int">
+    UPDATE tac_job_board SET recommend_count=recommend_count+1 WHERE board_id=#{board_id}
+  </update>
+
+</mapper>

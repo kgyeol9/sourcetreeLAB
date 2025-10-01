@@ -134,6 +134,25 @@
   <put-attribute name="body"   value="/WEB-INF/views/free/forbidden.jsp" />
   <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
 </definition>
-  
 
+<definition name="/tac_job/list" extends="baseLayout">
+    <put-attribute name="title" value="게시판 목록" />
+    <put-attribute name="body" value="/WEB-INF/views/tac_job/list.jsp" />
+</definition>
+
+  <definition name="/tac_job/write" extends="baseLayout">
+    <put-attribute name="title" value="게시글 작성" />
+    <put-attribute name="body" value="/WEB-INF/views/tac_job/write.jsp" />
+</definition>
+  
+<definition name="/tac_job/view" extends="baseLayout">
+    <put-attribute name="title" value="게시글" />
+    <put-attribute name="body" value="/WEB-INF/views/tac_job/view.jsp" />
+</definition>
+  
+  <definition name="/tac_job/edit" extends="baseLayout">
+    <put-attribute name="title" value="게시글 수정" />
+    <put-attribute name="body" value="/WEB-INF/views/tac_job/edit.jsp" />
+</definition>
+  
 </tiles-definitions>

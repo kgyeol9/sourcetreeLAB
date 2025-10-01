@@ -7,5 +7,8 @@
 		<typeAlias type="com.myspring.vampir.member.vo.MemberVO"  alias="memberVO" />
 		<typeAlias type="com.myspring.vampir.board.vo.ArticleVO"  alias="articleVO" />
 		<typeAlias type="com.myspring.vampir.board.vo.ImageVO"  alias="imageVO" />
+		<typeAlias type="com.myspring.vampir.board.vo.CommentVO"  alias="commentVO" />
+		<typeAlias type="com.myspring.vampir.tac_job_board.vo.tac_job_boardVO"  alias="tac_boardVO" />
+		<typeAlias type="com.myspring.vampir.tac_job_board.vo.tac_job_commentVO"  alias="tac_commentVO" />
 	</typeAliases>
 </configuration>

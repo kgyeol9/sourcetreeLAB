@@ -26,11 +26,11 @@
       <h3>게시판</h3>
       <ul>
       <li><a href="${pageContext.request.contextPath}/free/list.do">자유/질문 게시판</a></li> 
-      <li><a href="#">공략 게시판</a></li>
+      <li><a href="${pageContext.request.contextPath}/tac_job/list.do?type=guide">공략 게시판</a></li>
       <li><a href="${pageContext.request.contextPath}/partyboard.do">파티 게시판</a></li>
 	  <li><a href="#">길드 게시판</a></li>
   	  <li><a href="${pageContext.request.contextPath}/serverboard.do">서버 게시판</a></li>
-  	  <li><a href="#">직업 게시판</a></li>
+  	  <li><a href="${pageContext.request.contextPath}/tac_job/list.do?type=job">직업 게시판</a></li>
 	  </ul>
     </div>
     

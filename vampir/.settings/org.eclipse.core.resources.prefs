@@ -9,6 +9,7 @@ encoding//src/main/java/com/myspring/vampir/freeboard/service/FreeBoardService.j
 encoding//src/main/java/com/myspring/vampir/freeboard/service/FreeBoardServiceImpl.java=UTF-8
 encoding//src/main/java/com/myspring/vampir/member/vo/MemberVO.java=UTF-8
 encoding//src/main/java/com/myspring/vampir/serverboard/controller/ServerBoardController.java=UTF-8
+encoding//src/main/java/com/myspring/vampir/tac_job_board/controller/tac_job_boardController.java=UTF-8
 encoding//src/main/webapp/WEB-INF/views/free/view.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/home.jsp=UTF-8
 encoding//src/main/webapp/resources/css/.css=UTF-8
