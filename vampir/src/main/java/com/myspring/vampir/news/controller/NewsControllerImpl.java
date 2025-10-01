@@ -2,6 +2,9 @@ package com.myspring.vampir.news.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,7 +30,12 @@ public class NewsControllerImpl implements NewsController {
     public String newsRoot() {
         return "redirect:/news/list.do";
     }
-
+    @RequestMapping(value = "/news.do", method = { RequestMethod.GET, RequestMethod.POST })
+    private ModelAndView news(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("news");   // ← Tiles 정의 name="news"
+        return mav;
+    }
     /** 목록 */
     @Override
     @RequestMapping(value="/list.do", method=RequestMethod.GET)

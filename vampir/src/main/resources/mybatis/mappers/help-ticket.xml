@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="helpTicket">
+
+	<!-- tb_help_ticket → HelpTicketVO 매핑 -->
+	<resultMap id="HelpTicketMap"
+		type="com.myspring.vampir.help.vo.HelpTicketVO">
+		<id column="id" property="id" />
+		<result column="mem_code" property="mem_code" />
+		<result column="category" property="category" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="secret" property="secret" />
+		<result column="status" property="status" />
+		<result column="created_at" property="createdAt" />
+		<result column="updated_at" property="updatedAt" />
+	</resultMap>
+
+	<!-- 생성 -->
+	<insert id="insert"
+		parameterType="com.myspring.vampir.help.vo.HelpTicketVO"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO tb_help_ticket
+		(mem_code, category, title, content, secret, status)
+		VALUES
+		(#{mem_code}, #{category}, #{title}, #{content}, #{secret}, '접수')
+	</insert>
+
+	<!-- 단건 조회 (상세보기) -->
+	<select id="selectById" parameterType="long"
+		resultMap="HelpTicketMap">
+		SELECT *
+		FROM tb_help_ticket
+		WHERE id = #{id}
+	</select>
+
+	<!-- 내 티켓 목록 (파라미터: mem_code) -->
+	<select id="selectByMember" resultMap="HelpTicketMap"
+		parameterType="map">
+		SELECT *
+		FROM tb_help_ticket
+		WHERE mem_code = #{mem_code}
+		ORDER BY updated_at DESC, id DESC
+	</select>
+
+	<!-- QnA 목록: 공개글 + (내 비밀글) (파라미터: mem_code, null 가능) -->
+	<select id="selectQnaList" resultMap="HelpTicketMap"
+		parameterType="map">
+		SELECT *
+		FROM tb_help_ticket
+		WHERE secret = 0
+		OR (#{mem_code} IS NOT NULL AND mem_code = #{mem_code} AND secret = 1)
+		ORDER BY updated_at DESC, id DESC
+		LIMIT 200
+	</select>
+
+	<!-- QnA 검색 -->
+	<select id="searchQna" resultMap="HelpTicketMap">
+		SELECT *
+		FROM tb_help_ticket
+		WHERE
+		(
+		secret = 0
+		OR (#{mem_code} IS NOT NULL AND mem_code = #{mem_code} AND secret = 1)
+		)
+		<if test="category != null and category != ''">
+			AND category = #{category}
+		</if>
+		<if test="q != null and q != ''">
+			AND (title LIKE CONCAT('%', #{q}, '%')
+			OR content LIKE CONCAT('%', #{q}, '%'))
+		</if>
+		ORDER BY updated_at DESC, id DESC
+		LIMIT 200
+	</select>
+
+	<!-- (옵션) 상태 변경 -->
+	<update id="updateStatus" parameterType="map">
+		UPDATE tb_help_ticket
+		SET status = #{status}, updated_at = NOW()
+		WHERE id = #{id}
+	</update>
+
+	<!-- (옵션) 삭제 -->
+	<delete id="deleteById" parameterType="long">
+		DELETE FROM tb_help_ticket WHERE id = #{id}
+	</delete>
+
+</mapper>

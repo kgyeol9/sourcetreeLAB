@@ -15,6 +15,7 @@ public class MemberDAOImpl implements MemberDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	private static final String NS = "mapper.member";
+	@Autowired private org.mybatis.spring.SqlSessionTemplate sst;
 
 	@Override
 	public List selectAllMemberList() throws DataAccessException {
@@ -48,4 +49,8 @@ public class MemberDAOImpl implements MemberDAO {
         return (cnt == null) ? 0 : cnt.intValue();
     }
 
+	@Override
+	public Integer selectMemCodeByMemId(String mem_id) {
+	    return (Integer) sst.selectOne(NS + "selectMemCodeByMemId", mem_id);
+	}
 }

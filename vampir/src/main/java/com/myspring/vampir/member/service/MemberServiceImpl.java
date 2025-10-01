@@ -47,4 +47,9 @@ public class MemberServiceImpl implements MemberService {
         return (cnt > 0) ? "true" : "false"; // true=중복, false=사용가능
     }
 
+	@Override
+	public Integer findMemCodeByMemId(String mem_id) {
+	    return memberDAO.selectMemCodeByMemId(mem_id);
+	}
+
 }

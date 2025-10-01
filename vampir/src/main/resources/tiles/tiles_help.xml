@@ -22,11 +22,16 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/help/help.jsp" />
 	</definition>
-	
+
 	<definition name="news" extends="baseLayout">
 		<put-attribute name="title" value="새소식" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/news.jsp" />
 	</definition>
-	
+
+	<definition name="help/ticket-view" extends="baseLayout">
+		<put-attribute name="title" value="문의 상세" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/help/ticket-view.jsp" />
+	</definition>
 </tiles-definitions>
