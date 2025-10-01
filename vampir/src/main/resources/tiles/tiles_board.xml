@@ -52,16 +52,16 @@
   </definition>
   
   <!-- 파티 게시판 -->
-  <definition name="/partyboard" extends="baseLayout">
-    <put-attribute name="title" value="파티 게시판" />
-    <put-attribute name="body" value="/WEB-INF/views/partyboard/partyboard.jsp" />
-  </definition>
+<definition name="/partyboard" extends="baseLayout">
+  <put-attribute name="title" value="파티 게시판" />
+  <put-attribute name="body" value="/WEB-INF/views/partyboard/partyboard.jsp" />
+</definition>
 
-  <!-- 파티 게시판 상세 -->
-  <definition name="/partyboardView" extends="baseLayout">
-    <put-attribute name="title" value="파티 상세" />
-    <put-attribute name="body" value="/WEB-INF/views/partyboard/partyboard_view.jsp" />
-  </definition>
+<!-- 파티 게시판 상세 -->
+<definition name="/partyboardView" extends="baseLayout">
+  <put-attribute name="title" value="파티 상세" />
+  <put-attribute name="body" value="/WEB-INF/views/partyboard/partyboard_view.jsp" />
+</definition>
 
   <!-- 서버 게시판  -->
   <definition name="/serverboardSelect" extends="baseLayout">

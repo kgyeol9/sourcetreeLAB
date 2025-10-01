@@ -70,8 +70,14 @@
 
     <button id="moveBtn" class="btn primary" type="button">이동</button>
     <span class="spacer"></span>
-    <!-- ✅ 글쓰기 버튼도 강조색(Primary)로 통일 -->
-    <button id="writeBtn" class="btn primary" type="button">글쓰기</button>
+
+    <!-- ★ 로그인 시에만 글쓰기 버튼 노출 -->
+    <c:if test="${login}">
+      <button id="writeBtn" class="btn primary" type="button">글쓰기</button>
+    </c:if>
+    <c:if test="${not login}">
+      <span class="muted">로그인 후 글쓰기 가능</span>
+    </c:if>
   </div>
 
   <!-- 일반 게시판 테이블 -->
@@ -151,10 +157,16 @@
     document.getElementById('moveBtn').addEventListener('click',function(){
       location.href = ctx + '/serverboard/' + (worldSel.value||'ALL') + '/' + (serverSel.value||'ALL');
     });
-    document.getElementById('writeBtn').addEventListener('click',function(){
-      location.href = ctx + '/serverboard/write.do?world=' + (worldSel.value||'ALL') + '&server=' + (serverSel.value||'ALL');
-    });
-    function applyWorldRules(){ if(worldSel.value==='ALL'){ serverSel.value='ALL'; serverSel.disabled=true; } else { serverSel.disabled=false; } }
+    var writeBtn = document.getElementById('writeBtn');
+    if (writeBtn) {
+      writeBtn.addEventListener('click',function(){
+        location.href = ctx + '/serverboard/write.do?world=' + (worldSel.value||'ALL') + '&server=' + (serverSel.value||'ALL');
+      });
+    }
+    function applyWorldRules(){
+      if(worldSel.value==='ALL'){ serverSel.value='ALL'; serverSel.disabled=true; }
+      else { serverSel.disabled=false; }
+    }
     applyWorldRules(); worldSel.addEventListener('change',applyWorldRules);
   })();
 </script>
