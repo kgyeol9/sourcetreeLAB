@@ -1,5 +1,7 @@
 package com.myspring.vampir.serverboard.controller;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,13 +11,16 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.vampir.serverboard.service.ServerBoardService;
-import com.myspring.vampir.serverboard.vo.ServerPostVO;
 import com.myspring.vampir.serverboard.vo.ServerCommentVO;
+import com.myspring.vampir.serverboard.vo.ServerPostVO;
 
 @Controller
 public class ServerBoardController {
@@ -244,7 +249,7 @@ public class ServerBoardController {
     @RequestMapping(value={"/serverboard/{world}/{server}/update.do"}, method=RequestMethod.POST)
     public ModelAndView update(@PathVariable("world") String world,
                                @PathVariable("server") String server,
-                               @RequestParam("id") int id,
+                               @RequestParam("id") final int id,
                                @RequestParam("title") String title,
                                @RequestParam("content") String content,
                                @RequestParam(value="deleteImage", required=false) String deleteImage,
@@ -252,6 +257,7 @@ public class ServerBoardController {
                                @RequestParam(value="autoEmbed", required=false, defaultValue="1") String autoEmbed,
                                HttpSession session,
                                HttpServletRequest request) {
+
         String loginNick = resolveLoginNick(session);
         if (loginNick == null) {
             return new ModelAndView("redirect:/serverboard/" + world + "/" + server + "/view.do?id=" + id + "&error=login");
@@ -261,12 +267,16 @@ public class ServerBoardController {
         try {
             if ("1".equals(deleteImage)) {
                 String uploadsAbs = session.getServletContext().getRealPath("/uploads");
-                java.nio.file.Path up = java.nio.file.Paths.get(uploadsAbs);
-                if (java.nio.file.Files.exists(up)) {
-                    try (java.nio.file.DirectoryStream<java.nio.file.Path> ds =
-                             java.nio.file.Files.newDirectoryStream(up, "post_" + id + "_*")) {
-                        for (java.nio.file.Path p : ds) {
-                            try { java.nio.file.Files.deleteIfExists(p); } catch (Exception ignore) {}
+                File upDir = new File(uploadsAbs);
+                if (upDir.exists() && upDir.isDirectory()) {
+                    File[] files = upDir.listFiles(new FilenameFilter() {
+                        public boolean accept(File dir, String name) {
+                            return name.startsWith("post_" + id + "_");
+                        }
+                    });
+                    if (files != null) {
+                        for (File f : files) {
+                            try { f.delete(); } catch (Exception ignore) {}
                         }
                     }
                 }
@@ -277,14 +287,16 @@ public class ServerBoardController {
         try {
             if (image != null && !image.isEmpty()) {
                 String uploadsAbs = session.getServletContext().getRealPath("/uploads");
-                java.nio.file.Path upDir = java.nio.file.Paths.get(uploadsAbs);
-                java.nio.file.Files.createDirectories(upDir);
+                File upDir = new File(uploadsAbs);
+                if (!upDir.exists()) {
+                    upDir.mkdirs();
+                }
 
                 String orig = image.getOriginalFilename();
-                String ext  = (orig != null && orig.lastIndexOf('.')!=-1) ? orig.substring(orig.lastIndexOf('.')+1) : "";
+                String ext  = (orig != null && orig.lastIndexOf('.') != -1) ? orig.substring(orig.lastIndexOf('.')+1) : "";
                 String fname = "post_" + id + "_" + System.currentTimeMillis() + (ext.isEmpty() ? "" : "."+ext.toLowerCase());
-                java.nio.file.Path dest = upDir.resolve(fname);
-                image.transferTo(dest.toFile());
+                File dest = new File(upDir, fname);
+                image.transferTo(dest);
 
                 if ("1".equals(autoEmbed)) {
                     String ctx = request.getContextPath(); // /vampir
@@ -303,6 +315,7 @@ public class ServerBoardController {
 
         return new ModelAndView("redirect:/serverboard/" + world + "/" + server + "/view.do?id=" + id);
     }
+
 
     /** 삭제 (본인 글만) */
     @RequestMapping(value={"/serverboard/{world}/{server}/delete.do"}, method=RequestMethod.POST)

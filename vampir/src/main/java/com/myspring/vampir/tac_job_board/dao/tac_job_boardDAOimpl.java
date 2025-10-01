@@ -1,6 +1,8 @@
 package com.myspring.vampir.tac_job_board.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,18 @@ public class tac_job_boardDAOimpl implements tac_job_boardDAO{
 
     @Override
     public List<tac_job_boardVO> selectBoardList(String board_type, int start, int limit) {
-        return sqlSession.selectList("com.myspring.vampir.tac_job_board.dao.tac_job_boardDAO.selectBoardList",
-                java.util.Map.of("board_type", board_type, "start", start, "limit", limit));
+        // Java 6 호환: Map.of 대신 HashMap 사용
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("board_type", board_type);
+        paramMap.put("start", start);
+        paramMap.put("limit", limit);
+
+        return sqlSession.selectList(
+            "com.myspring.vampir.tac_job_board.dao.tac_job_boardDAO.selectBoardList",
+            paramMap
+        );
     }
+
 
     @Override
     public int countBoardList(String board_type) {
