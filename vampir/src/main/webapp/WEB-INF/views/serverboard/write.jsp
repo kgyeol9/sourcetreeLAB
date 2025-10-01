@@ -71,22 +71,21 @@
     <p class="hint">※ 글쓰기는 특정 <b>월드/서버</b>를 선택해야 등록됩니다. (전체 선택은 조회용)</p>
   </div>
 
-  <!-- 글쓰기 폼 (이미지 업로드 추가: enctype + file 필드) -->
+  <!-- 글쓰기 폼 (이미지 업로드 포함) -->
   <form id="writeForm" class="card" method="post" action="${ctx}/serverboard/add.do" enctype="multipart/form-data">
     <input type="hidden" name="world"  id="f_world"  value="${currWorld}">
     <input type="hidden" name="server" id="f_server" value="${currServer}">
 
     <div class="row">
       <span class="label">제목</span>
-      <input type="text" name="title" id="title" class="input" maxlength="120" placeholder="제목을 입력하세요">
+      <input type="text" name="title" id="title" class="input" maxlength="120" placeholder="제목을 입력하세요" required>
     </div>
 
-    <div class="row">
-      <span class="label" style="align-self:flex-start;">내용</span>
-      <textarea name="content" id="content" placeholder="내용을 입력하세요 (Markdown/일반 텍스트)"></textarea>
+    <div class="row" style="align-items:flex-start;">
+      <span class="label" style="margin-top:8px;">내용</span>
+      <textarea name="content" id="content" placeholder="내용을 입력하세요 (일반 텍스트/HTML)" required></textarea>
     </div>
 
-    <!-- 이미지 업로드: 이름은 image (컨트롤러에서 MultipartFile image 로 받음) -->
     <div class="row">
       <span class="label">이미지</span>
       <input type="file" name="image" accept="image/*">

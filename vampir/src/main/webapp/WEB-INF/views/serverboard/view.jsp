@@ -39,13 +39,19 @@
   <div class="comments">
     <h3>댓글</h3>
 
-    <form method="post" action="${ctx}/serverboard/${world}/${server}/comment/add.do">
-      <input type="hidden" name="postId" value="${post.id}">
-      <textarea name="content" placeholder="댓글을 입력하세요" required></textarea>
-      <div class="btns">
-        <button type="submit" class="btn">등록</button>
-      </div>
-    </form>
+    <!-- ★ 로그인 사용자에게만 댓글 작성 폼 노출 -->
+    <c:if test="${login}">
+      <form method="post" action="${ctx}/serverboard/${world}/${server}/comment/add.do">
+        <input type="hidden" name="postId" value="${post.id}">
+        <textarea name="content" placeholder="댓글을 입력하세요" required></textarea>
+        <div class="btns">
+          <button type="submit" class="btn">등록</button>
+        </div>
+      </form>
+    </c:if>
+    <c:if test="${not login}">
+      <div class="hint">로그인 후 댓글 작성이 가능합니다.</div>
+    </c:if>
 
     <c:forEach var="cmt" items="${comments}">
       <div class="c-item ${cmt.parentId != null ? 'reply' : ''}">
@@ -57,18 +63,22 @@
         <div class="c-content"><c:out value="${cmt.content}"/></div>
 
         <div class="c-actions">
-          <a href="#" onclick="this.nextElementSibling.style.display = (this.nextElementSibling.style.display==='block'?'none':'block'); return false;">답글</a>
-          <div style="display:none">
-            <form method="post" action="${ctx}/serverboard/${world}/${server}/comment/add.do">
-              <input type="hidden" name="postId" value="${post.id}">
-              <input type="hidden" name="parentId" value="${cmt.id}">
-              <textarea name="content" placeholder="답글 내용을 입력" required></textarea>
-              <div class="btns">
-                <button type="submit" class="btn">등록</button>
-              </div>
-            </form>
-          </div>
+          <!-- 답글 (로그인 사용자만) -->
+          <c:if test="${login}">
+            <a href="#" onclick="this.nextElementSibling.style.display = (this.nextElementSibling.style.display==='block'?'none':'block'); return false;">답글</a>
+            <div style="display:none">
+              <form method="post" action="${ctx}/serverboard/${world}/${server}/comment/add.do">
+                <input type="hidden" name="postId" value="${post.id}">
+                <input type="hidden" name="parentId" value="${cmt.id}">
+                <textarea name="content" placeholder="답글 내용을 입력" required></textarea>
+                <div class="btns">
+                  <button type="submit" class="btn">등록</button>
+                </div>
+              </form>
+            </div>
+          </c:if>
 
+          <!-- 본인 댓글만 수정/삭제 -->
           <c:if test="${cmt.writer eq loginNick}">
             <a href="#" onclick="this.nextElementSibling.style.display = (this.nextElementSibling.style.display==='block'?'none':'block'); return false;">수정</a>
             <div style="display:none">
