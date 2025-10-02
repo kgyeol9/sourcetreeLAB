@@ -1,6 +1,7 @@
 package com.myspring.vampir.tac_job_board.vo;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class tac_job_commentVO {
     private int comment_id;
@@ -60,4 +61,17 @@ public class tac_job_commentVO {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+	
+    // JSP/JS에서 바로 사용할 수 있는 포맷된 날짜 문자열
+    public String getCreatedAtStr() {
+        if (created_at == null) return "";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(this.created_at);
+    }
+
+    public String getUpdatedAtStr() {
+        if (updated_at == null) return "";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(this.updated_at);
+    }
 }

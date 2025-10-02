@@ -1,60 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isELIgnored="false"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-<fmt:setTimeZone value="Asia/Seoul"/>
 
 <link rel="stylesheet" href="${ctx}/resources/css/freeboard.css"/>
+<link rel="stylesheet" href="${ctx}/resources/css/tac_job_button.css"/>
 
-<div class="wrap free-view">
+<div class="wrap free-write" style="margin-left:270px; padding:20px; color:#fff;">
   <h2>${type == 'job' ? '직업 게시판 글쓰기' : '공략 게시판 글쓰기'}</h2>
 
-  <section class="fv-card">
+  <section class="fv-card" style="background:#111; border-radius:12px; padding:20px; box-shadow:0 0 10px rgba(255,0,0,0.3);">
     <form id="frmWrite" method="post" action="${ctx}/tac_job/add.do">
-      <!-- 게시판 구분 hidden -->
- <input type="hidden" name="board_type" value="${type == 'guide' ? 'guide' : 'job'}" />
+      <input type="hidden" name="board_type" value="${type == 'guide' ? 'guide' : 'job'}"/>
 
       <div class="row" style="margin-bottom:12px;">
-        <label>제목</label>
-        <input type="text" name="title" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;">
-      </div>
-      <div class="row">
-        <label>내용</label>
-        <textarea name="content" rows="16" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;"></textarea>
+        <label style="display:block; margin-bottom:6px; color:#f55;">제목</label>
+        <input type="text" name="title" required style="width:100%; padding:10px; border-radius:8px; border:1px solid #444; background:#222; color:#fff;">
       </div>
 
-      <div class="fv-actions">
-        <a class="fv-btn" href="${ctx}/tac_job/list.do?type=${type}">목록</a>
-        <button type="submit" class="fv-btn fv-btn-primary">등록</button>
+      <div class="row" style="margin-bottom:12px;">
+        <label style="display:block; margin-bottom:6px; color:#f55;">내용</label>
+        <textarea id="editor" name="content"></textarea>
       </div>
+
+<div class="fv-actions">
+  <a class="fv-btn fv-btn-list" href="${ctx}/tac_job/list.do?type=${type}">목록</a>
+  <button type="submit" class="fv-btn fv-btn-primary">등록</button>
+</div>
     </form>
   </section>
 </div>
 
+<script src="https://cdn.tiny.cloud/1/r2t7fl9os6sksmww8gr8qwlu772dk2b368fb3ohilgu8y0vt/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
-document.getElementById("frmWrite").addEventListener("submit", function(e){
-	  e.preventDefault();
-	  var form = e.target;
-	  var data = new URLSearchParams(new FormData(form));
-
-	  // 1. 데이터 확인
-console.log('board_type:', form.board_type.value);  // 반드시 guide 또는 job
-console.log('title:', form.title.value);
-console.log('content:', form.content.value);
-console.log('form.action:', form.action);
-
-	  // 2. AJAX 전송
-	  fetch(form.action, { method:'POST', body: data })
-	    .then(r => r.text())
-	    .then(txt => {
-	      console.log("서버 응답:", txt);
-	      if(txt==='success') location.href='${ctx}/tac_job/list.do?type=${type}';
-	      else alert('실패: '+txt);
-	    })
-	    .catch(err => {
-	      console.error("요청 실패:", err);
-	      alert('요청 실패: 콘솔 확인');
-	    });
-	});
+tinymce.init({
+  selector: '#editor',
+  height: 400,
+  menubar: false,
+  skin: 'oxide-dark',
+  content_css: 'dark',
+  plugins: 'lists link image table code wordcount',
+  toolbar: 'undo redo | bold italic underline | forecolor backcolor | alignleft aligncenter alignright | bullist numlist | link image table | code',
+  setup: function(editor){
+    document.getElementById("frmWrite").addEventListener("submit", function(e){
+      e.preventDefault();
+      var form = e.target;
+      form.content.value = editor.getContent();
+      var data = new URLSearchParams(new FormData(form));
+      fetch(form.action, { method:'POST', body:data })
+        .then(r=>r.text())
+        .then(txt=>{ if(txt==='success') location.href='${ctx}/tac_job/list.do?type=${type}'; else alert('실패: '+txt); })
+        .catch(err=>{ console.error(err); alert('요청 실패'); });
+    });
+  }
+});
 </script>

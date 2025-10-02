@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.myspring.vampir.member.vo.MemberVO;
 import com.myspring.vampir.tac_job_board.service.tac_job_boardService;
 import com.myspring.vampir.tac_job_board.vo.tac_job_boardVO;
+import com.myspring.vampir.tac_job_board.vo.tac_job_commentVO;
 
 @Controller
 @RequestMapping("/tac_job")
@@ -122,6 +123,46 @@ public class tac_job_boardController {
     @ResponseBody
     public String recommend(@RequestParam("board_id") int board_id) {
         boardService.increaseRecommendCount(board_id);
+        return "success";
+    }
+    
+ // 기존 코드 + 댓글 기능 추가
+    @RequestMapping("/comment/list.do")
+    @ResponseBody
+    public List<tac_job_commentVO> commentList(@RequestParam("board_id") int board_id) {
+        return boardService.listComments(board_id);
+    }
+
+    @RequestMapping(value="/comment/add.do", method = { RequestMethod.GET, RequestMethod.POST })
+    @ResponseBody
+    public String addComment(@ModelAttribute tac_job_commentVO comment, HttpSession session) {
+        MemberVO member = (MemberVO) session.getAttribute("member");
+        if(member == null) return "로그인 필요";
+        
+
+        comment.setMem_code(member.getMemCode());
+        System.out.println(comment);
+        boardService.addComment(comment);
+        return "success";
+    }
+
+    @RequestMapping(value="/comment/update.do", method = { RequestMethod.GET, RequestMethod.POST })
+    @ResponseBody
+    public String updateComment(@ModelAttribute tac_job_commentVO comment, HttpSession session) {
+        MemberVO member = (MemberVO) session.getAttribute("member");
+        if(member == null) return "로그인 필요";
+
+        boardService.updateComment(comment);
+        return "success";
+    }
+
+    @RequestMapping(value="/comment/delete.do", method = { RequestMethod.GET, RequestMethod.POST })
+    @ResponseBody
+    public String deleteComment(@RequestParam("comment_id") int comment_id, HttpSession session) {
+        MemberVO member = (MemberVO) session.getAttribute("member");
+        if(member == null) return "로그인 필요";
+
+        boardService.deleteComment(comment_id);
         return "success";
     }
 }
