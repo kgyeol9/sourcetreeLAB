@@ -20,20 +20,30 @@ public class PartyApplicantServiceImpl implements PartyApplicantService {
     }
 
     @Override
-    public void apply(Long postId, String userId, String nick) {
-        // 중복 지원 방지: DAO에서 UNIQUE(post_id, user_id)로 막는 것을 권장
-        dao.insert(postId, userId, nick);
+    public void apply(Long postId, String userId, String nick,
+                      String applyTitle, String igNick, String memo, String imagePath) {
+        // (권장) DAO 레벨에 UNIQUE(post_id, user_id) 있으므로 중복시 SQLIntegrityConstraintViolationException 발생
+        PartyApplicantVO vo = new PartyApplicantVO();
+        vo.setPostId(postId);
+        vo.setUserId(userId);
+        vo.setNick(nick);
+        vo.setStatus("APPLIED");
+        vo.setApplyTitle(applyTitle);
+        vo.setIgNick(igNick);
+        vo.setMemo(memo);
+        vo.setImagePath(imagePath);
+        dao.insert(vo);
     }
 
     @Override
     public void accept(Long postId, String targetUserId, String ownerUserId) {
-        // TODO: owner 권한 확인 (파티장/작성자 여부) -> 현재는 생략
+        // TODO: ownerUserId 권한 확인
         dao.updateStatus(postId, targetUserId, "ACCEPTED");
     }
 
     @Override
     public void reject(Long postId, String targetUserId, String ownerUserId) {
-        // TODO: 권한 확인
+        // TODO: ownerUserId 권한 확인
         dao.updateStatus(postId, targetUserId, "REJECTED");
     }
 }

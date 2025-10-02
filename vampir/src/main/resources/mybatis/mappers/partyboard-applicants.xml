@@ -5,31 +5,40 @@
 <mapper namespace="mapper.partyboard.applicant">
 
   <resultMap id="ApplicantMap" type="com.myspring.vampir.partyboard.vo.PartyApplicantVO">
-    <id     property="id"        column="id"/>
-    <result property="postId"    column="post_id"/>
-    <result property="userId"    column="user_id"/>
-    <result property="nick"      column="nick"/>
-    <result property="status"    column="status"/>
-    <result property="createdAt" column="created_at"/>
+    <id     property="id"         column="id"/>
+    <result property="postId"     column="post_id"/>
+    <result property="userId"     column="user_id"/>
+    <result property="nick"       column="nickname"/>     <!-- ★ nick -> nickname -->
+    <result property="status"     column="status"/>
+    <result property="applyTitle" column="apply_title"/>
+    <result property="igNick"     column="ig_nick"/>
+    <result property="memo"       column="memo"/>
+    <result property="imagePath"  column="image_path"/>
+    <result property="createdAt"  column="applied_at"/>   <!-- createdAt -> applied_at -->
   </resultMap>
 
   <select id="list" parameterType="long" resultMap="ApplicantMap">
-    SELECT id, post_id, user_id, nick, status, created_at
+    SELECT id, post_id, user_id, nickname, status,
+           apply_title, ig_nick, memo, image_path, applied_at
     FROM party_applicants
     WHERE post_id = #{value}
     ORDER BY id DESC
   </select>
 
-  <insert id="insert" parameterType="map" useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO party_applicants (post_id, user_id, nick, status)
-    VALUES (#{postId}, #{userId}, #{nick}, 'APPLIED')
+  <insert id="insert"
+          parameterType="com.myspring.vampir.partyboard.vo.PartyApplicantVO"
+          useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO party_applicants
+      (post_id, user_id, nickname, status, apply_title, ig_nick, memo, image_path)
+    VALUES
+      (#{postId}, #{userId}, #{nick}, 'APPLIED', #{applyTitle}, #{igNick}, #{memo}, #{imagePath})
   </insert>
 
   <update id="updateStatus" parameterType="map">
     UPDATE party_applicants
-    SET status = #{status}
-    WHERE post_id = #{postId}
-      AND user_id = #{userId}
+       SET status = #{status}
+     WHERE post_id = #{postId}
+       AND user_id = #{userId}
   </update>
 
 </mapper>

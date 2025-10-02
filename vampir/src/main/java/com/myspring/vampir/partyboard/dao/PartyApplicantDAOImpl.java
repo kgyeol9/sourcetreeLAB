@@ -24,12 +24,8 @@ public class PartyApplicantDAOImpl implements PartyApplicantDAO {
     }
 
     @Override
-    public void insert(Long postId, String userId, String nick) {
-        Map<String,Object> p = new HashMap<String,Object>();
-        p.put("postId", postId);
-        p.put("userId", userId);
-        p.put("nick",   nick);
-        sqlSession.insert(NS + "insert", p);
+    public void insert(PartyApplicantVO vo) {
+        sqlSession.insert(NS + "insert", vo);
     }
 
     @Override

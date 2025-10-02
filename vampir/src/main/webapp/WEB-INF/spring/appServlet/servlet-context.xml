@@ -13,7 +13,7 @@
     <!-- @Controller 활성화 -->
     <mvc:annotation-driven />
 
-    <!-- 정적 리소스 -->
+    <!-- 정적 리소스 (컨트롤러 거치지 않고 바로 서빙) -->
     <mvc:resources mapping="/resources/**" location="/resources/" />
     <mvc:resources mapping="/uploads/**"  location="/uploads/" />
 
@@ -36,7 +36,7 @@
         <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView" />
     </beans:bean>
 
-    <!-- 컴포넌트 스캔 (Controller/Service 등) -->
+    <!-- 컴포넌트 스캔 -->
     <context:component-scan base-package="com.myspring.vampir" />
 
     <!-- 인터셉터 -->
@@ -47,20 +47,19 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-    <!-- 파일 업로드 -->
+    <!-- ★ 파일 업로드 리졸버 (Servlet 2.5에서는 이 방식만 사용) -->
     <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <beans:property name="defaultEncoding" value="UTF-8" />
+        <!-- 필요에 맞게 제한값 조절 (아래는 50MB) -->
         <beans:property name="maxUploadSize" value="52428800" />
         <beans:property name="maxInMemorySize" value="52428800" />
     </beans:bean>
 
-    <!-- === 여기가 핵심: MyBatis 매퍼 스캔 추가 ===
-         주의: sqlSessionFactoryBeanName 값은 너의 프로젝트에서 쓰는 팩토리 빈 이름과 같아야 함.
-         (보통 'sqlSessionFactory'를 많이 씀. 다르면 그 이름으로 바꿔줘) -->
+    <!-- (필요 시) MyBatis MapperScannerConfigurer
+         *현재 SqlSession 직접사용이면 필수는 아님*
+         *이미 등록된 freeboard.mapper만 유지* -->
     <beans:bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <!-- 자유게시판 매퍼 패키지 추가 -->
-        <beans:property name="basePackage"
-                        value="com.myspring.vampir.freeboard.mapper" />
+        <beans:property name="basePackage" value="com.myspring.vampir.freeboard.mapper" />
         <beans:property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </beans:bean>
 
