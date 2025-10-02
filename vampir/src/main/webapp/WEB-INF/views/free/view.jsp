@@ -33,7 +33,7 @@
       <a class="fv-btn" href="<c:url value='/free/list.do'/>">목록</a>
 
       <c:if test="${mine}">
-        <a class="fv-btn" href="<c:url value='/free/edit'><c:param name='postId' value='${post.postId}'/></c:url>">수정</a>
+        <a class="fv-btn" href="<c:url value='/free/edit.do'><c:param name='postId' value='${post.postId}'/></c:url>">수정</a>
 
         <form method="post" action="<c:url value='/free/delete.do'/>" style="display:inline" onsubmit="return confirm('삭제하시겠습니까?')">
           <input type="hidden" name="postId" value="${post.postId}">

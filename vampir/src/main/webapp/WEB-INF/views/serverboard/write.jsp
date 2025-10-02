@@ -66,7 +66,6 @@
       </select>
 
       <span class="spacer"></span>
-      <a class="btn ghost" href="${ctx}/serverboard/${currWorld}/${currServer}">목록</a>
     </div>
     <p class="hint">※ 글쓰기는 특정 <b>월드/서버</b>를 선택해야 등록됩니다. (전체 선택은 조회용)</p>
   </div>
