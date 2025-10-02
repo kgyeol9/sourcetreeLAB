@@ -46,5 +46,36 @@
   <update id="increaseRecommendCount" parameterType="int">
     UPDATE tac_job_board SET recommend_count=recommend_count+1 WHERE board_id=#{board_id}
   </update>
+  
+     <select id="listComments" parameterType="int" resultType="com.myspring.vampir.tac_job_board.vo.tac_job_commentVO">
+        SELECT c.*, m.nickname
+        FROM tac_job_comment c
+        JOIN t_member m ON c.mem_code = m.mem_code
+        WHERE board_id = #{board_id}
+        ORDER BY c.created_at ASC
+    </select>
+
+<insert id="insertComment" parameterType="com.myspring.vampir.tac_job_board.vo.tac_job_commentVO">
+  INSERT INTO tac_job_comment
+    (board_id, parent_id, mem_code, nickname, content, created_at)
+  SELECT
+    #{board_id}, #{parent_id}, #{mem_code}, m.nickname, #{content}, NOW()
+  FROM t_member m
+  WHERE m.mem_code = #{mem_code}
+</insert>
+
+
+
+
+    <update id="updateComment" parameterType="com.myspring.vampir.tac_job_board.vo.tac_job_commentVO">
+        UPDATE tac_job_comment
+        SET content = #{content}, updated_at = NOW()
+        WHERE comment_id = #{comment_id}
+    </update>
+
+    <delete id="deleteComment" parameterType="int">
+        DELETE FROM tac_job_comment WHERE comment_id = #{comment_id}
+    </delete>
+  
 
 </mapper>

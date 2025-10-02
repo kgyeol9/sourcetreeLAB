@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.myspring.vampir.tac_job_board.vo.tac_job_boardVO;
+import com.myspring.vampir.tac_job_board.vo.tac_job_commentVO;
 
 
 @Repository("tac_job_boardDAO")
 public class tac_job_boardDAOimpl implements tac_job_boardDAO{
     @Autowired
     private SqlSession sqlSession;
+    private static final String NS = "com.myspring.vampir.tac_job_board.dao.tac_job_boardDAO.";
 
     @Override
     public List<tac_job_boardVO> selectBoardList(String board_type, int start, int limit) {
@@ -64,6 +66,26 @@ public class tac_job_boardDAOimpl implements tac_job_boardDAO{
     @Override
     public void increaseRecommendCount(int board_id) {
         sqlSession.update("com.myspring.vampir.tac_job_board.dao.tac_job_boardDAO.increaseRecommendCount", board_id);
+    }
+    
+    @Override
+    public List<tac_job_commentVO> listComments(int board_id) {
+        return sqlSession.selectList(NS + "listComments", board_id);
+    }
+
+    @Override
+    public int insertComment(tac_job_commentVO comment) {
+        return sqlSession.insert(NS + "insertComment", comment);
+    }
+
+    @Override
+    public int updateComment(tac_job_commentVO comment) {
+        return sqlSession.update(NS + "updateComment", comment);
+    }
+
+    @Override
+    public int deleteComment(int comment_id) {
+        return sqlSession.delete(NS + "deleteComment", comment_id);
     }
 
 }

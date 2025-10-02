@@ -1,9 +1,9 @@
-/* ·Î°í ÆùÆ® */
+/* ë¡œê³  í°íŠ¸ */
 @import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap');
-/* ¹Ùµğ & »çÀÌµå¹Ù ÆùÆ® */
+/* ë°”ë”” & ì‚¬ì´ë“œë°” í°íŠ¸ */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Nanum+Gothic:wght@400;700&display=swap');
 
-/* === »çÀÌµå¹Ù === */
+/* === ì‚¬ì´ë“œë°” === */
 
 
 .sidebar {
@@ -13,12 +13,12 @@
   width: 250px;
   height: calc(100vh - 70px);
 
-  /* ¿ŞÂÊ À§ ºÓÀº±â ¡æ ÀüÃ¼´Â ºí·¢/±×·¹ÀÌ */
+  /* ì™¼ìª½ ìœ„ ë¶‰ì€ê¸° â†’ ì „ì²´ëŠ” ë¸”ë™/ê·¸ë ˆì´ */
   background: radial-gradient(
     circle at top left,
-    rgba(90,0,0,0.35) 0%,   /* ¿ŞÂÊ À§ ºÓÀº±â »ìÂ¦ */
-    #1a1a1a 30%,            /* ºü¸£°Ô ´ÙÅ©±×·¹ÀÌ */
-    #0c0c0c 100%            /* ÀüÃ¼ ºí·¢ */
+    rgba(90,0,0,0.35) 0%,   /* ì™¼ìª½ ìœ„ ë¶‰ì€ê¸° ì‚´ì§ */
+    #1a1a1a 30%,            /* ë¹ ë¥´ê²Œ ë‹¤í¬ê·¸ë ˆì´ */
+    #0c0c0c 100%            /* ì „ì²´ ë¸”ë™ */
   );
 
   border-right: 1px solid var(--border);
@@ -27,12 +27,12 @@
   box-sizing: border-box;
   z-index: 900;
 
-  /* ºÓÀº±â ÃÖ¼ÒÈ­µÈ subtle inset shadow */
+  /* ë¶‰ì€ê¸° ìµœì†Œí™”ëœ subtle inset shadow */
   box-shadow: inset -1px 0 6px rgba(0,0,0,0.6),
               inset 0 8px 10px rgba(100,0,0,0.25);
 }
 
-/* ½ºÅ©·Ñ¹Ù */
+/* ìŠ¤í¬ë¡¤ë°” */
 .sidebar::-webkit-scrollbar { width: 8px; }
 .sidebar::-webkit-scrollbar-thumb {
   background: rgba(80, 80, 90, 0.6);
@@ -40,15 +40,15 @@
 }
 .sidebar::-webkit-scrollbar-thumb:hover {
   
-  background: rgba(230, 220, 170, 0.4); /* hover ½Ã ¿¶Àº ³ë¶ûºû */
+  background: rgba(230, 220, 170, 0.4); /* hover ì‹œ ì˜…ì€ ë…¸ë‘ë¹› */
 }
 
-/* »çÀÌµå¹Ù ±Û¾¾ */
+/* ì‚¬ì´ë“œë°” ê¸€ì”¨ */
 .sidebar h3 {
   
   font-size: 1.2em;
-  color: var(--accent-soft); /* ´ÙÅ© ·¹µå °è¿­ */
-  text-shadow: 0 0 6px rgba(139,0,0,0.6); /* ±âÁ¸ ºÓÀº ´À³¦ */
+  color: var(--accent-soft); /* ë‹¤í¬ ë ˆë“œ ê³„ì—´ */
+  text-shadow: 0 0 6px rgba(139,0,0,0.6); /* ê¸°ì¡´ ë¶‰ì€ ëŠë‚Œ */
   margin-bottom: 0.8em;
 }
 
@@ -60,21 +60,20 @@
 }
 .sidebar a:hover {
   
-  color: #e5e1c9; /* hover ½Ã ÀºÀºÇÑ ¾ÆÀÌº¸¸®ºû */
+  color: #e5e1c9; /* hover ì‹œ ì€ì€í•œ ì•„ì´ë³´ë¦¬ë¹› */
 }
 
-ul {
-	
-	list-style: none;
-	padding-left: 0;
+/* âœ… ì‚¬ì´ë“œë°” ì „ìš© ë¦¬ìŠ¤íŠ¸ ìŠ¤íƒ€ì¼ */
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
 }
 
-li {
-	
-	padding: 0.4em 0;
-	border-bottom: 1px solid #333;
+.sidebar li {
+  padding: 0.4em 0;
+  border-bottom: 1px solid #333;
 }
 
-li:last-child {
-	border-bottom: none;
+.sidebar li:last-child {
+  border-bottom: none;
 }

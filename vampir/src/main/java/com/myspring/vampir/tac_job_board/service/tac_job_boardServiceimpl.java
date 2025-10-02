@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.myspring.vampir.tac_job_board.dao.tac_job_boardDAO;
 import com.myspring.vampir.tac_job_board.vo.tac_job_boardVO;
+import com.myspring.vampir.tac_job_board.vo.tac_job_commentVO;
 
 @Service("tac_job_boardService")
 public class tac_job_boardServiceimpl implements tac_job_boardService{
@@ -55,5 +56,25 @@ public class tac_job_boardServiceimpl implements tac_job_boardService{
 	    @Override
 	    public void increaseRecommendCount(int board_id) {
 	        boardDAO.increaseRecommendCount(board_id);
+	    }
+	    
+	    @Override
+	    public List<tac_job_commentVO> listComments(int board_id) {
+	        return boardDAO.listComments(board_id);
+	    }
+
+	    @Override
+	    public void addComment(tac_job_commentVO comment) {
+	        boardDAO.insertComment(comment);
+	    }
+
+	    @Override
+	    public void updateComment(tac_job_commentVO comment) {
+	        boardDAO.updateComment(comment);
+	    }
+
+	    @Override
+	    public void deleteComment(int comment_id) {
+	        boardDAO.deleteComment(comment_id);
 	    }
 }

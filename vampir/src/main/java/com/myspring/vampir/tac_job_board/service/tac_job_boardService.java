@@ -3,6 +3,7 @@ package com.myspring.vampir.tac_job_board.service;
 import java.util.List;
 
 import com.myspring.vampir.tac_job_board.vo.tac_job_boardVO;
+import com.myspring.vampir.tac_job_board.vo.tac_job_commentVO;
 
 public interface tac_job_boardService {
     List<tac_job_boardVO> listBoards(String board_type, int page, int pageSize);
@@ -13,4 +14,9 @@ public interface tac_job_boardService {
     void removeBoard(int board_id);
     void increaseViewCount(int board_id);
     void increaseRecommendCount(int board_id);
+    
+    List<tac_job_commentVO> listComments(int board_id);
+    void addComment(tac_job_commentVO comment);
+    void updateComment(tac_job_commentVO comment);
+    void deleteComment(int comment_id);
 }

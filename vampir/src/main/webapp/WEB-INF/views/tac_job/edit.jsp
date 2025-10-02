@@ -1,138 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-<fmt:setTimeZone value="Asia/Seoul"/>
 
-<link rel="stylesheet" href="${ctx}/resources/css/free-view.css"/>
+<link rel="stylesheet" href="${ctx}/resources/css/freeboard.css"/>
+<link rel="stylesheet" href="${ctx}/resources/css/tac_job_button.css"/>
 
-<div class="wrap free-view">
-  <c:if test="${notFound}">
-    <div class="empty-message">존재하지 않거나 삭제된 글입니다.</div>
-  </c:if>
+<div class="wrap free-edit" style="margin-left:270px; padding:20px; color:#fff;">
+  <h2>${board.board_type == 'job' ? '직업 게시판 글수정' : '공략 게시판 글수정'}</h2>
 
-  <c:if test="${not notFound}">
-    <!-- 제목 -->
-    <h2 class="fv-title">${board.board_type == 'job' ? '직업 게시판 글보기' : '공략 게시판 글보기'}</h2>
+  <section class="fv-card" style="background:#111; border-radius:12px; padding:20px; box-shadow:0 0 10px rgba(255,0,0,0.3);">
+    <form id="frmEdit" method="post" action="${ctx}/tac_job/edit.do">
+      <input type="hidden" name="board_id" value="${board.board_id}" />
 
-    <!-- 메타 정보 -->
-    <div class="fv-meta">
-      <span>작성자: <b>${board.nickname}</b></span>
-      <span>작성일: <fmt:formatDate value="${board.created_at}" pattern="yyyy-MM-dd HH:mm"/></span>
-      <span>조회수: ${board.view_count}</span>
-    </div>
-
-    <!-- 본문 카드 -->
-    <section class="fv-card fv-card-dark">
-      <div class="fv-content" style="white-space:pre-wrap;">
-        ${board.content}
+      <div class="row" style="margin-bottom:12px;">
+        <label style="display:block; margin-bottom:6px; color:#f55;">제목</label>
+        <input type="text" name="title" value="${board.title}" required style="width:100%; padding:10px; border-radius:8px; border:1px solid #444; background:#222; color:#fff;">
       </div>
-    </section>
 
-    <!-- 버튼 영역 -->
-    <div class="fv-actions">
-      <a class="fv-btn" href="${ctx}/tac_job/list.do?type=${board.board_type}">목록</a>
+      <div class="row" style="margin-bottom:12px;">
+        <label style="display:block; margin-bottom:6px; color:#f55;">내용</label>
+        <textarea id="editor" name="content">${board.content}</textarea>
+      </div>
 
-      <c:if test="${login}">
-        <a class="fv-btn fv-btn-primary" href="${ctx}/tac_job/edit.do?board_id=${board.board_id}">수정</a>
-        <button type="button" class="fv-btn fv-btn-danger" onclick="deleteBoard(${board.board_id})">삭제</button>
-      </c:if>
-    </div>
-  </c:if>
+<div class="fv-actions">
+  <a class="fv-btn fv-btn-list" href="${ctx}/tac_job/list.do?type=${board.board_type}">목록</a>
+  <button type="submit" class="fv-btn fv-btn-primary">수정</button>
+  <button type="button" class="fv-btn fv-btn-danger" onclick="deleteBoard(${board.board_id})">삭제</button>
+</div>
+    </form>
+  </section>
 </div>
 
+<script src="https://cdn.tiny.cloud/1/r2t7fl9os6sksmww8gr8qwlu772dk2b368fb3ohilgu8y0vt/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
-function deleteBoard(id) {
-  if(!confirm('정말 삭제하시겠습니까?')) return;
-
-  fetch('${ctx}/tac_job/delete.do?board_id=' + id, { method:'POST' })
-    .then(r => r.text())
-    .then(txt => {
-      if(txt === 'success') {
-        location.href='${ctx}/tac_job/list.do?type=${board.board_type}';
-      } else {
-        alert('삭제 실패: ' + txt);
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      alert('삭제 요청 실패');
+tinymce.init({
+  selector: '#editor',
+  height: 400,
+  menubar: false,
+  skin: 'oxide-dark',
+  content_css: 'dark',
+  plugins: 'lists link image table code wordcount',
+  toolbar: 'undo redo | bold italic underline | forecolor backcolor | alignleft aligncenter alignright | bullist numlist | link image table | code',
+  setup: function(editor){
+    document.getElementById("frmEdit").addEventListener("submit", function(e){
+      e.preventDefault();
+      var form = e.target;
+      form.content.value = editor.getContent();
+      var data = new URLSearchParams(new FormData(form));
+      fetch(form.action, { method:'POST', body:data })
+        .then(r=>r.text())
+        .then(txt=>{ if(txt==='success') location.href='${ctx}/tac_job/view.do?board_id=${board.board_id}'; else alert('저장 실패'); })
+        .catch(err=>{ console.error(err); alert('요청 실패'); });
     });
-}
+  }
+});
 </script>
-
-<style>
-/* 카드 스타일 */
-.fv-card {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  padding: 15px; /* 기존보다 줄임 */
-  margin-bottom: 15px;
-}
-
-/* 어두운 본문 카드 */
-.fv-card-dark {
-  background-color: #1f1f1f;
-  color: #eee;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
-}
-
-/* 메타 정보 */
-.fv-meta {
-  display: flex;
-  gap: 15px;
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 10px; /* 줄임 */
-}
-
-/* 본문 내용 */
-.fv-content {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #eee;
-}
-
-/* 버튼 */
-.fv-actions {
-  margin-top: 15px; /* 줄임 */
-  display: flex;
-  gap: 10px;
-}
-
-.fv-btn {
-  display: inline-block;
-  padding: 6px 14px; /* 줄임 */
-  border-radius: 6px;
-  border: none;
-  text-decoration: none;
-  cursor: pointer;
-  font-size: 0.95rem;
-  transition: background 0.2s;
-}
-
-.fv-btn:hover {
-  opacity: 0.9;
-}
-
-.fv-btn-primary {
-  background-color: #4a90e2;
-  color: #fff;
-}
-
-.fv-btn-danger {
-  background-color: #e24a4a;
-  color: #fff;
-}
-
-.empty-message {
-  padding: 20px;
-  text-align: center;
-  color: #999;
-  font-size: 1.1rem;
-}
-</style>
